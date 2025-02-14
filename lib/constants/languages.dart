@@ -1,15 +1,18 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/models/language.dart';
 
 class AppLanguages {
-  static const Language english = Language(
+  static Language english = Language(
     code: 'en',
     name: 'English',
+    icon: SvgPicture.asset('assets/icons/flag-en.svg'),
   );
-  static const Language chinese = Language(
+  static Language chinese = Language(
     code: 'zh',
     name: 'Chinese',
+    icon: SvgPicture.asset('assets/icons/flag-zh.svg'),
   );
-  static const List<Language> languages = [
+  static List<Language> languages = [
     english,
     chinese,
   ];

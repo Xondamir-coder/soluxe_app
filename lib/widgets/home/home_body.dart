@@ -1,19 +1,37 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soluxe/constants/languages.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/screens/login.dart';
+import 'package:soluxe/widgets/home/home_languages.dart';
+import 'package:soluxe/widgets/buttons/provider_button.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
-import 'package:soluxe/widgets/yellow_button.dart';
+import 'package:soluxe/widgets/buttons/yellow_button.dart';
 
-class LoginBody extends StatelessWidget {
+class HomeBody extends StatelessWidget {
   final int currentIndex;
   final void Function() onTap;
 
-  const LoginBody({
+  const HomeBody({
     super.key,
     required this.currentIndex,
     required this.onTap,
   });
+
+  void _continueWithProvider(String name) {
+    print(name);
+  }
+
+  void _goLoginForm(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,14 +159,68 @@ class LoginBody extends StatelessWidget {
     } else if (currentIndex == 2) {
       title = 'Pick a language, start exploring!';
       subtitle = 'Set your preferred language for the best experience.';
-      content = ListView.builder(
-        itemBuilder: (ctx, index) => Text(AppLanguages.languages[index].name),
-        itemCount: AppLanguages.languages.length,
-      );
+      content = HomeLanguages(onTap: onTap);
     } else {
       title = 'Let’s Get Started';
       subtitle = 'Class conubia dui lectus eget porta primis platea nisl risus';
       fontSize = 20;
+      content = Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        spacing: 8,
+        children: [
+          Image.asset(
+            'assets/images/login/img-6.png',
+            height: 351,
+            fit: BoxFit.cover,
+          ),
+          Expanded(
+            child: Column(
+              spacing: 12,
+              children: [
+                YellowButton(
+                  'Continue mobile phone',
+                  onTap: () => _goLoginForm(context),
+                ),
+                ProviderButton(
+                  'Continue with Google',
+                  icon: SvgPicture.asset('assets/icons/google.svg'),
+                  onTap: () => _continueWithProvider('google'),
+                ),
+                if (Platform.isIOS)
+                  ProviderButton(
+                    'Continue with Apple',
+                    icon: SvgPicture.asset('assets/icons/apple.svg'),
+                    onTap: () => _continueWithProvider('apple'),
+                  ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Don’t have an account?',
+                style: GoogleFonts.instrumentSans(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.deepBlue,
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  foregroundColor: AppColors.accentYellow,
+                  textStyle: GoogleFonts.instrumentSans(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                child: Text('Signup'),
+              ),
+            ],
+          )
+        ],
+      );
     }
 
     return Stack(
@@ -156,7 +228,7 @@ class LoginBody extends StatelessWidget {
         // Background Pattern SVG
         Positioned.fill(
           child: Opacity(
-            opacity: 0.2,
+            opacity: .2,
             child: SvgPicture.asset(
               'assets/pattern.svg',
               fit: BoxFit.cover,
@@ -177,16 +249,20 @@ class LoginBody extends StatelessWidget {
           child: Column(
             children: [
               Column(
+                spacing: gap,
                 crossAxisAlignment: currentIndex == 3
                     ? CrossAxisAlignment.center
                     : CrossAxisAlignment.start,
                 children: [
                   MyTitle(title, fontSize: fontSize, height: titleHeight),
-                  SizedBox(height: gap),
-                  MyText(
-                    subtitle,
-                    textAlign:
-                        currentIndex == 3 ? TextAlign.center : TextAlign.start,
+                  SizedBox(
+                    width: currentIndex == 3 ? 30 * 8 : double.infinity,
+                    child: MyText(
+                      subtitle,
+                      textAlign: currentIndex == 3
+                          ? TextAlign.center
+                          : TextAlign.start,
+                    ),
                   ),
                 ],
               ),
