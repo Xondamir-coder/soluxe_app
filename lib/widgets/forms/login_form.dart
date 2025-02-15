@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/screens/forgot_password.dart';
 import 'package:soluxe/screens/verification.dart';
-import 'package:soluxe/widgets/input_field.dart';
-import 'package:soluxe/widgets/buttons/provider_button.dart';
+import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 
@@ -21,25 +21,21 @@ class _LoginFormState extends State<LoginForm> {
   var hidePassword = true;
 
   void _forgotPassword() {
-    print('forgot');
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => ForgotPasswordScreen(),
+      ),
+    );
   }
 
   void _submitForm() {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
+    if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => VerificationScreen(),
       ),
     );
-  }
-
-  void _signInWithProvider(String name) {
-    print(name);
   }
 
   @override
@@ -81,48 +77,6 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           YellowButton('Next', onTap: _submitForm),
-          Row(
-            spacing: 16,
-            children: [
-              Expanded(
-                child: Container(
-                  height: 1,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        AppColors.softWhite.withValues(alpha: 0),
-                        AppColors.softWhite.withValues(alpha: 1),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              MyText('Or', color: AppColors.grey),
-              Expanded(
-                child: Container(
-                  height: 1,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        AppColors.softWhite.withValues(alpha: 1),
-                        AppColors.softWhite.withValues(alpha: 0),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          ProviderButton(
-            'Sign In with Google',
-            onTap: () => _signInWithProvider('google'),
-            icon: SvgPicture.asset('assets/icons/google.svg'),
-          ),
-          ProviderButton(
-            'Sign In with Apple',
-            onTap: () => _signInWithProvider('apple'),
-            icon: SvgPicture.asset('assets/icons/apple.svg'),
-          ),
         ],
       ),
     );

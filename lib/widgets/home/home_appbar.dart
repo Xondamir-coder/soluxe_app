@@ -19,7 +19,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       actions: [
-        if (currentIndex < 4)
+        if (currentIndex < 3)
           TextButton.icon(
             onPressed: onTap,
             label: Text(

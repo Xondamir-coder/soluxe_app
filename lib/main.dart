@@ -21,7 +21,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: kTheme,
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }

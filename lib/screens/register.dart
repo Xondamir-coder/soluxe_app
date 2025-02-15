@@ -5,14 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/arrow_appbar.dart';
 import 'package:soluxe/widgets/buttons/provider_button.dart';
-import 'package:soluxe/widgets/forms/login_form.dart';
+import 'package:soluxe/widgets/forms/register_form.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
-  void _signInWithProvider(String name) {
+  void _signUpWithProvider(String name) {
     print(name);
   }
 
@@ -23,26 +23,10 @@ class LoginScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.only(left: 24, bottom: 24, right: 24),
         child: Column(
-          spacing: 20,
+          spacing: 16,
           children: [
-            Center(
-              child: Column(
-                spacing: 8,
-                children: [
-                  MyTitle('Assalomu Aleykum'),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width > 500
-                        ? double.infinity
-                        : 300,
-                    child: MyText(
-                      'Let’s continue your journey through Uzbekistan—there’s so much more to explore!',
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const LoginForm(),
+            MyTitle('Create an account'),
+            const RegisterForm(),
             Row(
               spacing: 16,
               children: [
@@ -75,22 +59,17 @@ class LoginScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              spacing: 12,
-              children: [
-                ProviderButton(
-                  'Sign In with Google',
-                  onTap: () => _signInWithProvider('google'),
-                  icon: SvgPicture.asset('assets/icons/google.svg'),
-                ),
-                if (Platform.isIOS)
-                  ProviderButton(
-                    'Sign In with Apple',
-                    onTap: () => _signInWithProvider('apple'),
-                    icon: SvgPicture.asset('assets/icons/apple.svg'),
-                  ),
-              ],
+            ProviderButton(
+              'Sign Up with Google',
+              onTap: () => _signUpWithProvider('google'),
+              icon: SvgPicture.asset('assets/icons/google.svg'),
             ),
+            if (Platform.isIOS)
+              ProviderButton(
+                'Sign Up with Apple',
+                onTap: () => _signUpWithProvider('apple'),
+                icon: SvgPicture.asset('assets/icons/apple.svg'),
+              ),
           ],
         ),
       ),

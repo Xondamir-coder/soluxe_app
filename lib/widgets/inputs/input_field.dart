@@ -94,6 +94,9 @@ class InputField extends StatelessWidget {
         if (value == null || value.trim().isEmpty) {
           return 'Please enter a valid ${label.toLowerCase()}';
         }
+        if (type == TextInputType.emailAddress && !value.contains('@')) {
+          return 'Please enter a valid email address';
+        }
         return null;
       },
       onSaved: (newValue) => onSave(newValue!),

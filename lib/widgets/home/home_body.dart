@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/screens/login.dart';
+import 'package:soluxe/screens/register.dart';
 import 'package:soluxe/widgets/home/home_languages.dart';
 import 'package:soluxe/widgets/buttons/provider_button.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
@@ -29,6 +30,14 @@ class HomeBody extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
+
+  void _goRegisterForm(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const RegisterScreen(),
       ),
     );
   }
@@ -207,7 +216,7 @@ class HomeBody extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () => _goRegisterForm(context),
                 style: TextButton.styleFrom(
                   foregroundColor: AppColors.accentYellow,
                   textStyle: GoogleFonts.instrumentSans(

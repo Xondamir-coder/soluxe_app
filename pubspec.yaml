@@ -65,6 +65,7 @@ flutter:
         - assets/icons/flag-zh.svg
         - assets/icons/flag-en.svg
         - assets/icons/phone.svg
+        - assets/icons/email.svg
         - assets/icons/lock.svg
         - assets/icons/eye-off.svg
         - assets/icons/apple.svg
