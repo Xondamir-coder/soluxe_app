@@ -3,11 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 
-class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
+class WelcomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   final int currentIndex;
   final void Function() onTap;
 
-  const HomeAppbar({
+  const WelcomeAppbar({
     super.key,
     required this.currentIndex,
     required this.onTap,

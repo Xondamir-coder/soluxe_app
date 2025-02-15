@@ -6,17 +6,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/screens/login.dart';
 import 'package:soluxe/screens/register.dart';
-import 'package:soluxe/widgets/home/home_languages.dart';
+import 'package:soluxe/widgets/welcome/welcome_languages.dart';
 import 'package:soluxe/widgets/buttons/provider_button.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 
-class HomeBody extends StatelessWidget {
+class WelcomeBody extends StatelessWidget {
   final int currentIndex;
   final void Function() onTap;
 
-  const HomeBody({
+  const WelcomeBody({
     super.key,
     required this.currentIndex,
     required this.onTap,
@@ -168,7 +168,7 @@ class HomeBody extends StatelessWidget {
     } else if (currentIndex == 2) {
       title = 'Pick a language, start exploring!';
       subtitle = 'Set your preferred language for the best experience.';
-      content = HomeLanguages(onTap: onTap);
+      content = WelcomeLanguages(onTap: onTap);
     } else {
       title = 'Let’s Get Started';
       subtitle = 'Class conubia dui lectus eget porta primis platea nisl risus';

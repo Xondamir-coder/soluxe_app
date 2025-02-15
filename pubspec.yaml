@@ -36,6 +36,7 @@ dependencies:
     cupertino_icons: ^1.0.8
     flutter_svg: ^2.0.17
     google_fonts: ^6.2.1
+    intl: ^0.20.2
 
 dev_dependencies:
     flutter_test:
@@ -71,6 +72,11 @@ flutter:
         - assets/icons/apple.svg
         - assets/icons/google.svg
         - assets/icons/verification.svg
+        - assets/icons/search.svg
+        - assets/icons/flash.svg
+        - assets/icons/notification.svg
+        - assets/icons/star.svg
+        - assets/icons/pin.svg
         - assets/pattern.svg
         - assets/images/login/img-1.jpg
         - assets/images/login/img-2.jpg

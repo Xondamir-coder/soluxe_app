@@ -3,16 +3,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/languages.dart';
 
-class HomeLanguages extends StatefulWidget {
+class WelcomeLanguages extends StatefulWidget {
   final void Function() onTap;
 
-  const HomeLanguages({super.key, required this.onTap});
+  const WelcomeLanguages({super.key, required this.onTap});
 
   @override
-  State<HomeLanguages> createState() => _HomeLanguagesState();
+  State<WelcomeLanguages> createState() => _WelcomeLanguagesState();
 }
 
-class _HomeLanguagesState extends State<HomeLanguages> {
+class _WelcomeLanguagesState extends State<WelcomeLanguages> {
   String? _selectedLanguageCode;
 
   @override
