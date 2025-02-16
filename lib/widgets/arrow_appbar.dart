@@ -8,7 +8,7 @@ class ArrowAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.creamWhite,
       leading: Center(
         child: Ink(
           decoration: BoxDecoration(

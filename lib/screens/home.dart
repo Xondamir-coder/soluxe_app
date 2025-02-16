@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/events.dart';
 import 'package:soluxe/data/hotels.dart';
+import 'package:soluxe/screens/notifications.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/home/home_event_card.dart';
 import 'package:soluxe/widgets/home/home_hotel_card.dart';
@@ -31,18 +32,26 @@ class HomeScreen extends StatelessWidget {
     print(categoryName);
   }
 
+  void _navigateToNotifications(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => const NotificationsScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.creamWhite,
         actions: [
           Container(
             width: 44,
             height: 44,
             margin: EdgeInsets.only(right: 12),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () => _navigateToNotifications(context),
               style: IconButton.styleFrom(
                 backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(

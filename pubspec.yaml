@@ -73,11 +73,14 @@ flutter:
         - assets/icons/google.svg
         - assets/icons/verification.svg
         - assets/icons/search.svg
+        - assets/icons/clock.svg
+        - assets/icons/double-check.svg
         - assets/icons/flash.svg
         - assets/icons/notification.svg
         - assets/icons/star.svg
         - assets/icons/pin.svg
-        - assets/pattern.svg
+        - assets/vectors/pattern.svg
+        - assets/vectors/not-found.svg
         - assets/images/login/img-1.jpg
         - assets/images/login/img-2.jpg
         - assets/images/login/img-3.jpg

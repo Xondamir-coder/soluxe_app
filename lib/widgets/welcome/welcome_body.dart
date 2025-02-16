@@ -239,7 +239,7 @@ class WelcomeBody extends StatelessWidget {
           child: Opacity(
             opacity: .2,
             child: SvgPicture.asset(
-              'assets/pattern.svg',
+              'assets/vectors/pattern.svg',
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,

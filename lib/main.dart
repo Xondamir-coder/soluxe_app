@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/screens/home.dart';
+import 'package:soluxe/screens/notifications.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: kTheme,
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: const NotificationsScreen(),
     );
   }
 }

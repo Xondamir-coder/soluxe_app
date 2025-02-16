@@ -16,7 +16,7 @@ class WelcomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.creamWhite,
       elevation: 0,
       actions: [
         if (currentIndex < 3)
