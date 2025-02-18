@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/buttons/circular_back_button.dart';
 

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/events.dart';
+import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/buttons/circular_back_button.dart';
 import 'package:soluxe/widgets/events/events_card.dart';
-import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/title_appbar.dart';
 
 class EventsScreen extends StatelessWidget {
@@ -28,6 +28,7 @@ class EventsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 3),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: _buildAppBar(context),

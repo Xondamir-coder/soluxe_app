@@ -5,6 +5,7 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/events.dart';
 import 'package:soluxe/data/hotels.dart';
 import 'package:soluxe/screens/notifications.dart';
+import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/home/home_event_card.dart';
 import 'package:soluxe/widgets/home/home_hotel_card.dart';
@@ -43,6 +44,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 0),
       appBar: AppBar(
         backgroundColor: AppColors.creamWhite,
         actions: [

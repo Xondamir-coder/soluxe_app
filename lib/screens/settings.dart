@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/screens/languages.dart';
 import 'package:soluxe/screens/push_notifications.dart';
+import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/buttons/circular_back_button.dart';
 import 'package:soluxe/widgets/settings/settings_tile.dart';
 import 'package:soluxe/widgets/settings/settings_label.dart';
@@ -72,6 +73,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 4),
       appBar: AppBar(
         backgroundColor: AppColors.creamWhite,
         title: const TitleAppbar('Profile'),

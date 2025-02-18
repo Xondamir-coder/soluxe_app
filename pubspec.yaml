@@ -68,11 +68,14 @@ flutter:
         - assets/icons/flag-en.svg
         - assets/icons/phone.svg
         - assets/icons/email.svg
+        - assets/icons/home.svg
         - assets/icons/lock.svg
         - assets/icons/eye-off.svg
         - assets/icons/apple.svg
         - assets/icons/google.svg
+        - assets/icons/categories.svg
         - assets/icons/verification.svg
+        - assets/icons/calendar.svg
         - assets/icons/search.svg
         - assets/icons/clock.svg
         - assets/icons/double-check.svg
