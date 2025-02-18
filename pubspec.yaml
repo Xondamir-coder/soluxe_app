@@ -37,6 +37,7 @@ dependencies:
     flutter_svg: ^2.0.17
     google_fonts: ^6.2.1
     intl: ^0.20.2
+    shared_preferences: ^2.5.2
 
 dev_dependencies:
     flutter_test:
@@ -76,9 +77,16 @@ flutter:
         - assets/icons/clock.svg
         - assets/icons/double-check.svg
         - assets/icons/flash.svg
+        - assets/icons/clipboard.svg
+        - assets/icons/question.svg
         - assets/icons/notification.svg
+        - assets/icons/global.svg
         - assets/icons/star.svg
         - assets/icons/pin.svg
+        - assets/icons/filter.svg
+        - assets/icons/moon.svg
+        - assets/icons/profile.svg
+        - assets/icons/circle-check.svg
         - assets/vectors/pattern.svg
         - assets/vectors/not-found.svg
         - assets/images/login/img-1.jpg

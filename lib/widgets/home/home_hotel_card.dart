@@ -9,6 +9,84 @@ class HomeHotelCard extends StatelessWidget {
 
   const HomeHotelCard({super.key, required this.hotel});
 
+  Widget _buildImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      clipBehavior: Clip.hardEdge,
+      child: Image.network(
+        hotel.imgSrc,
+        width: 72,
+        height: 72,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Widget _buildStars() {
+    return Row(
+      spacing: 6,
+      children: [
+        Row(
+          children: [
+            for (var i = 0; i < 5; i++)
+              SvgPicture.asset(
+                'assets/icons/star.svg',
+                colorFilter: i < int.parse(hotel.star)
+                    ? ColorFilter.mode(
+                        AppColors.accentYellow,
+                        BlendMode.srcIn,
+                      )
+                    : null,
+              )
+          ],
+        ),
+        MyText(
+          hotel.star,
+          color: AppColors.grey,
+        )
+      ],
+    );
+  }
+
+  Widget _buildBottom() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          spacing: 4,
+          children: [
+            SvgPicture.asset('assets/icons/pin.svg'),
+            MyText(
+              hotel.city,
+              color: AppColors.grey,
+            )
+          ],
+        ),
+        Container(
+          padding: EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(249, 245, 235, 1),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: MyText(
+            hotel.distance,
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: AppColors.accentYellow,
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildTitle() {
+    return MyText(
+      'A Cultural & Culinary Oasis: Taste Plov',
+      color: AppColors.darkBrown,
+      fontWeight: FontWeight.w700,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,76 +98,14 @@ class HomeHotelCard extends StatelessWidget {
       child: Row(
         spacing: 10,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            clipBehavior: Clip.hardEdge,
-            child: Image.network(
-              hotel.imgSrc,
-              width: 72,
-              height: 72,
-              fit: BoxFit.cover,
-            ),
-          ),
+          _buildImage(),
           Expanded(
             child: Column(
               spacing: 6,
               children: [
-                MyText(
-                  'A Cultural & Culinary Oasis: Taste Plov',
-                  color: AppColors.darkBrown,
-                  fontWeight: FontWeight.w700,
-                ),
-                Row(
-                  spacing: 6,
-                  children: [
-                    Row(
-                      children: [
-                        for (var i = 0; i < 5; i++)
-                          SvgPicture.asset(
-                            'assets/icons/star.svg',
-                            colorFilter: i < int.parse(hotel.star)
-                                ? ColorFilter.mode(
-                                    AppColors.accentYellow,
-                                    BlendMode.srcIn,
-                                  )
-                                : null,
-                          )
-                      ],
-                    ),
-                    MyText(
-                      hotel.star,
-                      color: AppColors.grey,
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      spacing: 4,
-                      children: [
-                        SvgPicture.asset('assets/icons/pin.svg'),
-                        MyText(
-                          hotel.city,
-                          color: AppColors.grey,
-                        )
-                      ],
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(249, 245, 235, 1),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: MyText(
-                        hotel.distance,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.accentYellow,
-                      ),
-                    )
-                  ],
-                )
+                _buildTitle(),
+                _buildStars(),
+                _buildBottom(),
               ],
             ),
           )

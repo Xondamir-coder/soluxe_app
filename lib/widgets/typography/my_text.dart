@@ -20,6 +20,24 @@ class MyText extends StatelessWidget {
     super.key,
   });
 
+  const MyText.deepBlue(
+    this.text, {
+    this.fontSize = 14,
+    this.fontWeight = FontWeight.w700,
+    this.height = 1.5,
+    this.textAlign = TextAlign.start,
+    super.key,
+  }) : color = AppColors.deepBlue;
+
+  const MyText.grey(
+    this.text, {
+    this.fontSize = 14,
+    this.fontWeight = FontWeight.w500,
+    this.height = 1.5,
+    this.textAlign = TextAlign.start,
+    super.key,
+  }) : color = AppColors.grey;
+
   @override
   Widget build(BuildContext context) {
     return Text(
