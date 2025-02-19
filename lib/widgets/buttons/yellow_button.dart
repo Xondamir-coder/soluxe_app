@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/widgets/typography/my_text.dart';
 
 class YellowButton extends StatelessWidget {
   final void Function() onTap;
@@ -27,13 +28,10 @@ class YellowButton extends StatelessWidget {
           padding: EdgeInsets.all(17.5),
           shadowColor: AppColors.accentYellow,
         ),
-        child: Text(
+        child: MyText(
           text,
-          style: GoogleFonts.instrumentSans(
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
         ),
       ),
     );

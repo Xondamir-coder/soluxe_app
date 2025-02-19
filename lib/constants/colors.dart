@@ -9,4 +9,5 @@ class AppColors {
   static const Color richBrown = Color.fromRGBO(79, 60, 23, 1);
   static const Color softWhite = Color.fromRGBO(229, 231, 235, 1);
   static const Color grey = Color.fromRGBO(156, 163, 175, 1);
+  static const Color lightGrey = Color.fromRGBO(243, 244, 246, 1);
 }

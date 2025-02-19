@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soluxe/widgets/arrow_appbar.dart';
+import 'package:soluxe/widgets/appbars/arrow_appbar.dart';
 import 'package:soluxe/widgets/forms/reset_password_form.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 

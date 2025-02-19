@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/widgets/arrow_appbar.dart';
+import 'package:soluxe/widgets/appbars/arrow_appbar.dart';
 import 'package:soluxe/widgets/buttons/provider_button.dart';
 import 'package:soluxe/widgets/forms/login_form.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
@@ -59,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                MyText('Or', color: AppColors.grey),
+                MyText.grey('Or'),
                 Expanded(
                   child: Container(
                     height: 1,

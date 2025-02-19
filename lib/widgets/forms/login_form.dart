@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/screens/forgot_password.dart';
 import 'package:soluxe/screens/verification.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
@@ -69,11 +68,7 @@ class _LoginFormState extends State<LoginForm> {
             alignment: Alignment.centerRight,
             child: GestureDetector(
               onTap: _forgotPassword,
-              child: MyText(
-                'Forgot Password?',
-                color: AppColors.deepBlue,
-                fontWeight: FontWeight.w700,
-              ),
+              child: MyText.deepBlue('Forgot Password?'),
             ),
           ),
           YellowButton('Next', onTap: _submitForm),

@@ -1,38 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/events.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
-import 'package:soluxe/widgets/buttons/circular_back_button.dart';
+import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/events/events_card.dart';
-import 'package:soluxe/widgets/typography/title_appbar.dart';
 
 class EventsScreen extends StatelessWidget {
   const EventsScreen({super.key});
-
-  Widget _buildAppBar(BuildContext context) {
-    return AppBar(
-      backgroundColor: AppColors.creamWhite,
-      title: const TitleAppbar('Events'),
-      centerTitle: true,
-      leading: const CircularBackButton(),
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: SvgPicture.asset('assets/icons/filter.svg'),
-        ),
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 3),
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: _buildAppBar(context),
-      ),
+      appBar: const DefaultAppbar(title: 'Events'),
       body: Column(
         spacing: 16,
         children: [

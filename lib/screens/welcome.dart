@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soluxe/widgets/welcome/welcome_appbar.dart';
+import 'package:soluxe/widgets/appbars/welcome_appbar.dart';
 import 'package:soluxe/widgets/welcome/welcome_body.dart';
 
 class WelcomeScreen extends StatefulWidget {

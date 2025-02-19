@@ -81,11 +81,7 @@ class HomeEventCard extends StatelessWidget {
                       Row(
                         spacing: 4,
                         children: [
-                          MyText(
-                            event.city,
-                            fontSize: 12,
-                            color: AppColors.grey,
-                          ),
+                          MyText.grey(event.city, fontSize: 12),
                           Container(
                             width: 4,
                             height: 4,
@@ -94,11 +90,7 @@ class HomeEventCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(100),
                             ),
                           ),
-                          MyText(
-                            event.time,
-                            fontSize: 12,
-                            color: AppColors.grey,
-                          ),
+                          MyText.grey(event.time, fontSize: 12),
                         ],
                       )
                     ],

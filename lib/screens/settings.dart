@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/screens/languages.dart';
 import 'package:soluxe/screens/push_notifications.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
-import 'package:soluxe/widgets/buttons/circular_back_button.dart';
+import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/settings/settings_tile.dart';
 import 'package:soluxe/widgets/settings/settings_label.dart';
 import 'package:soluxe/widgets/settings/settings_switch_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/data/user.dart';
-import 'package:soluxe/widgets/typography/title_appbar.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -37,16 +35,8 @@ class SettingsScreen extends StatelessWidget {
         ),
         Column(
           children: [
-            MyText(
-              userData.name,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: AppColors.deepBlue,
-            ),
-            MyText(
-              userData.email!,
-              color: AppColors.grey,
-            ),
+            MyText.deepBlue(userData.name, fontSize: 18),
+            MyText.grey(userData.email!),
           ],
         )
       ],
@@ -74,12 +64,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 4),
-      appBar: AppBar(
-        backgroundColor: AppColors.creamWhite,
-        title: const TitleAppbar('Profile'),
-        centerTitle: true,
-        leading: const CircularBackButton(),
-      ),
+      appBar: const DefaultAppbar(title: 'Profile'),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(

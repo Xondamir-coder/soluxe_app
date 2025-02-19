@@ -43,29 +43,18 @@ class MyBottomNavbarItem extends StatelessWidget {
                 ),
                 duration: const Duration(milliseconds: 300),
                 builder: (context, color, child) {
-                  return TweenAnimationBuilder<double>(
-                    tween: Tween<double>(
-                        begin: 1, end: isActive ? 1.2 : 1), // Scale effect
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.ease,
-                    builder: (context, scale, child) {
-                      return Transform.scale(
-                        scale: scale,
-                        child: SvgPicture.asset(
-                          iconPath,
-                          width: 24,
-                          height: 24,
-                          colorFilter:
-                              ColorFilter.mode(color!, BlendMode.srcIn),
-                        ),
-                      );
-                    },
+                  return SvgPicture.asset(
+                    iconPath,
+                    width: 28,
+                    height: 28,
+                    colorFilter: ColorFilter.mode(color!, BlendMode.srcIn),
                   );
                 },
               ),
               AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 300),
                 style: GoogleFonts.instrumentSans(
+                  fontSize: 12,
                   color: isActive ? AppColors.accentYellow : AppColors.grey,
                   fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
                 ),

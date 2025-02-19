@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soluxe/widgets/arrow_appbar.dart';
+import 'package:soluxe/widgets/appbars/arrow_appbar.dart';
 import 'package:soluxe/widgets/forms/forgot_password_form.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';

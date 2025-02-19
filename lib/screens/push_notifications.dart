@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/preference_helper.dart';
-import 'package:soluxe/widgets/buttons/circular_back_button.dart';
+import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/notifications/notification_switch_tile.dart';
-import 'package:soluxe/widgets/typography/title_appbar.dart';
 
 class PushNotificationsScreen extends StatefulWidget {
   const PushNotificationsScreen({super.key});
@@ -34,12 +32,7 @@ class _PushNotificationsScreenState extends State<PushNotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.creamWhite,
-        title: const TitleAppbar('Push Notifications'),
-        centerTitle: true,
-        leading: const CircularBackButton(),
-      ),
+      appBar: const DefaultAppbar(title: 'Push Notifications'),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

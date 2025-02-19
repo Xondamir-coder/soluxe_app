@@ -3,50 +3,38 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 
-class CategoryTabs extends StatefulWidget {
+class CategoryTabs extends StatelessWidget {
   final List<String> categories;
   final Function(String) onCategorySelected;
+  final String selectedCategory;
+  final bool withIcons;
 
-  const CategoryTabs({
-    super.key,
-    required this.categories,
-    required this.onCategorySelected,
-  });
-
-  @override
-  State<CategoryTabs> createState() => _CategoryTabsState();
-}
-
-class _CategoryTabsState extends State<CategoryTabs> {
-  var _selectedCategoryName = '';
-
-  @override
-  void initState() {
-    _selectedCategoryName = widget.categories[0];
-    super.initState();
-  }
+  const CategoryTabs(
+      {super.key,
+      required this.selectedCategory,
+      required this.categories,
+      required this.onCategorySelected,
+      this.withIcons = false});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50, // Adjust height as needed
+      height: 45, // Adjust height as needed
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: widget.categories.length,
+        itemCount: categories.length,
         itemBuilder: (context, index) {
-          final String category = widget.categories[index];
-          bool isSelected = category == _selectedCategoryName;
+          final String category = categories[index];
+          bool isSelected = category == selectedCategory;
+          final bgColor = isSelected
+              ? AppColors.accentYellow
+              : withIcons
+                  ? AppColors.lightGrey
+                  : Colors.white;
+          final textColor = isSelected ? Colors.white : AppColors.deepBlue;
 
           return GestureDetector(
-            onTap: () {
-              // Change UI
-              setState(() {
-                _selectedCategoryName = category;
-              });
-
-              // Send to parent
-              widget.onCategorySelected(_selectedCategoryName);
-            },
+            onTap: () => onCategorySelected(category),
             child: AnimatedSize(
               duration: const Duration(milliseconds: 300),
               child: AnimatedContainer(
@@ -55,8 +43,8 @@ class _CategoryTabsState extends State<CategoryTabs> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 11, horizontal: 10),
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.accentYellow : Colors.white,
-                  borderRadius: BorderRadius.circular(12),
+                  color: bgColor,
+                  borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
                       color: Color.fromRGBO(107, 114, 128, 0.04),
@@ -66,16 +54,27 @@ class _CategoryTabsState extends State<CategoryTabs> {
                   ],
                 ),
                 child: Row(
+                  spacing: 6,
                   children: [
-                    if (isSelected) SvgPicture.asset('assets/icons/flash.svg'),
-                    if (isSelected) const SizedBox(width: 6),
+                    if (isSelected)
+                      SvgPicture.asset(
+                        'assets/icons/flash.svg',
+                        width: 18,
+                        height: 18,
+                      ),
+                    if (!isSelected && withIcons)
+                      SvgPicture.asset(
+                        'assets/icons/date.svg',
+                        width: 18,
+                        height: 18,
+                      ),
                     AnimatedDefaultTextStyle(
                       duration: const Duration(milliseconds: 300),
                       style: GoogleFonts.instrumentSans(
-                        fontSize: 16,
+                        fontSize: 13,
                         fontWeight:
                             isSelected ? FontWeight.w700 : FontWeight.w500,
-                        color: isSelected ? Colors.white : AppColors.deepBlue,
+                        color: textColor,
                       ),
                       child: Text(category),
                     ),

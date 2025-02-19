@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/widgets/arrow_appbar.dart';
+import 'package:soluxe/widgets/appbars/arrow_appbar.dart';
 import 'package:soluxe/widgets/inputs/otp_input.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
@@ -71,7 +71,7 @@ class VerificationScreen extends StatelessWidget {
                     spacing: 3,
                     children: [
                       MyText('We are sending verification code to'),
-                      MyText('+998 90 900 09 90', color: AppColors.deepBlue),
+                      MyText.deepBlue('+998 90 900 09 90'),
                     ],
                   ),
                   const SizedBox(height: 30),

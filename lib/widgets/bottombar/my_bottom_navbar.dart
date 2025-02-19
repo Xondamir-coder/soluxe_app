@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/screens/events.dart';
 import 'package:soluxe/screens/home.dart';
+import 'package:soluxe/screens/explore.dart';
 import 'package:soluxe/screens/settings.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar_item.dart';
 
@@ -16,31 +17,37 @@ class MyBottomNavbar extends StatelessWidget {
   void _onItemTapped(BuildContext context, int index) {
     if (index == currentPageIndex) return;
 
-    if (index == 0) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => const HomeScreen(),
-        ),
-      );
-    } else if (index == 3) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => const EventsScreen(),
-        ),
-      );
-    } else if (index == 4) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => const SettingsScreen(),
-        ),
-      );
+    Widget screen;
+    switch (index) {
+      case 0:
+        //  Home screen should reset navigation stack
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (ctx) => const HomeScreen()),
+          (route) => false, // Removes all previous routes
+        );
+        return;
+      case 1:
+        screen = const ExploreScreen();
+        break;
+      case 3:
+        screen = const EventsScreen();
+        break;
+      case 4:
+        screen = const SettingsScreen();
+        break;
+      default:
+        return;
     }
+
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (ctx) => screen),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: 82,
       padding: EdgeInsets.symmetric(vertical: 12.5, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,

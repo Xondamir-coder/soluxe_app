@@ -91,10 +91,7 @@ class NotificationsCard extends StatelessWidget {
       spacing: 4,
       children: [
         SvgPicture.asset('assets/icons/clock.svg'),
-        MyText(
-          notification.formattedDate,
-          color: AppColors.grey,
-        ),
+        MyText.grey(notification.formattedDate),
       ],
     );
   }

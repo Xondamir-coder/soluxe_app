@@ -2,25 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/hotel.dart';
+import 'package:soluxe/widgets/tile/my_tile_bottom.dart';
+import 'package:soluxe/widgets/tile/my_tile_image.dart';
+import 'package:soluxe/widgets/tile/my_tile_title.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class HomeHotelCard extends StatelessWidget {
   final Hotel hotel;
 
   const HomeHotelCard({super.key, required this.hotel});
-
-  Widget _buildImage() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      clipBehavior: Clip.hardEdge,
-      child: Image.network(
-        hotel.imgSrc,
-        width: 72,
-        height: 72,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
 
   Widget _buildStars() {
     return Row(
@@ -48,64 +38,30 @@ class HomeHotelCard extends StatelessWidget {
     );
   }
 
-  Widget _buildBottom() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          spacing: 4,
-          children: [
-            SvgPicture.asset('assets/icons/pin.svg'),
-            MyText(
-              hotel.city,
-              color: AppColors.grey,
-            )
-          ],
-        ),
-        Container(
-          padding: EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(249, 245, 235, 1),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: MyText(
-            hotel.distance,
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: AppColors.accentYellow,
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildTitle() {
-    return MyText(
-      'A Cultural & Culinary Oasis: Taste Plov',
-      color: AppColors.darkBrown,
-      fontWeight: FontWeight.w700,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
         spacing: 10,
         children: [
-          _buildImage(),
+          MyTileImage(imgSrc: hotel.imgSrc),
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 6,
               children: [
-                _buildTitle(),
+                MyTileTitle(
+                  title: hotel.name,
+                  color: AppColors.darkBrown,
+                  fontSize: 12,
+                ),
                 _buildStars(),
-                _buildBottom(),
+                MyTileBottom(city: hotel.city, distance: hotel.distance),
               ],
             ),
           )

@@ -9,10 +9,6 @@ class SettingsLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyText(
-      text,
-      color: AppColors.grey,
-      fontWeight: FontWeight.w700,
-    );
+    return MyText.grey(text, fontWeight: FontWeight.w700);
   }
 }

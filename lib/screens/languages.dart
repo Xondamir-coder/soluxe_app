@@ -3,9 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/languages.dart';
 import 'package:soluxe/helpers/preference_helper.dart';
-import 'package:soluxe/widgets/buttons/circular_back_button.dart';
+import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:soluxe/widgets/typography/title_appbar.dart';
 
 class LanguagesScreen extends StatefulWidget {
   const LanguagesScreen({super.key});
@@ -38,12 +37,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.creamWhite,
-        leading: const CircularBackButton(),
-        title: TitleAppbar('Select Language'),
-        centerTitle: true,
-      ),
+      appBar: const DefaultAppbar(title: 'Select Language'),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
         child: Column(
