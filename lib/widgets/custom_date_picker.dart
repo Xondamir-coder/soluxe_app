@@ -15,7 +15,131 @@ class CustomDatePicker extends StatefulWidget {
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
-  DateTime currentDate = DateTime.now(); // Tracks selected date
+  DateTime currentDate = DateTime.now();
+  double _opacity = 1.0; // Controls smooth fading
+
+  /// Changes the displayed month with a smooth transition
+  void _changeMonth(int direction) async {
+    setState(() {
+      _opacity = 0.0; // Fade out first
+    });
+
+    await Future.delayed(Duration(milliseconds: 200)); // Wait for fade-out
+
+    setState(() {
+      int targetYear = currentDate.year;
+      int targetMonth = currentDate.month + direction;
+
+      if (targetMonth < 1) {
+        targetYear -= 1;
+        targetMonth = 12;
+      } else if (targetMonth > 12) {
+        targetYear += 1;
+        targetMonth = 1;
+      }
+
+      int daysInTargetMonth = DateTime(targetYear, targetMonth + 1, 0).day;
+      int newDay = currentDate.day > daysInTargetMonth
+          ? daysInTargetMonth
+          : currentDate.day;
+
+      currentDate = DateTime(targetYear, targetMonth, newDay);
+      _opacity = 1.0; // Fade in after state update
+    });
+  }
+
+  /// Builds the calendar grid for the current month
+  Widget _buildCalendar() {
+    DateTime firstDayOfMonth = DateTime(currentDate.year, currentDate.month, 1);
+    int startingWeekday = firstDayOfMonth.weekday;
+    int daysInMonth = DateTime(currentDate.year, currentDate.month + 1, 0).day;
+
+    List<Widget> dayWidgets = [];
+    int dayCounter = 1;
+    int totalWeeks = ((startingWeekday - 1 + daysInMonth) / 7).ceil();
+
+    for (int i = 0; i < totalWeeks; i++) {
+      List<Widget> weekRow = [];
+
+      for (int j = 1; j <= 7; j++) {
+        if ((i == 0 && j < startingWeekday) || dayCounter > daysInMonth) {
+          weekRow.add(Expanded(child: SizedBox()));
+        } else {
+          DateTime day =
+              DateTime(currentDate.year, currentDate.month, dayCounter);
+          bool isSelected = day.day == currentDate.day;
+
+          weekRow.add(
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.all(3),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppColors.accentYellow
+                        : Color.fromRGBO(249, 250, 251, 1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () => _selectDate(day),
+                      borderRadius: BorderRadius.circular(8),
+                      splashColor: AppColors.accentYellow.withOpacity(0.2),
+                      highlightColor: AppColors.accentYellow.withOpacity(0.1),
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        child: Column(
+                          children: [
+                            AnimatedDefaultTextStyle(
+                              duration: const Duration(milliseconds: 300),
+                              style: GoogleFonts.instrumentSans(
+                                color: isSelected
+                                    ? Colors.white
+                                    : AppColors.deepBlue,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              child: Text('${day.day}'),
+                            ),
+                            SizedBox(height: 2),
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              width: 5,
+                              height: 5,
+                              decoration: BoxDecoration(
+                                color: isSelected
+                                    ? Colors.white
+                                    : Color.fromRGBO(255, 129, 66, 1),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+          dayCounter++;
+        }
+      }
+
+      dayWidgets.add(Row(children: weekRow));
+    }
+
+    return AnimatedOpacity(
+      duration: Duration(milliseconds: 200),
+      opacity: _opacity,
+      child: Column(
+        children: dayWidgets,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,115 +221,12 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     );
   }
 
-  /// Builds the calendar grid for the current month
-  Widget _buildCalendar() {
-    DateTime firstDayOfMonth = DateTime(currentDate.year, currentDate.month, 1);
-    int startingWeekday = firstDayOfMonth.weekday; // Monday = 1, Sunday = 7
-    int daysInMonth = DateTime(currentDate.year, currentDate.month + 1, 0).day;
-
-    List<Widget> dayWidgets = [];
-    int dayCounter = 1;
-
-    // Build weeks dynamically
-    for (int i = 0; i < 6; i++) {
-      // Max 6 weeks in a month
-      List<Widget> weekRow = [];
-
-      for (int j = 1; j <= 7; j++) {
-        if ((i == 0 && j < startingWeekday) || dayCounter > daysInMonth) {
-          // Empty cells before first day or after last day
-          weekRow.add(Expanded(child: SizedBox()));
-        } else {
-          DateTime day =
-              DateTime(currentDate.year, currentDate.month, dayCounter);
-          bool isSelected = day.day == currentDate.day;
-
-          weekRow.add(
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.all(3),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? AppColors.accentYellow
-                        : Color.fromRGBO(249, 250, 251, 1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () => _selectDate(day),
-                      borderRadius: BorderRadius.circular(8),
-                      splashColor:
-                          AppColors.accentYellow.withValues(alpha: 0.2),
-                      highlightColor:
-                          AppColors.accentYellow.withValues(alpha: 0.1),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 8,
-                        ),
-                        child: Column(
-                          spacing: 2,
-                          children: [
-                            AnimatedDefaultTextStyle(
-                              duration: const Duration(milliseconds: 300),
-                              style: GoogleFonts.instrumentSans(
-                                color: isSelected
-                                    ? Colors.white
-                                    : AppColors.deepBlue,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              child: Text('${day.day}'),
-                            ),
-                            SizedBox(height: 2),
-                            AnimatedContainer(
-                              duration: const Duration(milliseconds: 300),
-                              width: 5,
-                              height: 5,
-                              decoration: BoxDecoration(
-                                color: isSelected
-                                    ? Colors.white
-                                    : Color.fromRGBO(255, 129, 66, 1),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          );
-
-          dayCounter++;
-        }
-      }
-
-      dayWidgets.add(Row(children: weekRow));
-    }
-
-    return Column(children: dayWidgets);
-  }
-
-  /// Changes the displayed month
-  void _changeMonth(int direction) {
-    setState(() {
-      currentDate =
-          DateTime(currentDate.year, currentDate.month + direction, 1);
-    });
-  }
-
   /// Selects a new date and calls `onDateChange`
   void _selectDate(DateTime date) {
     setState(() {
       currentDate = date;
     });
 
-    widget.onDateChange(date); // Send selected date
+    widget.onDateChange(date);
   }
 }

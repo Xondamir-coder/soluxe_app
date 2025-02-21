@@ -6,6 +6,7 @@ import 'package:soluxe/widgets/buttons/grey_outlined_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/custom_date_picker.dart';
+import 'package:soluxe/widgets/price_range_slider.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class ExploreFilter extends StatefulWidget {
@@ -16,19 +17,23 @@ class ExploreFilter extends StatefulWidget {
 }
 
 class _ExploreFilterState extends State<ExploreFilter> {
-  late final ValueNotifier<String> selectedCategory;
-  late DateTime selectedDate;
   final categories = ['All', 'Concerts', 'Exhibitions', 'Events', 'Others'];
+
+  late DateTime selectedDate;
+  late final ValueNotifier<String> selectedCategory;
+  late final ValueNotifier<RangeValues> selectedPrice;
 
   @override
   void initState() {
     selectedCategory = ValueNotifier<String>(categories[0]);
+    selectedPrice = ValueNotifier<RangeValues>(RangeValues(50, 400));
     super.initState();
   }
 
   @override
   void dispose() {
-    selectedCategory.dispose(); // Dispose to prevent memory leaks
+    selectedCategory.dispose();
+    selectedPrice.dispose();
     super.dispose();
   }
 
@@ -64,14 +69,12 @@ class _ExploreFilterState extends State<ExploreFilter> {
           ),
           ValueListenableBuilder<String>(
             valueListenable: selectedCategory,
-            builder: (context, value, child) {
-              return CategoryTabs(
-                selectedCategory: value,
-                categories: categories,
-                iconPath: 'assets/icons/date.svg',
-                onCategorySelected: (val) => selectedCategory.value = val,
-              );
-            },
+            builder: (context, value, child) => CategoryTabs(
+              selectedCategory: value,
+              categories: categories,
+              iconPath: 'assets/icons/date.svg',
+              onCategorySelected: (val) => selectedCategory.value = val,
+            ),
           ),
           Align(
             alignment: Alignment.centerLeft,
@@ -79,6 +82,16 @@ class _ExploreFilterState extends State<ExploreFilter> {
               'Price Range',
               color: AppColors.darkBrown,
               fontWeight: FontWeight.w700,
+            ),
+          ),
+          ValueListenableBuilder<RangeValues>(
+            valueListenable: selectedPrice,
+            builder: (context, value, child) => SizedBox(
+              height: 80,
+              child: PriceRangeSlider(
+                selectedPrice: value,
+                onSelectPrice: (val) => selectedPrice.value = val,
+              ),
             ),
           ),
           CustomDatePicker(

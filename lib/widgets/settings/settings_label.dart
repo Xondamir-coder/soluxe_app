@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class SettingsLabel extends StatelessWidget {
