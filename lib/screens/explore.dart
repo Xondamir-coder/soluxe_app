@@ -16,8 +16,6 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
-  var selectedCategory = '';
-  var query = '';
   final categories = [
     'All',
     'Hotels',
@@ -25,6 +23,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
     'Historical Places',
     'Events'
   ];
+  var selectedCategory = '';
+  var query = '';
 
   @override
   void initState() {
@@ -36,13 +36,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
     showModalBottomSheet(
       backgroundColor: Colors.white,
       context: context,
-      builder: (ctx) => const ExploreFilter(),
+      isScrollControlled: true,
+      builder: (ctx) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [const ExploreFilter()],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    print('building');
+    print('building explore');
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -65,9 +69,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     MySearchBar(
                       label: 'Search...',
                       onSearch: (val) {
-                        setState(() => query = val);
-                        print(selectedCategory);
-                        print(query);
+                        query = val;
                       },
                     ),
                     CategoryTabs(
@@ -75,8 +77,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       categories: categories,
                       onCategorySelected: (val) {
                         setState(() => selectedCategory = val);
-                        print(selectedCategory);
-                        print(query);
                       },
                     )
                   ],

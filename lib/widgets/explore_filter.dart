@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/buttons/grey_outlined_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
+import 'package:soluxe/widgets/custom_date_picker.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class ExploreFilter extends StatefulWidget {
@@ -14,23 +16,29 @@ class ExploreFilter extends StatefulWidget {
 }
 
 class _ExploreFilterState extends State<ExploreFilter> {
-  var selectedCategory = '';
+  late final ValueNotifier<String> selectedCategory;
+  late DateTime selectedDate;
   final categories = ['All', 'Concerts', 'Exhibitions', 'Events', 'Others'];
 
   @override
   void initState() {
-    selectedCategory = categories[0];
+    selectedCategory = ValueNotifier<String>(categories[0]);
     super.initState();
   }
 
   @override
+  void dispose() {
+    selectedCategory.dispose(); // Dispose to prevent memory leaks
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print('building');
-    return Container(
+    print('building ExploreFilter'); // This should print only once
+    return Padding(
       padding: EdgeInsets.all(16),
       child: Column(
         spacing: 16,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 32,
@@ -54,23 +62,30 @@ class _ExploreFilterState extends State<ExploreFilter> {
               ),
             ],
           ),
-          CategoryTabs(
-            selectedCategory: selectedCategory,
-            categories: categories,
-            withIcons: true,
-            onCategorySelected: (val) {
-              setState(() => selectedCategory = val);
+          ValueListenableBuilder<String>(
+            valueListenable: selectedCategory,
+            builder: (context, value, child) {
+              return CategoryTabs(
+                selectedCategory: value,
+                categories: categories,
+                iconPath: 'assets/icons/date.svg',
+                onCategorySelected: (val) => selectedCategory.value = val,
+              );
             },
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MyText(
-                'Price Range',
-                color: AppColors.darkBrown,
-                fontWeight: FontWeight.w700,
-              ),
-            ],
+          Align(
+            alignment: Alignment.centerLeft,
+            child: MyText(
+              'Price Range',
+              color: AppColors.darkBrown,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          CustomDatePicker(
+            onDateChange: (val) {
+              selectedDate = val;
+              print(DateFormat('yyyy-MM-dd').format(selectedDate));
+            },
           ),
           Row(
             spacing: 16,
@@ -88,7 +103,7 @@ class _ExploreFilterState extends State<ExploreFilter> {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -7,14 +7,15 @@ class CategoryTabs extends StatelessWidget {
   final List<String> categories;
   final Function(String) onCategorySelected;
   final String selectedCategory;
-  final bool withIcons;
+  final String iconPath;
 
-  const CategoryTabs(
-      {super.key,
-      required this.selectedCategory,
-      required this.categories,
-      required this.onCategorySelected,
-      this.withIcons = false});
+  const CategoryTabs({
+    super.key,
+    required this.selectedCategory,
+    required this.categories,
+    required this.onCategorySelected,
+    this.iconPath = '',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class CategoryTabs extends StatelessWidget {
           bool isSelected = category == selectedCategory;
           final bgColor = isSelected
               ? AppColors.accentYellow
-              : withIcons
+              : iconPath.isNotEmpty
                   ? AppColors.lightGrey
                   : Colors.white;
           final textColor = isSelected ? Colors.white : AppColors.deepBlue;
@@ -62,9 +63,9 @@ class CategoryTabs extends StatelessWidget {
                         width: 18,
                         height: 18,
                       ),
-                    if (!isSelected && withIcons)
+                    if (!isSelected && iconPath.isNotEmpty)
                       SvgPicture.asset(
-                        'assets/icons/date.svg',
+                        iconPath,
                         width: 18,
                         height: 18,
                       ),

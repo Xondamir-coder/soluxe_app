@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('building');
+    print('building home');
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -104,9 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     MySearchBar(
                       label: 'Search events',
                       onSearch: (val) {
-                        setState(() => query = val);
-                        print(selectedCategory);
-                        print(query);
+                        query = val;
                       },
                     ),
                     CategoryTabs(
@@ -114,8 +112,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       categories: categories,
                       onCategorySelected: (val) {
                         setState(() => selectedCategory = val);
-                        print(selectedCategory);
-                        print(query);
                       },
                     ),
                   ],

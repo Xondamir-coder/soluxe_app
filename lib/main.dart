@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: kTheme,
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: const ExploreScreen(),
     );
   }
 }
