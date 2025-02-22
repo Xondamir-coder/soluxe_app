@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/screens/explore.dart';
+import 'package:soluxe/screens/categories/categories.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: kTheme,
       debugShowCheckedModeBanner: false,
-      home: const ExploreScreen(),
+      home: const CategoriesScreen(),
     );
   }
 }

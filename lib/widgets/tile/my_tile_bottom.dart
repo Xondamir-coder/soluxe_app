@@ -4,12 +4,12 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class MyTileBottom extends StatelessWidget {
-  final String city;
+  final String location;
   final String distance;
 
   const MyTileBottom({
     super.key,
-    required this.city,
+    required this.location,
     required this.distance,
   });
 
@@ -22,7 +22,12 @@ class MyTileBottom extends StatelessWidget {
           spacing: 4,
           children: [
             SvgPicture.asset('assets/icons/pin.svg'),
-            MyText.grey(city, fontSize: 12),
+            MyText.grey(
+              location.length > 30
+                  ? '${location.substring(0, 27)}...'
+                  : location,
+              fontSize: 12,
+            ),
           ],
         ),
         Container(

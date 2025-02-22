@@ -8,6 +8,7 @@ class CategoryTabs extends StatelessWidget {
   final Function(String) onCategorySelected;
   final String selectedCategory;
   final String iconPath;
+  final Color bgColor;
 
   const CategoryTabs({
     super.key,
@@ -15,23 +16,21 @@ class CategoryTabs extends StatelessWidget {
     required this.categories,
     required this.onCategorySelected,
     this.iconPath = '',
+    this.bgColor = Colors.white,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 45, // Adjust height as needed
-      child: ListView.builder(
+      child: ListView.separated(
+        separatorBuilder: (ctx, index) => const SizedBox(width: 10),
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final String category = categories[index];
           bool isSelected = category == selectedCategory;
-          final bgColor = isSelected
-              ? AppColors.accentYellow
-              : iconPath.isNotEmpty
-                  ? AppColors.lightGrey
-                  : Colors.white;
+          final backColor = isSelected ? AppColors.accentYellow : bgColor;
           final textColor = isSelected ? Colors.white : AppColors.deepBlue;
 
           return GestureDetector(
@@ -40,11 +39,10 @@ class CategoryTabs extends StatelessWidget {
               duration: const Duration(milliseconds: 300),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                margin: const EdgeInsets.symmetric(horizontal: 5),
                 padding:
                     const EdgeInsets.symmetric(vertical: 11, horizontal: 10),
                 decoration: BoxDecoration(
-                  color: bgColor,
+                  color: backColor,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
@@ -66,6 +64,10 @@ class CategoryTabs extends StatelessWidget {
                     if (!isSelected && iconPath.isNotEmpty)
                       SvgPicture.asset(
                         iconPath,
+                        colorFilter: ColorFilter.mode(
+                          AppColors.darkBrown,
+                          BlendMode.srcIn,
+                        ),
                         width: 18,
                         height: 18,
                       ),

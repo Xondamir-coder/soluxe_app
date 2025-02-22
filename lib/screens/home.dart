@@ -6,9 +6,9 @@ import 'package:soluxe/data/hotels.dart';
 import 'package:soluxe/screens/notifications.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
-import 'package:soluxe/widgets/home/home_event_card.dart';
-import 'package:soluxe/widgets/home/home_hotel_card.dart';
+import 'package:soluxe/widgets/event_card.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
+import 'package:soluxe/widgets/tile/my_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 
@@ -146,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (ctx, index) {
                           final event = events[index];
-                          return HomeEventCard(event: event);
+                          return EventCard(event: event);
                         },
                         itemCount: events.length,
                       ),
@@ -182,7 +182,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Column(
                       spacing: 10,
                       children: [
-                        for (final hotel in hotels) HomeHotelCard(hotel: hotel),
+                        for (final hotel in hotels)
+                          MyTile(places: hotel, isStars: false),
                       ],
                     )
                   ],

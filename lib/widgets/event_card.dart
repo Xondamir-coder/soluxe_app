@@ -4,10 +4,10 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/event.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
-class HomeEventCard extends StatelessWidget {
+class EventCard extends StatelessWidget {
   final Event event;
 
-  const HomeEventCard({super.key, required this.event});
+  const EventCard({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class HomeEventCard extends StatelessWidget {
                       Row(
                         spacing: 4,
                         children: [
-                          MyText.grey(event.city, fontSize: 12),
+                          MyText.grey(event.location, fontSize: 12),
                           Container(
                             width: 4,
                             height: 4,

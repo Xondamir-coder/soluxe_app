@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/screens/categories/categories.dart';
 import 'package:soluxe/screens/events.dart';
 import 'package:soluxe/screens/home.dart';
 import 'package:soluxe/screens/explore.dart';
@@ -28,6 +29,9 @@ class MyBottomNavbar extends StatelessWidget {
         return;
       case 1:
         screen = const ExploreScreen();
+        break;
+      case 2:
+        screen = const CategoriesScreen();
         break;
       case 3:
         screen = const EventsScreen();

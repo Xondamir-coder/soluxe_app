@@ -1,15 +1,12 @@
-class Hotel {
-  final String name;
-  final String star;
-  final String city;
-  final String distance;
-  final String imgSrc;
+import 'package:soluxe/models/places.dart';
 
+class Hotel extends Places {
   const Hotel({
-    required this.name,
-    required this.star,
-    required this.city,
-    required this.distance,
-    required this.imgSrc,
+    required super.star,
+    required super.title,
+    required super.location,
+    required super.imgSrc,
+    required super.dateString,
+    required super.distance,
   });
 }

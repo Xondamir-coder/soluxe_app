@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/data/events.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
-import 'package:soluxe/widgets/events/events_card.dart';
+import 'package:soluxe/widgets/tile/my_tile.dart';
 
 class EventsScreen extends StatelessWidget {
   const EventsScreen({super.key});
@@ -20,9 +20,7 @@ class EventsScreen extends StatelessWidget {
             child: ListView.separated(
               separatorBuilder: (context, index) => SizedBox(height: 10),
               padding: EdgeInsets.all(16),
-              itemBuilder: (context, index) => EventsCard(
-                event: events[index],
-              ),
+              itemBuilder: (context, index) => MyTile(places: events[index]),
               itemCount: events.length,
             ),
           ),

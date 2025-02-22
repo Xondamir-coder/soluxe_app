@@ -3,9 +3,9 @@ import 'package:soluxe/data/hotels.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
-import 'package:soluxe/widgets/explore_filter.dart';
-import 'package:soluxe/widgets/home/home_hotel_card.dart';
+import 'package:soluxe/widgets/filter_sheet.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
+import 'package:soluxe/widgets/tile/my_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class ExploreScreen extends StatefulWidget {
@@ -37,9 +37,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
       backgroundColor: Colors.white,
       context: context,
       isScrollControlled: true,
-      builder: (ctx) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [const ExploreFilter()],
+      builder: (ctx) => const FilterSheet(
+        mainCategories: ['All', 'Concerts', "Exhibitions", 'Hotels'],
       ),
     );
   }
@@ -87,7 +86,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       'Popular Searches',
                       fontSize: 16,
                     ),
-                    for (final hotel in hotels) HomeHotelCard(hotel: hotel),
+                    for (final hotel in hotels)
+                      MyTile(places: hotel, dateOnImage: true, isStars: false),
                   ],
                 ),
               ],
