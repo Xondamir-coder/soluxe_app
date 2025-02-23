@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/event.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class EventCard extends StatelessWidget {
   final Event event;
@@ -21,7 +22,11 @@ class EventCard extends StatelessWidget {
       child: Stack(
         children: [
           Positioned.fill(
-            child: Image.network(event.imgSrc, fit: BoxFit.cover),
+            child: FadeInImage.memoryNetwork(
+              image: event.imgSrc,
+              placeholder: kTransparentImage,
+              fit: BoxFit.cover,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(12),

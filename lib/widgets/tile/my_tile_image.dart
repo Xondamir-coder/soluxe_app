@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class MyTileImage extends StatelessWidget {
   final String imgSrc;
@@ -26,8 +27,9 @@ class MyTileImage extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Image.network(
-                imgSrc,
+              child: FadeInImage.memoryNetwork(
+                image: imgSrc,
+                placeholder: kTransparentImage,
                 fit: BoxFit.cover,
               ),
             ),
@@ -58,8 +60,9 @@ class MyTileImage extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       clipBehavior: Clip.hardEdge,
-      child: Image.network(
-        imgSrc,
+      child: FadeInImage.memoryNetwork(
+        image: imgSrc,
+        placeholder: kTransparentImage,
         width: 72,
         height: 72,
         fit: BoxFit.cover,

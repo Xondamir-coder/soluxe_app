@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/notification.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class NotificationsCard extends StatelessWidget {
   final NotificationModel notification;
@@ -26,7 +27,10 @@ class NotificationsCard extends StatelessWidget {
     final hasProfileImg = notification.user.profileImgSrc.isNotEmpty;
     final shortenedName = notification.user.name.substring(0, 2).toUpperCase();
     final child = hasProfileImg
-        ? Image.network(notification.user.profileImgSrc)
+        ? FadeInImage.memoryNetwork(
+            image: notification.user.profileImgSrc,
+            placeholder: kTransparentImage,
+          )
         : MyText(
             shortenedName,
             fontSize: 18,

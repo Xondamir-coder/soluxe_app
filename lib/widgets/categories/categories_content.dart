@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/buttons/grey_outlined_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
-import 'package:soluxe/widgets/categories/categories_content_row.dart';
+import 'package:soluxe/widgets/categories/categories_about_tab.dart';
+import 'package:soluxe/widgets/categories/categories_photo_tab.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 enum Tabs {
@@ -51,7 +51,10 @@ class _CategoriesContentState extends State<CategoriesContent> {
                 SvgPicture.asset('assets/icons/blue-check.svg'),
               ],
             ),
-            SvgPicture.asset('assets/icons/x.svg'),
+            IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: SvgPicture.asset('assets/icons/x.svg'),
+            ),
           ],
         ),
         // top bottom details part
@@ -69,7 +72,9 @@ class _CategoriesContentState extends State<CategoriesContent> {
                       SvgPicture.asset(
                         'assets/icons/star.svg',
                         colorFilter: ColorFilter.mode(
-                          Color.fromRGBO(255, 199, 0, 1),
+                          i < 3
+                              ? Color.fromRGBO(255, 199, 0, 1)
+                              : AppColors.grey,
                           BlendMode.srcIn,
                         ),
                       ),
@@ -122,20 +127,24 @@ class _CategoriesContentState extends State<CategoriesContent> {
 
   Widget _buildActionButtons() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.only(top: 8),
       child: Row(
         spacing: 16,
         children: [
           Expanded(
             child: YellowButton(
               'Destination',
-              onTap: () {},
+              onTap: () {
+                print('goign to Destination');
+              },
             ),
           ),
           Expanded(
             child: GreyOutlinedButton(
               'Call',
-              onTap: () {},
+              onTap: () {
+                print('goign to Destination');
+              },
             ),
           ),
         ],
@@ -145,46 +154,48 @@ class _CategoriesContentState extends State<CategoriesContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(28),
+    print('building content');
+    return Transform.translate(
+      offset: Offset(0, -20),
+      child: Container(
+        padding: const EdgeInsets.only(
+          top: 16,
+          left: 16,
+          right: 16,
+          bottom: 0,
         ),
-      ),
-      child: Column(
-        spacing: 16,
-        children: [
-          _buildTop(),
-          CategoriesContentRow(
-            text: 'European, Uzbek',
-            title: 'Kitchen',
-            iconPath: 'assets/icons/grey-kitchen.svg',
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(28),
           ),
-          CategoriesContentRow(
-            text: '2 400 000 Sum',
-            title: 'Average price',
-            iconPath: 'assets/icons/wallet.svg',
-          ),
-          CategoriesContentRow(
-            text: 'Parturient lectus luctus magnis maximus lacus commodo',
-            title: 'Address',
-            iconPath: 'assets/icons/pin.svg',
-          ),
-          CategoriesContentRow.interactive(
-            title: 'Contacts',
-            phone: '+998 90 900 90 99',
-            website: 'www.nihol.uz',
-            iconPath: 'assets/icons/contacts-phone.svg',
-          ),
-          CategoriesContentRow(
-            text: 'Daily 10:00 - 23:00',
-            title: 'Opening hours',
-            iconPath: 'assets/icons/bold-clock.svg',
-          ),
-          _buildActionButtons(),
-        ],
+        ),
+        child: Column(
+          spacing: 16,
+          children: [
+            _buildTop(),
+            AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                // Using a FadeTransition; you can also use SlideTransition, ScaleTransition, etc.
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: Offset(-1, 0),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
+                );
+              },
+              child: _selectedTab == Tabs.about
+                  ? CategoriesAboutTab(key: ValueKey('about tab'))
+                  : CategoriesPhotoTab(key: ValueKey('photo tab')),
+            ),
+            _buildActionButtons(),
+          ],
+        ),
       ),
     );
   }

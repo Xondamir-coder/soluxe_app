@@ -8,6 +8,7 @@ import 'package:soluxe/widgets/settings/settings_label.dart';
 import 'package:soluxe/widgets/settings/settings_switch_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/data/user.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -27,8 +28,9 @@ class SettingsScreen extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: Image.network(
-              userData.profileImgSrc,
+            child: FadeInImage.memoryNetwork(
+              image: userData.profileImgSrc,
+              placeholder: kTransparentImage,
               fit: BoxFit.cover,
             ),
           ),

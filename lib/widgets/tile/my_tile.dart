@@ -40,6 +40,7 @@ class MyTile extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             clipBehavior: Clip.antiAlias,
+            backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
             ),
