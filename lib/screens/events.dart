@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/data/events.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
+import 'package:soluxe/widgets/events_date.dart';
 import 'package:soluxe/widgets/tile/my_tile.dart';
 
 class EventsScreen extends StatelessWidget {
@@ -11,11 +12,13 @@ class EventsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 3),
-      appBar: const DefaultAppbar(title: 'Events'),
+      appBar: DefaultAppbar(
+        backgroundColor: Colors.white,
+        title: 'Events',
+      ),
       body: Column(
-        spacing: 16,
         children: [
-          Text('date'),
+          const EventsDate(),
           Expanded(
             child: ListView.separated(
               separatorBuilder: (context, index) => SizedBox(height: 10),

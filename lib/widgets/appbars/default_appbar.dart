@@ -8,18 +8,20 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String iconPath;
   final void Function()? onTap;
+  final Color backgroundColor;
 
   const DefaultAppbar({
     super.key,
     required this.title,
     this.onTap,
     this.iconPath = '',
+    this.backgroundColor = AppColors.creamWhite,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.creamWhite,
+      backgroundColor: backgroundColor,
       elevation: 0,
       title: TitleAppbar(title),
       centerTitle: true,
@@ -27,7 +29,13 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: iconPath.isNotEmpty
           ? [
               IconButton(
-                icon: SvgPicture.asset(iconPath),
+                icon: SvgPicture.asset(
+                  iconPath,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.richBrown,
+                    BlendMode.srcIn,
+                  ),
+                ),
                 onPressed: onTap,
               ),
             ]

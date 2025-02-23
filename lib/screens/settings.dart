@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/screens/faq/faq.dart';
 import 'package:soluxe/screens/languages.dart';
 import 'package:soluxe/screens/push_notifications.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
@@ -46,20 +47,26 @@ class SettingsScreen extends StatelessWidget {
   }
 
   void _navigateTo(BuildContext context, String name) {
-    if (name == 'languages') {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => const LanguagesScreen(),
-        ),
-      );
+    Widget route;
+    switch (name) {
+      case 'languages':
+        route = const LanguagesScreen();
+        break;
+      case 'faq':
+        route = const FaqScreen();
+        break;
+      case 'notifications':
+        route = const PushNotificationsScreen();
+        break;
+      default:
+        route = const LanguagesScreen();
     }
-    if (name == 'notifications') {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => const PushNotificationsScreen(),
-        ),
-      );
-    }
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => route,
+      ),
+    );
   }
 
   @override
@@ -93,7 +100,7 @@ class SettingsScreen extends StatelessWidget {
                     spacing: 16,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SettingsLabel(text: 'Account Setting'),
+                      const SettingsLabel(text: 'Preference'),
                       Column(
                         spacing: 12,
                         children: [
@@ -121,14 +128,14 @@ class SettingsScreen extends StatelessWidget {
                     spacing: 16,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SettingsLabel(text: 'Account Setting'),
+                      const SettingsLabel(text: 'Support'),
                       Column(
                         spacing: 12,
                         children: [
                           SettingsTile(
-                            text: 'Get Help',
+                            text: 'FAQ',
                             iconSrc: 'assets/icons/question.svg',
-                            onTap: () => _navigateTo(context, 'help'),
+                            onTap: () => _navigateTo(context, 'faq'),
                           ),
                           SettingsTile(
                             text: 'Privacy Policy',

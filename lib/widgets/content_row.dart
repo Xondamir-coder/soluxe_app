@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class CategoriesContentRow extends StatelessWidget {
+class ContentRow extends StatelessWidget {
   final String text;
   final String iconPath;
   final String title;
@@ -11,7 +11,7 @@ class CategoriesContentRow extends StatelessWidget {
   final String website;
   final bool isInteractive;
 
-  const CategoriesContentRow({
+  const ContentRow({
     super.key,
     required this.title,
     required this.text,
@@ -20,7 +20,7 @@ class CategoriesContentRow extends StatelessWidget {
         phone = '',
         website = '';
 
-  const CategoriesContentRow.interactive({
+  const ContentRow.interactive({
     super.key,
     required this.title,
     required this.phone,

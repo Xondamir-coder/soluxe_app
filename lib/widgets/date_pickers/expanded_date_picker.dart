@@ -5,17 +5,23 @@ import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
-class CustomDatePicker extends StatefulWidget {
-  final ValueChanged<DateTime> onDateChange;
+class ExpandedDatePicker extends StatefulWidget {
+  final DateTime date;
+  final ValueChanged onDateChange;
+  final bool isMonthCentered;
 
-  const CustomDatePicker({super.key, required this.onDateChange});
+  const ExpandedDatePicker({
+    super.key,
+    required this.onDateChange,
+    required this.date,
+    this.isMonthCentered = false,
+  });
 
   @override
-  State<CustomDatePicker> createState() => _CustomDatePickerState();
+  State<ExpandedDatePicker> createState() => _ExpandedDatePickerState();
 }
 
-class _CustomDatePickerState extends State<CustomDatePicker> {
-  DateTime currentDate = DateTime.now();
+class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
   double _opacity = 1.0; // Controls smooth fading
 
   /// Changes the displayed month with a smooth transition
@@ -26,33 +32,32 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     await Future.delayed(Duration(milliseconds: 200)); // Wait for fade-out
 
-    setState(() {
-      int targetYear = currentDate.year;
-      int targetMonth = currentDate.month + direction;
+    int targetYear = widget.date.year;
+    int targetMonth = widget.date.month + direction;
 
-      if (targetMonth < 1) {
-        targetYear -= 1;
-        targetMonth = 12;
-      } else if (targetMonth > 12) {
-        targetYear += 1;
-        targetMonth = 1;
-      }
+    if (targetMonth < 1) {
+      targetYear -= 1;
+      targetMonth = 12;
+    } else if (targetMonth > 12) {
+      targetYear += 1;
+      targetMonth = 1;
+    }
 
-      int daysInTargetMonth = DateTime(targetYear, targetMonth + 1, 0).day;
-      int newDay = currentDate.day > daysInTargetMonth
-          ? daysInTargetMonth
-          : currentDate.day;
+    int daysInTargetMonth = DateTime(targetYear, targetMonth + 1, 0).day;
+    int newDay = widget.date.day > daysInTargetMonth
+        ? daysInTargetMonth
+        : widget.date.day;
 
-      currentDate = DateTime(targetYear, targetMonth, newDay);
-      _opacity = 1.0; // Fade in after state update
-    });
+    final newDate = DateTime(targetYear, targetMonth, newDay);
+    widget.onDateChange(newDate);
+    _opacity = 1.0; // Fade in after state update
   }
 
   /// Builds the calendar grid for the current month
   Widget _buildCalendar() {
-    DateTime firstDayOfMonth = DateTime(currentDate.year, currentDate.month, 1);
+    DateTime firstDayOfMonth = DateTime(widget.date.year, widget.date.month, 1);
     int startingWeekday = firstDayOfMonth.weekday;
-    int daysInMonth = DateTime(currentDate.year, currentDate.month + 1, 0).day;
+    int daysInMonth = DateTime(widget.date.year, widget.date.month + 1, 0).day;
 
     List<Widget> dayWidgets = [];
     int dayCounter = 1;
@@ -66,8 +71,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           weekRow.add(Expanded(child: SizedBox()));
         } else {
           DateTime day =
-              DateTime(currentDate.year, currentDate.month, dayCounter);
-          bool isSelected = day.day == currentDate.day;
+              DateTime(widget.date.year, widget.date.month, dayCounter);
+          bool isSelected = day.day == widget.date.day;
 
           weekRow.add(
             Expanded(
@@ -78,7 +83,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   decoration: BoxDecoration(
                     color: isSelected
                         ? AppColors.accentYellow
-                        : Color.fromRGBO(249, 250, 251, 1),
+                        : AppColors.almostWhite,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Material(
@@ -86,8 +91,10 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     child: InkWell(
                       onTap: () => _selectDate(day),
                       borderRadius: BorderRadius.circular(8),
-                      splashColor: AppColors.accentYellow.withOpacity(0.2),
-                      highlightColor: AppColors.accentYellow.withOpacity(0.1),
+                      splashColor:
+                          AppColors.accentYellow.withValues(alpha: 0.2),
+                      highlightColor:
+                          AppColors.accentYellow.withValues(alpha: 0.1),
                       child: Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -148,6 +155,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         // Month & Navigation Row
         Row(
           spacing: 10,
+          mainAxisAlignment: widget.isMonthCentered
+              ? MainAxisAlignment.center
+              : MainAxisAlignment.start,
           children: [
             Material(
               color: AppColors.lightGrey,
@@ -170,7 +180,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               ),
             ),
             MyText.deepBlue(
-              DateFormat('MMMM yyyy').format(currentDate),
+              DateFormat('MMMM yyyy').format(widget.date),
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
@@ -223,10 +233,6 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
   /// Selects a new date and calls `onDateChange`
   void _selectDate(DateTime date) {
-    setState(() {
-      currentDate = date;
-    });
-
     widget.onDateChange(date);
   }
 }

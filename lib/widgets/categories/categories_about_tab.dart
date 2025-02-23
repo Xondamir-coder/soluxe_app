@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soluxe/widgets/categories/categories_content_row.dart';
+import 'package:soluxe/widgets/content_row.dart';
 
 class CategoriesAboutTab extends StatelessWidget {
   const CategoriesAboutTab({super.key});
@@ -9,28 +9,28 @@ class CategoriesAboutTab extends StatelessWidget {
     return Column(
       spacing: 16,
       children: [
-        CategoriesContentRow(
+        ContentRow(
           text: 'European, Uzbek',
           title: 'Kitchen',
           iconPath: 'assets/icons/grey-kitchen.svg',
         ),
-        CategoriesContentRow(
+        ContentRow(
           text: '2 400 000 Sum',
           title: 'Average price',
           iconPath: 'assets/icons/wallet.svg',
         ),
-        CategoriesContentRow(
+        ContentRow(
           text: 'Parturient lectus luctus magnis maximus lacus commodo',
           title: 'Address',
           iconPath: 'assets/icons/pin.svg',
         ),
-        CategoriesContentRow.interactive(
+        ContentRow.interactive(
           title: 'Contacts',
           phone: '+998 90 900 90 99',
           website: 'www.nihol.uz',
           iconPath: 'assets/icons/contacts-phone.svg',
         ),
-        CategoriesContentRow(
+        ContentRow(
           text: 'Daily 10:00 - 23:00',
           title: 'Opening hours',
           iconPath: 'assets/icons/bold-clock.svg',

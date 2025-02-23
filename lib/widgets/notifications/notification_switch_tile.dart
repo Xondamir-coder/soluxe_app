@@ -33,7 +33,7 @@ class NotificationSwitchTile extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: const Color.fromRGBO(249, 250, 251, 1),
+          color: AppColors.almostWhite,
         ),
         child: SvgPicture.asset(
           iconPath,

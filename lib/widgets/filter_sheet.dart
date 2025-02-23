@@ -5,7 +5,7 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/buttons/grey_outlined_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
-import 'package:soluxe/widgets/custom_date_picker.dart';
+import 'package:soluxe/widgets/date_pickers/expanded_date_picker.dart';
 import 'package:soluxe/widgets/price_range_slider.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
@@ -24,7 +24,7 @@ class FilterSheet extends StatefulWidget {
 }
 
 class _FilterSheetState extends State<FilterSheet> {
-  late DateTime selectedDate;
+  late ValueNotifier<DateTime> selectedDate;
   late final ValueNotifier<String> selectedMainCategory;
   late final ValueNotifier<String> selectedSecondaryCategory;
   late final ValueNotifier<RangeValues> selectedPrice;
@@ -33,6 +33,7 @@ class _FilterSheetState extends State<FilterSheet> {
   void initState() {
     selectedMainCategory = ValueNotifier<String>(widget.mainCategories[0]);
     selectedPrice = ValueNotifier<RangeValues>(RangeValues(50, 400));
+    selectedDate = ValueNotifier<DateTime>(DateTime.now());
     if (widget.secondaryCategories.isNotEmpty) {
       selectedSecondaryCategory =
           ValueNotifier<String>(widget.secondaryCategories[0]);
@@ -50,7 +51,6 @@ class _FilterSheetState extends State<FilterSheet> {
 
   @override
   Widget build(BuildContext context) {
-    print('building FilterSheet'); // This should print only once
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -131,11 +131,15 @@ class _FilterSheetState extends State<FilterSheet> {
                   ),
                 ),
               ),
-              CustomDatePicker(
-                onDateChange: (val) {
-                  selectedDate = val;
-                  print(DateFormat('yyyy-MM-dd').format(selectedDate));
-                },
+              ValueListenableBuilder<DateTime>(
+                valueListenable: selectedDate,
+                builder: (context, value, child) => ExpandedDatePicker(
+                  date: selectedDate.value,
+                  onDateChange: (val) {
+                    selectedDate.value = val;
+                    print(DateFormat('yyyy-MM-dd').format(selectedDate.value));
+                  },
+                ),
               ),
               Row(
                 spacing: 16,

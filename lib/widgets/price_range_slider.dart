@@ -13,7 +13,6 @@ class PriceRangeSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('building slider');
     return Column(
       children: [
         // Range Slider

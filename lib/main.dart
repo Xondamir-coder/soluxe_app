@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/screens/categories/categories.dart';
+import 'package:soluxe/screens/events.dart';
+import 'package:soluxe/screens/faq/faq.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(
+    ProviderScope(child: const MyApp()),
+  );
 }
 
 final kTheme = ThemeData().copyWith(
@@ -21,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: kTheme,
       debugShowCheckedModeBanner: false,
-      home: const CategoriesScreen(),
+      home: const EventsScreen(),
     );
   }
 }

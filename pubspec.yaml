@@ -93,6 +93,7 @@ flutter:
         - assets/icons/wallet.svg
         - assets/icons/clock.svg
         - assets/icons/bold-clock.svg
+        - assets/icons/note.svg
         - assets/icons/house.svg
         - assets/icons/joystick.svg
         - assets/icons/double-check.svg

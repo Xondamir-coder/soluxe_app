@@ -154,7 +154,6 @@ class _CategoriesContentState extends State<CategoriesContent> {
 
   @override
   Widget build(BuildContext context) {
-    print('building content');
     return Transform.translate(
       offset: Offset(0, -20),
       child: Container(
