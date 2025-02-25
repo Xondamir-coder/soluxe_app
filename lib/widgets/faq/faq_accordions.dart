@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soluxe/data/faqs.dart';
-import 'package:soluxe/models/faq_question.dart';
+import 'package:soluxe/models/faq/faq_question.dart';
 import 'package:soluxe/widgets/faq/faq_accordions_item.dart';
 import 'package:soluxe/widgets/animations/slide_in_widget.dart';
 

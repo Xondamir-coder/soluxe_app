@@ -81,8 +81,14 @@ flutter:
         - assets/icons/eye-off.svg
         - assets/icons/x.svg
         - assets/icons/date.svg
+        - assets/icons/park.svg
+        - assets/icons/pool.svg
         - assets/icons/apple.svg
+        - assets/icons/wifi.svg
+        - assets/icons/breakfast.svg
         - assets/icons/google.svg
+        - assets/icons/cup.svg
+        - assets/icons/bed.svg
         - assets/icons/categories.svg
         - assets/icons/verification.svg
         - assets/icons/calendar.svg
@@ -103,10 +109,12 @@ flutter:
         - assets/icons/blue-check.svg
         - assets/icons/castle.svg
         - assets/icons/clipboard.svg
+        - assets/icons/check.svg
         - assets/icons/question.svg
         - assets/icons/notification.svg
         - assets/icons/global.svg
         - assets/icons/star.svg
+        - assets/icons/circle-star.svg
         - assets/icons/pin.svg
         - assets/icons/filter.svg
         - assets/icons/moon.svg

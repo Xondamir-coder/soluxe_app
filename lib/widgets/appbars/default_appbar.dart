@@ -12,9 +12,9 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   const DefaultAppbar({
     super.key,
-    required this.title,
     this.onTap,
     this.iconPath = '',
+    this.title = '',
     this.backgroundColor = AppColors.creamWhite,
   });
 
@@ -23,7 +23,7 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: backgroundColor,
       elevation: 0,
-      title: TitleAppbar(title),
+      title: title.isNotEmpty ? TitleAppbar(title) : null,
       centerTitle: true,
       leading: const CircularBackButton(),
       actions: iconPath.isNotEmpty

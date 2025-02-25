@@ -60,6 +60,10 @@ class CategoryTabs extends StatelessWidget {
                         'assets/icons/flash.svg',
                         width: 18,
                         height: 18,
+                        colorFilter: ColorFilter.mode(
+                          Colors.white,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     if (!isSelected && iconPath.isNotEmpty)
                       SvgPicture.asset(

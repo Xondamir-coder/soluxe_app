@@ -3,11 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/events.dart';
 import 'package:soluxe/data/hotels.dart';
+import 'package:soluxe/screens/events.dart';
+import 'package:soluxe/screens/hotels.dart';
 import 'package:soluxe/screens/notifications.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/event_card.dart';
+import 'package:soluxe/widgets/hotel/hotels_item.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
+import 'package:soluxe/widgets/section_header.dart';
 import 'package:soluxe/widgets/tile/my_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
@@ -115,30 +119,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 Column(
-                  spacing: 5,
+                  spacing: 10,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        MyTitle(
-                          'Upcoming events',
-                          fontSize: 16,
-                          letterSpacing: 0,
+                    SectionHeader(
+                      title: 'Upcoming events',
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (ctx) => const EventsScreen(),
                         ),
-                        TextButton.icon(
-                          onPressed: () {},
-                          label: MyText(
-                            'See All',
-                            color: AppColors.accentYellow,
-                          ),
-                          style: TextButton.styleFrom(
-                            overlayColor: AppColors.grey,
-                          ),
-                          iconAlignment: IconAlignment.end,
-                          icon:
-                              SvgPicture.asset('assets/icons/arrow-right.svg'),
-                        ),
-                      ],
+                      ),
                     ),
                     SizedBox(
                       height: 290,
@@ -154,36 +143,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 Column(
-                  spacing: 5,
+                  spacing: 10,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        MyTitle(
-                          'Hotels',
-                          fontSize: 16,
-                          letterSpacing: 0,
+                    SectionHeader(
+                      title: 'Hotels',
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (ctx) => const HotelsScreen(),
                         ),
-                        TextButton.icon(
-                          onPressed: () {},
-                          label: MyText(
-                            'See All',
-                            color: AppColors.accentYellow,
-                          ),
-                          style: TextButton.styleFrom(
-                            overlayColor: AppColors.grey,
-                          ),
-                          iconAlignment: IconAlignment.end,
-                          icon:
-                              SvgPicture.asset('assets/icons/arrow-right.svg'),
-                        ),
-                      ],
+                      ),
                     ),
                     Column(
                       spacing: 10,
                       children: [
-                        for (final hotel in hotels)
-                          MyTile(places: hotel, isStars: false),
+                        for (final hotel in hotels) HotelsItem(hotel: hotel),
                       ],
                     )
                   ],

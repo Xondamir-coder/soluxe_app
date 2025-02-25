@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soluxe/models/faq_topic.dart';
+import 'package:soluxe/models/faq/faq_topic.dart';
 import 'package:soluxe/screens/faq/faq_questions.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 

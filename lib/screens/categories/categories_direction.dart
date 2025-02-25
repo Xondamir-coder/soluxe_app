@@ -24,8 +24,8 @@ class _CategoriesDirectionScreenState extends State<CategoriesDirectionScreen> {
 
   @override
   void initState() {
-    if (widget.category.subCategories.isEmpty) return;
-    selectedCategory = widget.category.subCategories[0];
+    if (widget.category.categories.isEmpty) return;
+    selectedCategory = widget.category.categories[0];
     super.initState();
   }
 
@@ -65,11 +65,11 @@ class _CategoriesDirectionScreenState extends State<CategoriesDirectionScreen> {
         child: Column(
           spacing: 16,
           children: [
-            if (widget.category.subCategories.isNotEmpty)
+            if (widget.category.categories.isNotEmpty)
               CategoryTabs(
                 selectedCategory: selectedCategory,
                 iconPath: 'assets/icons/kitchen.svg',
-                categories: widget.category.subCategories,
+                categories: widget.category.categories,
                 onCategorySelected: (val) =>
                     setState(() => selectedCategory = val),
               ),

@@ -6,6 +6,7 @@ import 'package:soluxe/widgets/buttons/grey_outlined_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/date_pickers/expanded_date_picker.dart';
+import 'package:soluxe/widgets/drag_handle.dart';
 import 'package:soluxe/widgets/price_range_slider.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
@@ -59,14 +60,7 @@ class _FilterSheetState extends State<FilterSheet> {
           child: Column(
             spacing: 16,
             children: [
-              Container(
-                width: 32,
-                height: 6,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: AppColors.lightGrey,
-                ),
-              ),
+              const DragHandle(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

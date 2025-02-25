@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 final imagePath =
@@ -58,9 +59,8 @@ class CategoriesImagePartState extends State<CategoriesImagePart> {
               children: [
                 for (var i = 0; i < images.length; i++) ...[
                   Material(
-                    color: _currentIndex == i
-                        ? Colors.white
-                        : const Color.fromRGBO(217, 217, 217, 1),
+                    color:
+                        _currentIndex == i ? Colors.white : AppColors.shadyGrey,
                     borderRadius: BorderRadius.circular(100),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(100),

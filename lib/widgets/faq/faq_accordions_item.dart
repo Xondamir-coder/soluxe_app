@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/faq_question.dart';
+import 'package:soluxe/models/faq/faq_question.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class FaqAccordionsItem extends StatelessWidget {
@@ -36,7 +36,7 @@ class FaqAccordionsItem extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16),
           child: MyText(
             faqQuestion.answer,
-            color: Color.fromRGBO(107, 114, 128, 1),
+            color: AppColors.darkGrey,
           ),
         ),
         Padding(

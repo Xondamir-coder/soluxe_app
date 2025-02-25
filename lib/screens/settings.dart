@@ -37,6 +37,7 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MyText.deepBlue(userData.name, fontSize: 18),
             MyText.grey(userData.email!),

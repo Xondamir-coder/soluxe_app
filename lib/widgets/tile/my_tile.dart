@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/models/hotel/hotel.dart';
 import 'package:soluxe/models/places.dart';
+import 'package:soluxe/screens/hotel.dart';
 import 'package:soluxe/widgets/categories/categories_bottom_sheet.dart';
+import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/tile/my_tile_bottom.dart';
 import 'package:soluxe/widgets/tile/my_tile_image.dart';
-import 'package:soluxe/widgets/tile/my_tile_stars.dart';
 import 'package:soluxe/widgets/tile/my_tile_title.dart';
 
 class MyTile extends StatelessWidget {
@@ -36,6 +38,14 @@ class MyTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(14),
       child: InkWell(
         onTap: () {
+          if (places is Hotel) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => HotelScreen(hotel: places as Hotel),
+              ),
+            );
+            return;
+          }
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -70,7 +80,7 @@ class MyTile extends StatelessWidget {
                       color: titleColor,
                       fontSize: titleFontSize,
                     ),
-                    if (isStars) MyTileStars(star: places.star),
+                    if (isStars) StarRating(star: places.star),
                     MyTileBottom(
                         location: places.location, distance: places.distance),
                   ],

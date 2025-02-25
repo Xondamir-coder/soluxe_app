@@ -5,6 +5,7 @@ import 'package:soluxe/widgets/buttons/grey_outlined_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/categories/categories_about_tab.dart';
 import 'package:soluxe/widgets/categories/categories_photo_tab.dart';
+import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 enum Tabs {
@@ -61,28 +62,7 @@ class _CategoriesContentState extends State<CategoriesContent> {
         Row(
           spacing: 10,
           children: [
-            // stars part
-            Row(
-              spacing: 6,
-              children: [
-                // stars
-                Row(
-                  children: [
-                    for (var i = 0; i < 5; i++)
-                      SvgPicture.asset(
-                        'assets/icons/star.svg',
-                        colorFilter: ColorFilter.mode(
-                          i < 3
-                              ? Color.fromRGBO(255, 199, 0, 1)
-                              : AppColors.grey,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                  ],
-                ),
-                MyText.grey('3', fontSize: 12),
-              ],
-            ),
+            StarRating(star: '4'),
             _buildDot(),
             SvgPicture.asset('assets/icons/car.svg'),
             MyText.grey('5 min', fontSize: 12),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:soluxe/models/faq_question.dart';
-import 'package:soluxe/models/faq_topic.dart';
+import 'package:soluxe/models/faq/faq_question.dart';
+import 'package:soluxe/models/faq/faq_topic.dart';
 
 final faqTopics = [
   FaqTopic(

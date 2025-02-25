@@ -119,7 +119,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                               decoration: BoxDecoration(
                                 color: isSelected
                                     ? Colors.white
-                                    : Color.fromRGBO(255, 129, 66, 1),
+                                    : AppColors.orange,
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -172,7 +172,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                   child: SvgPicture.asset(
                     'assets/icons/arrow-left.svg',
                     colorFilter: ColorFilter.mode(
-                      Color.fromRGBO(107, 114, 128, 1),
+                      AppColors.darkGrey,
                       BlendMode.srcIn,
                     ),
                   ),
@@ -197,7 +197,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                   child: SvgPicture.asset(
                     'assets/icons/arrow-right.svg',
                     colorFilter: ColorFilter.mode(
-                      Color.fromRGBO(107, 114, 128, 1),
+                      AppColors.darkGrey,
                       BlendMode.srcIn,
                     ),
                   ),
@@ -218,7 +218,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                     day,
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
-                    color: Color.fromRGBO(107, 114, 128, 1),
+                    color: AppColors.darkGrey,
                   ),
                 ),
               )
