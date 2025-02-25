@@ -59,6 +59,10 @@ final testSimilarHotel = HotelRoom(
 );
 
 final testHotel = Hotel(
+  averagePrice: '2 400 000 Sum',
+  openingHours: 'Daily 10:00 - 23:00',
+  phoneNumber: '+998 90 900 90 99',
+  website: 'www.nihol.uz',
   review: HotelReview(
     rating: 4.6,
     ratingCount: 532,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/screens/faq/faq_topics.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/animations/slide_in_widget.dart';
@@ -8,7 +6,6 @@ import 'package:soluxe/widgets/faq/faq_accordions.dart';
 import 'package:soluxe/widgets/faq/faq_topics.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/section_header.dart';
-import 'package:soluxe/widgets/typography/my_text.dart';
 
 class FaqScreen extends StatelessWidget {
   const FaqScreen({super.key});

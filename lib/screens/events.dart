@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/data/events.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
-import 'package:soluxe/widgets/events_date.dart';
+import 'package:soluxe/widgets/event/events_date.dart';
 import 'package:soluxe/widgets/tile/my_tile.dart';
 
 class EventsScreen extends StatelessWidget {

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/data/events.dart';
+import 'package:soluxe/screens/event.dart';
+import 'package:soluxe/screens/events.dart';
 import 'package:soluxe/screens/home.dart';
-import 'package:soluxe/screens/hotels.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: kTheme,
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: EventScreen(event: events[0]),
     );
   }
 }

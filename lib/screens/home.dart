@@ -8,11 +8,10 @@ import 'package:soluxe/screens/hotels.dart';
 import 'package:soluxe/screens/notifications.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
-import 'package:soluxe/widgets/event_card.dart';
+import 'package:soluxe/widgets/event/event_card.dart';
 import 'package:soluxe/widgets/hotel/hotels_item.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/section_header.dart';
-import 'package:soluxe/widgets/tile/my_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 

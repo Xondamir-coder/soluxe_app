@@ -117,6 +117,7 @@ flutter:
         - assets/icons/circle-star.svg
         - assets/icons/pin.svg
         - assets/icons/filter.svg
+        - assets/icons/dots-vertical.svg
         - assets/icons/moon.svg
         - assets/icons/profile.svg
         - assets/icons/circle-check.svg

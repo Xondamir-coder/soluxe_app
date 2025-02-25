@@ -6,9 +6,7 @@ import 'package:soluxe/models/places.dart';
 
 class Hotel extends Places {
   final String price;
-  final String description;
   final HotelReview review;
-  final List<String> images;
   final List<HotelAmenity> amenities;
   final List<HotelRoom> rooms;
   final List<HotelComment> comments;
@@ -20,11 +18,15 @@ class Hotel extends Places {
     required this.facilitiesIconPaths,
     required this.review,
     required this.comments,
-    required this.images,
     required this.amenities,
-    required this.description,
     required this.price,
     required this.rooms,
+    required super.averagePrice,
+    required super.phoneNumber,
+    required super.website,
+    required super.openingHours,
+    required super.description,
+    required super.images,
     required super.star,
     required super.title,
     required super.location,

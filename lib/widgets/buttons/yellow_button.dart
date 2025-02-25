@@ -5,11 +5,15 @@ import 'package:soluxe/widgets/typography/my_text.dart';
 class YellowButton extends StatelessWidget {
   final void Function() onTap;
   final String text;
+  final double borderRadius;
+  final double padding;
 
   const YellowButton(
     this.text, {
     super.key,
     required this.onTap,
+    this.borderRadius = 16,
+    this.padding = 17.5,
   });
 
   @override
@@ -22,9 +26,9 @@ class YellowButton extends StatelessWidget {
           backgroundColor: AppColors.accentYellow,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
-          padding: EdgeInsets.all(17.5),
+          padding: EdgeInsets.all(padding),
           shadowColor: AppColors.accentYellow,
         ),
         child: MyText(

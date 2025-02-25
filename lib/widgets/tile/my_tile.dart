@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/models/event.dart';
 import 'package:soluxe/models/hotel/hotel.dart';
 import 'package:soluxe/models/places.dart';
+import 'package:soluxe/screens/event.dart';
 import 'package:soluxe/screens/hotel.dart';
 import 'package:soluxe/widgets/categories/categories_bottom_sheet.dart';
 import 'package:soluxe/widgets/star_rating.dart';
@@ -42,6 +44,14 @@ class MyTile extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (ctx) => HotelScreen(hotel: places as Hotel),
+              ),
+            );
+            return;
+          }
+          if (places is Event) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => EventScreen(event: places as Event),
               ),
             );
             return;
