@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/events.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
@@ -10,10 +11,11 @@ class EventsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 3),
       appBar: DefaultAppbar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
         title: 'Events',
       ),
       body: Column(

@@ -17,13 +17,14 @@ class _HotelsFilterRatingState extends State<HotelsFilterRating> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       spacing: 10,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyText(
           'Filter by hotel',
-          color: AppColors.darkBrown,
+          color: AppColors.adaptiveGreyOrDarkBrown(isDark),
           fontWeight: FontWeight.w700,
         ),
         ValueListenableBuilder(
@@ -49,12 +50,13 @@ class _HotelsFilterRatingState extends State<HotelsFilterRating> {
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color:
-                            isSelected ? AppColors.yellow : AppColors.lightGrey,
+                        color: isSelected
+                            ? AppColors.yellow
+                            : AppColors.adaptivAccentBlueOrLightGrey(isDark),
                         width: 1,
                       ),
                       borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
+                      color: AppColors.adaptiveTransparentOrWhite(isDark),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -64,7 +66,8 @@ class _HotelsFilterRatingState extends State<HotelsFilterRating> {
                             begin: AppColors.grey, // Default color
                             end: isSelected
                                 ? AppColors.yellow
-                                : AppColors.grey, // Animated color
+                                : AppColors.adaptiveAccentWhiteOrGrey(
+                                    isDark), // Animated color
                           ),
                           duration: const Duration(milliseconds: 300),
                           builder: (context, color, child) {

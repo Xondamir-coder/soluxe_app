@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 
+enum MyTextVariant { warmBrown, deepBlue, grey, flexible }
+
 class MyText extends StatelessWidget {
   final String text;
   final FontWeight fontWeight;
   final double fontSize;
   final double height;
-  final Color color;
+  final Color? color;
   final TextAlign textAlign;
+  final MyTextVariant variant;
 
   const MyText(
     this.text, {
@@ -18,7 +21,17 @@ class MyText extends StatelessWidget {
     this.color = AppColors.warmBrown,
     this.textAlign = TextAlign.start,
     super.key,
-  });
+  }) : variant = MyTextVariant.flexible;
+
+  const MyText.warmBrown(
+    this.text, {
+    this.fontSize = 14,
+    this.fontWeight = FontWeight.w500,
+    this.height = 1.5,
+    this.color = AppColors.warmBrown,
+    this.textAlign = TextAlign.start,
+    super.key,
+  }) : variant = MyTextVariant.warmBrown;
 
   const MyText.deepBlue(
     this.text, {
@@ -26,8 +39,9 @@ class MyText extends StatelessWidget {
     this.fontWeight = FontWeight.w700,
     this.height = 1.5,
     this.textAlign = TextAlign.start,
+    this.color,
     super.key,
-  }) : color = AppColors.deepBlue;
+  }) : variant = MyTextVariant.deepBlue;
 
   const MyText.grey(
     this.text, {
@@ -35,11 +49,28 @@ class MyText extends StatelessWidget {
     this.fontWeight = FontWeight.w500,
     this.height = 1.5,
     this.textAlign = TextAlign.start,
+    this.color,
     super.key,
-  }) : color = AppColors.grey;
+  }) : variant = MyTextVariant.grey;
+
+  Color _getDefaultColor(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    switch (variant) {
+      case MyTextVariant.deepBlue:
+        return isDark ? AppColors.almostWhite : AppColors.deepBlue;
+      case MyTextVariant.grey:
+        return AppColors.adaptiveDarkGreyOrGrey(isDark);
+      case MyTextVariant.warmBrown:
+        return AppColors.adaptiveDarkBeigeOrWarmBrown(isDark);
+      case MyTextVariant.flexible:
+        return color!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final color = _getDefaultColor(context);
     return Text(
       text,
       textAlign: textAlign,

@@ -36,6 +36,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: const DefaultAppbar(title: 'Select Language'),
       body: Padding(
@@ -45,7 +46,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
           children: [
             for (final language in AppLanguages.languages)
               Material(
-                color: Colors.white,
+                color: AppColors.adaptiveDarkBlueOrWhite(isDark),
                 borderRadius: BorderRadius.circular(16),
                 child: InkWell(
                   onTap: () => _setLang(language.code),
@@ -62,7 +63,11 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
                           spacing: 16,
                           children: [
                             language.icon,
-                            MyText(language.name, color: AppColors.deepBlue),
+                            MyText(
+                              language.name,
+                              color: AppColors.adaptiveAlmostWhiteOrDeepBlue(
+                                  isDark),
+                            ),
                           ],
                         ),
                         if (_langCode == language.code)

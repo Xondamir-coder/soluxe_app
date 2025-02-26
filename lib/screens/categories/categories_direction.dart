@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/restaurants.dart';
 import 'package:soluxe/models/category.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
@@ -31,13 +32,14 @@ class _CategoriesDirectionScreenState extends State<CategoriesDirectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: DefaultAppbar(
         title: widget.category.name,
         iconPath: 'assets/icons/filter.svg',
         onTap: () {
           showModalBottomSheet(
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.adaptiveDeepBlueOrWhite(isDark),
             context: context,
             isScrollControlled: true,
             builder: (ctx) => FilterSheet(

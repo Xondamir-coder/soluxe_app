@@ -14,11 +14,12 @@ class FaqAccordionsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ExpansionTile(
       title: MyText(
         faqQuestion.question,
         fontWeight: FontWeight.w700,
-        color: AppColors.veryDarkBrown,
+        color: AppColors.adaptiveAccentWhiteOrVeryDarkBrown(isDark),
       ),
       clipBehavior: Clip.antiAlias,
       collapsedShape: RoundedRectangleBorder(
@@ -29,14 +30,14 @@ class FaqAccordionsItem extends StatelessWidget {
       ),
       collapsedIconColor: AppColors.grey,
       iconColor: Color.fromRGBO(157, 120, 47, 1),
-      backgroundColor: Colors.white,
-      collapsedBackgroundColor: Colors.white,
+      backgroundColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
+      collapsedBackgroundColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 16),
           child: MyText(
             faqQuestion.answer,
-            color: AppColors.darkGrey,
+            color: AppColors.adaptiveGreyOrDarkGrey(isDark),
           ),
         ),
         Padding(

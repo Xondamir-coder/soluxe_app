@@ -18,80 +18,84 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: const ArrowAppbar(),
       body: Padding(
         padding: const EdgeInsets.only(left: 24, bottom: 24, right: 24),
-        child: Column(
-          spacing: 20,
-          children: [
-            Center(
-              child: Column(
-                spacing: 8,
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: 20,
+            children: [
+              Center(
+                child: Column(
+                  spacing: 8,
+                  children: [
+                    MyTitle('Assalomu Aleykum'),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width > 500
+                          ? double.infinity
+                          : 300,
+                      child: MyText.warmBrown(
+                        'Let’s continue your journey through Uzbekistan—there’s so much more to explore!',
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const LoginForm(),
+              Row(
+                spacing: 16,
                 children: [
-                  MyTitle('Assalomu Aleykum'),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width > 500
-                        ? double.infinity
-                        : 300,
-                    child: MyText(
-                      'Let’s continue your journey through Uzbekistan—there’s so much more to explore!',
-                      textAlign: TextAlign.center,
+                  Expanded(
+                    child: Container(
+                      height: 1,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            AppColors.softWhite.withValues(alpha: 0),
+                            AppColors.softWhite.withValues(alpha: 1),
+                          ],
+                        ),
+                      ),
                     ),
-                  )
+                  ),
+                  MyText.grey('Or'),
+                  Expanded(
+                    child: Container(
+                      height: 1,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            AppColors.softWhite.withValues(alpha: 1),
+                            AppColors.softWhite.withValues(alpha: 0),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-            const LoginForm(),
-            Row(
-              spacing: 16,
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 1,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.softWhite.withValues(alpha: 0),
-                          AppColors.softWhite.withValues(alpha: 1),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                MyText.grey('Or'),
-                Expanded(
-                  child: Container(
-                    height: 1,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.softWhite.withValues(alpha: 1),
-                          AppColors.softWhite.withValues(alpha: 0),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              spacing: 12,
-              children: [
-                ProviderButton(
-                  'Sign In with Google',
-                  onTap: () => _signInWithProvider('google'),
-                  icon: SvgPicture.asset('assets/icons/google.svg'),
-                ),
-                if (Platform.isIOS)
+              Column(
+                spacing: 12,
+                children: [
                   ProviderButton(
-                    'Sign In with Apple',
-                    onTap: () => _signInWithProvider('apple'),
-                    icon: SvgPicture.asset('assets/icons/apple.svg'),
+                    'Sign In with Google',
+                    onTap: () => _signInWithProvider('google'),
+                    icon: SvgPicture.asset('assets/icons/google.svg'),
                   ),
-              ],
-            ),
-          ],
+                  if (Platform.isIOS)
+                    ProviderButton(
+                      'Sign In with Apple',
+                      onTap: () => _signInWithProvider('apple'),
+                      icon: SvgPicture.asset('assets/icons/apple.svg'),
+                    ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -15,8 +15,10 @@ class WelcomeAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return AppBar(
-      backgroundColor: AppColors.creamWhite,
+      backgroundColor: AppColors.adaptiveTransparentBg(isDark),
       elevation: 0,
       actions: [
         if (currentIndex < 3)

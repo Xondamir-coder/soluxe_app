@@ -8,6 +8,7 @@ import 'package:soluxe/widgets/hotel/hotels_filter_rating.dart';
 import 'package:soluxe/widgets/hotel/hotels_filter_type.dart';
 import 'package:soluxe/widgets/price_range_slider.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:soluxe/constants/colors.dart';
 
 class HotelsFilterSheet extends StatefulWidget {
   const HotelsFilterSheet({super.key});
@@ -38,6 +39,8 @@ class _HotelsFilterSheetState extends State<HotelsFilterSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: SingleChildScrollView(
@@ -49,11 +52,15 @@ class _HotelsFilterSheetState extends State<HotelsFilterSheet> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                MyText.deepBlue('Filter', fontSize: 20),
+                MyText(
+                  'Filter',
+                  fontSize: 20,
+                  color: AppColors.adaptiveGreyOrDeepBlue(isDark),
+                ),
                 IconButton(
                   onPressed: () => Navigator.of(context).pop(),
                   icon: SvgPicture.asset(
-                    'assets/icons/x.svg',
+                    isDark ? 'assets/icons/dark-x.svg' : 'assets/icons/x.svg',
                     width: 24,
                     height: 24,
                   ),
@@ -77,6 +84,7 @@ class _HotelsFilterSheetState extends State<HotelsFilterSheet> {
             ValueListenableBuilder(
               valueListenable: selectedDate,
               builder: (context, value, child) => ExpandedDatePicker(
+                darkBlueBgColor: true,
                 onDateChange: (value) => selectedDate.value = value,
                 date: selectedDate.value,
               ),

@@ -16,8 +16,10 @@ class GridCategoriesItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Material(
-      color: Colors.white,
+      color: AppColors.adaptiveDarkBlueOrWhite(isDark),
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
         onTap: () {
@@ -53,7 +55,7 @@ class GridCategoriesItem extends StatelessWidget {
               category.name,
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: AppColors.deepBlue,
+              color: AppColors.adaptiveGreyOrDeepBlue(isDark),
             ),
           ],
         ),

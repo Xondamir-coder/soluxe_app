@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/hotel/hotel.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/hotel/hotel_amenities.dart';
@@ -18,6 +19,7 @@ class HotelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: const DefaultAppbar(backgroundColor: Colors.transparent),
       extendBodyBehindAppBar: true,
@@ -40,7 +42,7 @@ class HotelScreen extends StatelessWidget {
                   MyText(
                     hotel.description,
                     fontSize: 12,
-                    color: Color.fromRGBO(75, 85, 99, 1),
+                    color: AppColors.adaptiveGreyOrDarkerGrey(isDark),
                   ),
                   HotelAmenities(amenities: hotel.amenities),
                   HotelRooms(rooms: hotel.rooms),
@@ -76,13 +78,28 @@ class HotelScreen extends StatelessWidget {
                         title: 'Top picks hotel',
                         onTap: () => Navigator.of(context).pop(),
                       ),
-                      Column(
-                        spacing: 10,
-                        children: [
-                          for (final room in hotel.rooms)
-                            HotelRoomsItem(room: room),
-                        ],
-                      )
+                      SizedBox(
+                        height: 110,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: hotel.rooms.length,
+                          separatorBuilder: (ctx, index) =>
+                              const SizedBox(width: 10),
+                          itemBuilder: (ctx, index) {
+                            return Builder(
+                              builder: (context) {
+                                final screenWidth =
+                                    MediaQuery.of(context).size.width;
+                                return SizedBox(
+                                  width: screenWidth * 0.85,
+                                  child:
+                                      HotelRoomsItem(room: hotel.rooms[index]),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   )
                 ],

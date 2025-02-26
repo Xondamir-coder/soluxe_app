@@ -32,15 +32,15 @@ class VerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appbarHeight =
-        AppBar().preferredSize.height + MediaQuery.of(context).padding.top;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: const ArrowAppbar(),
+      appBar: ArrowAppbar(
+        backgroundColor: AppColors.adaptiveTransparentBg(isDark),
+      ),
       extendBodyBehindAppBar: true,
       body: Padding(
         padding: EdgeInsets.only(
-          top: appbarHeight,
           left: 24,
           right: 24,
           bottom: 36,
@@ -58,19 +58,22 @@ class VerificationScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              width: double.infinity,
+            SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset('assets/icons/verification.svg'),
+                  SvgPicture.asset(
+                    isDark
+                        ? 'assets/icons/verification-dark.svg'
+                        : 'assets/icons/verification.svg',
+                  ),
                   const SizedBox(height: 40),
                   MyTitle('Verification Code'),
                   const SizedBox(height: 8),
                   Column(
                     spacing: 3,
                     children: [
-                      MyText('We are sending verification code to'),
+                      MyText.warmBrown('We are sending verification code to'),
                       MyText.deepBlue('+998 90 900 09 90'),
                     ],
                   ),

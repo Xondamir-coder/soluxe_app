@@ -55,6 +55,8 @@ class _OtpInputState extends State<OtpInput> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(5, (index) {
@@ -75,12 +77,12 @@ class _OtpInputState extends State<OtpInput> {
                 style: GoogleFonts.instrumentSans(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
-                  color: AppColors.deepBlue,
+                  color: AppColors.adaptiveWhiteOrDeepBlue(isDark),
                 ),
                 decoration: InputDecoration(
                   counterText: "",
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10), // Center vertically
                   border: OutlineInputBorder(

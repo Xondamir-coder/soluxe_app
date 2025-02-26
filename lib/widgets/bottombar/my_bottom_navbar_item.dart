@@ -20,6 +20,8 @@ class MyBottomNavbarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final color = isDark ? AppColors.darkGrey : AppColors.grey;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -36,10 +38,10 @@ class MyBottomNavbarItem extends StatelessWidget {
             children: [
               TweenAnimationBuilder<Color?>(
                 tween: ColorTween(
-                  begin: AppColors.grey, // Default color
+                  begin: color, // Default color
                   end: isActive
                       ? AppColors.accentYellow
-                      : AppColors.grey, // Animated color
+                      : color, // Animated color
                 ),
                 duration: const Duration(milliseconds: 300),
                 builder: (context, color, child) {
@@ -55,7 +57,7 @@ class MyBottomNavbarItem extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 style: GoogleFonts.instrumentSans(
                   fontSize: 12,
-                  color: isActive ? AppColors.accentYellow : AppColors.grey,
+                  color: isActive ? AppColors.accentYellow : color,
                   fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
                 ),
                 child: Text(text),

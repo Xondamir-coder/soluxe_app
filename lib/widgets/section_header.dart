@@ -5,7 +5,6 @@ import 'package:soluxe/widgets/typography/my_text.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
-  final Color titleColor;
   final double titleFontSize;
   final void Function() onTap;
 
@@ -13,19 +12,20 @@ class SectionHeader extends StatelessWidget {
     super.key,
     required this.title,
     required this.onTap,
-    this.titleColor = AppColors.deepBlue,
     this.titleFontSize = 16,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         MyText(
           title,
           fontSize: titleFontSize,
-          color: titleColor,
+          color: AppColors.adaptiveAccentWhiteOrDeepBlue(isDark),
           fontWeight: FontWeight.w700,
         ),
         InkWell(

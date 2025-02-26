@@ -26,6 +26,8 @@ class _HotelsFilterAmenitiesState extends State<HotelsFilterAmenities> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return SizedBox(
       height: 40,
       child: ListView.separated(
@@ -34,7 +36,9 @@ class _HotelsFilterAmenitiesState extends State<HotelsFilterAmenities> {
         itemBuilder: (ctx, index) {
           final amenity = amenities[index];
           final isSelected = _selectedAmenityName == amenity.name;
-          final color = isSelected ? Colors.white : AppColors.veryDarkBrown;
+          final color = isSelected
+              ? Colors.white
+              : AppColors.adaptiveAccentWhiteOrVeryDarkBrown(isDark);
 
           return GestureDetector(
             onTap: () {
@@ -48,8 +52,9 @@ class _HotelsFilterAmenitiesState extends State<HotelsFilterAmenities> {
               duration: const Duration(milliseconds: 300),
               padding: EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
-                color:
-                    isSelected ? AppColors.accentYellow : AppColors.lightGrey,
+                color: isSelected
+                    ? AppColors.accentYellow
+                    : AppColors.adaptiveDarkBlueOrLightGrey(isDark),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(

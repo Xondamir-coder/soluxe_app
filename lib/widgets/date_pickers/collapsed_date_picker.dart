@@ -52,7 +52,7 @@ class CollapsedDatePicker extends StatelessWidget {
   }
 
   /// Builds the horizontal list of days for a given [month].
-  Widget _buildDaysRow(DateTime month) {
+  Widget _buildDaysRow(DateTime month, bool isDark) {
     final days = _buildDaysInMonth(month);
 
     return SingleChildScrollView(
@@ -62,6 +62,10 @@ class CollapsedDatePicker extends StatelessWidget {
         spacing: 10,
         children: days.map((day) {
           bool isSelected = DateUtils.isSameDay(date, day);
+          final darkBgColor =
+              isDark ? Colors.transparent : AppColors.almostWhite;
+          final darkColor = AppColors.adaptiveAlmostWhiteOrDeepBlue(isDark);
+          final greyDarkColor = AppColors.adaptiveDarkGreyOrGrey(isDark);
 
           return GestureDetector(
             onTap: () {
@@ -73,8 +77,7 @@ class CollapsedDatePicker extends StatelessWidget {
               height: 56,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color:
-                    isSelected ? AppColors.accentYellow : AppColors.almostWhite,
+                color: isSelected ? AppColors.accentYellow : darkBgColor,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +88,7 @@ class CollapsedDatePicker extends StatelessWidget {
                     duration: const Duration(milliseconds: 300),
                     style: GoogleFonts.instrumentSans(
                       fontWeight: FontWeight.w700,
-                      color: isSelected ? Colors.white : AppColors.deepBlue,
+                      color: isSelected ? Colors.white : darkColor,
                     ),
                     child: Text('${day.day}'),
                   ),
@@ -94,7 +97,7 @@ class CollapsedDatePicker extends StatelessWidget {
                     duration: const Duration(milliseconds: 300),
                     style: GoogleFonts.instrumentSans(
                       fontSize: 12,
-                      color: isSelected ? Colors.white : AppColors.grey,
+                      color: isSelected ? Colors.white : greyDarkColor,
                     ),
                     child: Text(DateFormat.E().format(day)),
                   ),
@@ -110,6 +113,7 @@ class CollapsedDatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final monthYearLabel = DateFormat('MMMM yyyy').format(date);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -125,7 +129,7 @@ class CollapsedDatePicker extends StatelessWidget {
             children: [
               const SizedBox(width: 1),
               Material(
-                color: AppColors.almostWhite,
+                color: isDark ? Colors.transparent : AppColors.almostWhite,
                 borderRadius: BorderRadius.circular(8),
                 child: InkWell(
                   onTap: () => _shiftMonth(-1),
@@ -134,13 +138,22 @@ class CollapsedDatePicker extends StatelessWidget {
                     width: 24,
                     height: 24,
                     padding: EdgeInsets.all(4),
-                    child: SvgPicture.asset('assets/icons/arrow-left.svg'),
+                    child: SvgPicture.asset(
+                      'assets/icons/arrow-left.svg',
+                      colorFilter: ColorFilter.mode(
+                        AppColors.adaptiveGreyOrRichBrown(isDark),
+                        BlendMode.srcIn,
+                      ),
+                    ),
                   ),
                 ),
               ),
-              MyText(monthYearLabel, color: AppColors.deepBlue),
+              MyText(
+                monthYearLabel,
+                color: AppColors.adaptiveAlmostWhiteOrDeepBlue(isDark),
+              ),
               Material(
-                color: AppColors.almostWhite,
+                color: isDark ? Colors.transparent : AppColors.almostWhite,
                 borderRadius: BorderRadius.circular(8),
                 child: InkWell(
                   onTap: () => _shiftMonth(1),
@@ -152,7 +165,7 @@ class CollapsedDatePicker extends StatelessWidget {
                     child: SvgPicture.asset(
                       'assets/icons/arrow-right.svg',
                       colorFilter: ColorFilter.mode(
-                        AppColors.richBrown,
+                        AppColors.adaptiveGreyOrRichBrown(isDark),
                         BlendMode.srcIn,
                       ),
                     ),
@@ -178,7 +191,7 @@ class CollapsedDatePicker extends StatelessWidget {
         // -----------------------
         // Animated row of days
         // -----------------------
-        _buildDaysRow(date),
+        _buildDaysRow(date, isDark),
       ],
     );
   }

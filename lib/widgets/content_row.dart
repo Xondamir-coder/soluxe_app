@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -51,6 +52,8 @@ class ContentRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     Widget content = Column(
       spacing: 10,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +71,7 @@ class ContentRow extends StatelessWidget {
         ),
         MyText(
           text,
-          color: Color.fromRGBO(31, 41, 55, 1),
+          color: AppColors.adaptiveAlmostWhiteOrDarkBlue(isDark),
           fontWeight: FontWeight.w600,
           fontSize: 12,
         ),
@@ -97,7 +100,7 @@ class ContentRow extends StatelessWidget {
               phone,
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: Color.fromRGBO(31, 41, 55, 1),
+              color: AppColors.adaptiveAlmostWhiteOrDarkBlue(isDark),
             ),
           ),
           InkWell(
@@ -106,7 +109,7 @@ class ContentRow extends StatelessWidget {
               website,
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: Color.fromRGBO(31, 41, 55, 1),
+              color: AppColors.adaptiveAlmostWhiteOrDarkBlue(isDark),
             ),
           ),
         ],

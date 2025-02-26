@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/faq/faq_topic.dart';
 import 'package:soluxe/screens/faq/faq_questions.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
@@ -11,8 +12,10 @@ class FaqTopicsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Material(
-      color: Colors.white,
+      color: AppColors.adaptiveDarkBlueOrWhite(isDark),
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
         onTap: () => Navigator.of(context).push(
@@ -42,7 +45,10 @@ class FaqTopicsItem extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            MyText.grey('Question about', fontSize: 12),
+            MyText.grey(
+              'Question about',
+              fontSize: 12,
+            ),
             MyText.deepBlue(faqTopic.title),
           ],
         ),

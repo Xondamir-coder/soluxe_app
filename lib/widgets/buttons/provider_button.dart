@@ -17,14 +17,16 @@ class ProviderButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return SizedBox(
       width: double.infinity,
       child: OutlinedButton(
         onPressed: onTap,
         style: OutlinedButton.styleFrom(
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
           side: BorderSide(
-            color: AppColors.softWhite,
+            color: isDark ? Colors.transparent : AppColors.softWhite,
             width: 2,
           ),
           shape: RoundedRectangleBorder(
@@ -43,7 +45,7 @@ class ProviderButton extends StatelessWidget {
                 style: GoogleFonts.instrumentSans(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.deepBlue,
+                  color: AppColors.adaptiveWhiteOrDeepBlue(isDark),
                 ),
               ),
             ),

@@ -28,6 +28,7 @@ class MyTile extends StatelessWidget {
     double spacing = 16;
     Color titleColor = AppColors.deepBlue;
     double titleFontSize = 14;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     if (isStars) {
       spacing = 6;
@@ -36,7 +37,7 @@ class MyTile extends StatelessWidget {
     }
 
     return Material(
-      color: Colors.white,
+      color: AppColors.adaptiveDarkBlueOrWhite(isDark),
       borderRadius: BorderRadius.circular(14),
       child: InkWell(
         onTap: () {
@@ -60,7 +61,7 @@ class MyTile extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             clipBehavior: Clip.antiAlias,
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.adaptiveDeepBlueOrWhite(isDark),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
             ),
@@ -87,7 +88,7 @@ class MyTile extends StatelessWidget {
                   children: [
                     MyTileTitle(
                       title: places.title,
-                      color: titleColor,
+                      color: isDark ? Colors.white : titleColor,
                       fontSize: titleFontSize,
                     ),
                     if (isStars) StarRating(star: places.star),

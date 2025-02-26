@@ -3,12 +3,17 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/buttons/circular_back_button.dart';
 
 class ArrowAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const ArrowAppbar({super.key});
+  final Color? backgroundColor;
+
+  const ArrowAppbar({super.key, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return AppBar(
-      backgroundColor: AppColors.creamWhite,
+      backgroundColor:
+          backgroundColor ?? AppColors.adaptiveDeepBlueOrCreamWhite(isDark),
       leading: const CircularBackButton(),
     );
   }

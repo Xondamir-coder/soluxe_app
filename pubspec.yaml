@@ -80,6 +80,7 @@ flutter:
         - assets/icons/lock.svg
         - assets/icons/eye-off.svg
         - assets/icons/x.svg
+        - assets/icons/dark-x.svg
         - assets/icons/date.svg
         - assets/icons/park.svg
         - assets/icons/pool.svg
@@ -91,6 +92,7 @@ flutter:
         - assets/icons/bed.svg
         - assets/icons/categories.svg
         - assets/icons/verification.svg
+        - assets/icons/verification-dark.svg
         - assets/icons/calendar.svg
         - assets/icons/building.svg
         - assets/icons/car.svg
@@ -116,6 +118,7 @@ flutter:
         - assets/icons/star.svg
         - assets/icons/circle-star.svg
         - assets/icons/pin.svg
+        - assets/icons/dark-pin.svg
         - assets/icons/filter.svg
         - assets/icons/dots-vertical.svg
         - assets/icons/moon.svg
@@ -129,6 +132,7 @@ flutter:
         - assets/images/login/img-4.jpg
         - assets/images/login/img-5.jpg
         - assets/images/login/img-6.png
+        - assets/images/welcome-dark-pattern.png
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/to/resolution-aware-images

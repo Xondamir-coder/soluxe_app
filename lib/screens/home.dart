@@ -49,12 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 0),
         appBar: AppBar(
-          backgroundColor: AppColors.creamWhite,
+          backgroundColor: AppColors.adaptiveDeepBlueOrCreamWhite(isDark),
           actions: [
             Container(
               width: 44,
@@ -63,12 +64,20 @@ class _HomeScreenState extends State<HomeScreen> {
               child: IconButton(
                 onPressed: () => _navigateToNotifications(context),
                 style: IconButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  backgroundColor: AppColors.adaptiveAccentBlueOrWhite(
+                    isDark,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                icon: SvgPicture.asset('assets/icons/notification.svg'),
+                icon: SvgPicture.asset(
+                  'assets/icons/notification.svg',
+                  colorFilter: ColorFilter.mode(
+                    AppColors.adaptiveAccentWhiteOrDeepBlue(isDark),
+                    BlendMode.srcIn,
+                  ),
+                ),
               ),
             ),
           ],
@@ -78,12 +87,12 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               MyText(
                 'Find events near',
-                color: AppColors.accentYellow,
+                color: AppColors.adaptiveDarkGreyOrAccentYellow(isDark),
               ),
-              MyTitle(
+              MyText(
                 'Uzbekistan',
                 fontSize: 18,
-                letterSpacing: 0,
+                color: AppColors.adaptiveGreyOrWarmBrown(isDark),
               ),
             ],
           ),

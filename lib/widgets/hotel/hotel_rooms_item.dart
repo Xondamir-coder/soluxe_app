@@ -13,9 +13,11 @@ class HotelRoomsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Material(
       borderRadius: BorderRadius.circular(16),
-      color: Colors.white,
+      color: AppColors.adaptiveDarkBlueOrWhite(isDark),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () {},
@@ -39,13 +41,15 @@ class HotelRoomsItem extends StatelessWidget {
               ),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyText(
-                      room.title,
-                      fontSize: 13,
-                      color: AppColors.darkBrown,
-                      fontWeight: FontWeight.w700,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: MyText(
+                        room.title,
+                        fontSize: 13,
+                        color: AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Row(
@@ -58,7 +62,7 @@ class HotelRoomsItem extends StatelessWidget {
                             MyText(
                               room.price,
                               fontSize: 12,
-                              color: AppColors.blue,
+                              color: AppColors.adaptiveLightBlueOrBlue(isDark),
                               fontWeight: FontWeight.w700,
                             ),
                             MyText(
@@ -85,7 +89,11 @@ class HotelRoomsItem extends StatelessWidget {
                                   BlendMode.srcIn,
                                 ),
                               ),
-                              MyText.grey(amenity.name, fontSize: 12),
+                              MyText(
+                                amenity.name,
+                                fontSize: 12,
+                                color: AppColors.grey,
+                              ),
                             ],
                           )
                       ],

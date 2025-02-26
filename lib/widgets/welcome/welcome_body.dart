@@ -44,6 +44,7 @@ class WelcomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     const toolbarHeight = 56;
     String? title;
     String? subtitle;
@@ -178,7 +179,9 @@ class WelcomeBody extends StatelessWidget {
         spacing: 8,
         children: [
           Image.asset(
-            'assets/images/login/img-6.png',
+            isDark
+                ? 'assets/images/welcome-dark-pattern.png'
+                : 'assets/images/login/img-6.png',
             height: 351,
             fit: BoxFit.cover,
           ),
@@ -212,7 +215,7 @@ class WelcomeBody extends StatelessWidget {
                 style: GoogleFonts.instrumentSans(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.deepBlue,
+                  color: AppColors.adaptiveWhiteOrDeepBlue(isDark),
                 ),
               ),
               TextButton(
@@ -237,7 +240,7 @@ class WelcomeBody extends StatelessWidget {
         // Background Pattern SVG
         Positioned.fill(
           child: Opacity(
-            opacity: .2,
+            opacity: isDark ? .1 : .2,
             child: SvgPicture.asset(
               'assets/vectors/pattern.svg',
               fit: BoxFit.cover,
@@ -268,6 +271,7 @@ class WelcomeBody extends StatelessWidget {
                     width: currentIndex == 3 ? 30 * 8 : double.infinity,
                     child: MyText(
                       subtitle,
+                      color: isDark ? AppColors.darkBeige : AppColors.warmBrown,
                       textAlign: currentIndex == 3
                           ? TextAlign.center
                           : TextAlign.start,

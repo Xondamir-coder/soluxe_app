@@ -14,9 +14,11 @@ class HotelsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Material(
       borderRadius: BorderRadius.circular(16),
-      color: Colors.white,
+      color: AppColors.adaptiveDarkBlueOrWhite(isDark),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () => Navigator.of(context).push(
@@ -49,7 +51,7 @@ class HotelsItem extends StatelessWidget {
                     MyText(
                       hotel.title,
                       fontSize: 13,
-                      color: AppColors.darkBrown,
+                      color: AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
                       fontWeight: FontWeight.w700,
                     ),
                     const SizedBox(height: 4),
@@ -63,7 +65,7 @@ class HotelsItem extends StatelessWidget {
                             MyText(
                               hotel.price,
                               fontSize: 12,
-                              color: AppColors.blue,
+                              color: AppColors.adaptiveLightBlueOrBlue(isDark),
                               fontWeight: FontWeight.w700,
                             ),
                             MyText(
@@ -78,9 +80,15 @@ class HotelsItem extends StatelessWidget {
                     const SizedBox(height: 14),
                     Row(
                       children: [
-                        SvgPicture.asset('assets/icons/pin.svg'),
+                        SvgPicture.asset(isDark
+                            ? 'assets/icons/dark-pin.svg'
+                            : 'assets/icons/pin.svg'),
                         const SizedBox(width: 4),
-                        MyText.grey(hotel.location, fontSize: 10),
+                        MyText(
+                          hotel.location,
+                          fontSize: 10,
+                          color: AppColors.grey,
+                        ),
                         const Spacer(),
                         Row(
                           spacing: 4,

@@ -12,6 +12,7 @@ class StarRating extends StatelessWidget {
   Widget build(BuildContext context) {
     const maxStars = 5;
     final starNumber = double.parse(star);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Row(
       children: [
@@ -19,7 +20,9 @@ class StarRating extends StatelessWidget {
           SvgPicture.asset(
             'assets/icons/star.svg',
             colorFilter: ColorFilter.mode(
-              i < starNumber ? AppColors.yellow : AppColors.shadyGrey,
+              i < starNumber
+                  ? AppColors.yellow
+                  : AppColors.adaptiveDarkerGreyOrShadyGrey(isDark),
               BlendMode.srcIn,
             ),
           ),

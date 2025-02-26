@@ -44,6 +44,8 @@ class InputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return TextFormField(
       keyboardType: type,
       obscureText: hidePassword,
@@ -78,17 +80,19 @@ class InputField extends StatelessWidget {
               )
             : null,
         filled: true,
-        fillColor: Colors.white, // Light background color
+        fillColor:
+            AppColors.adaptiveDarkBlueOrWhite(isDark), // Light background color
         focusedBorder: _buildInputBorder(AppColors.accentYellow),
         errorBorder: _buildInputBorder(Colors.red),
-        border: _buildInputBorder(Colors.white),
-        enabledBorder: _buildInputBorder(Colors.white),
+        border: _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
+        enabledBorder:
+            _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
         contentPadding: EdgeInsets.symmetric(vertical: 17.5, horizontal: 14),
       ),
       style: GoogleFonts.instrumentSans(
         fontSize: 14,
         fontWeight: FontWeight.w500,
-        color: AppColors.deepBlue,
+        color: AppColors.adaptiveAccentWhiteOrDeepBlue(isDark),
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {

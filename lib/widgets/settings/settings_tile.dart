@@ -19,6 +19,8 @@ class SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return ListTile(
       onTap: onTap,
       contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 13.5),
@@ -31,13 +33,16 @@ class SettingsTile extends StatelessWidget {
         iconSrc,
         height: 24,
         width: 24,
-        colorFilter: ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
+        colorFilter: ColorFilter.mode(
+          AppColors.grey,
+          BlendMode.srcIn,
+        ),
       ),
       title: Padding(
         padding: const EdgeInsets.only(left: 10),
         child: MyText.deepBlue(text),
       ),
-      tileColor: Colors.white,
+      tileColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
       trailing: SvgPicture.asset(
         'assets/icons/arrow-right.svg',
         width: 24,

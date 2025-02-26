@@ -20,13 +20,14 @@ class _HotelsFilterTypeState extends State<HotelsFilterType> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       spacing: 10,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyText(
           'Filter by hotel',
-          color: AppColors.darkBrown,
+          color: AppColors.adaptiveGreyOrDarkBrown(isDark),
           fontWeight: FontWeight.w700,
         ),
         ValueListenableBuilder(
@@ -53,7 +54,8 @@ class _HotelsFilterTypeState extends State<HotelsFilterType> {
                           border: Border.all(
                             color: type == _selectedTypeNotifier.value
                                 ? AppColors.accentYellow
-                                : AppColors.lightGrey,
+                                : AppColors.adaptivAccentBlueOrLightGrey(
+                                    isDark),
                             width: 1,
                           ),
                         ),
@@ -69,7 +71,9 @@ class _HotelsFilterTypeState extends State<HotelsFilterType> {
                                       width: 4,
                                       height: 4,
                                       decoration: BoxDecoration(
-                                        color: AppColors.softWhite,
+                                        color: AppColors
+                                            .adaptiveAccentBlueOrSoftWhite(
+                                                isDark),
                                         shape: BoxShape.circle,
                                       ),
                                     ),
@@ -86,7 +90,8 @@ class _HotelsFilterTypeState extends State<HotelsFilterType> {
                                 fontWeight: FontWeight.w500,
                                 color: type == _selectedTypeNotifier.value
                                     ? AppColors.accentYellow
-                                    : AppColors.deepBlue,
+                                    : AppColors.adaptiveAlmostWhiteOrDeepBlue(
+                                        isDark),
                               ),
                               child: Text(type),
                             ),

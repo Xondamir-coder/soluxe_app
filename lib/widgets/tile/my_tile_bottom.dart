@@ -15,25 +15,31 @@ class MyTileBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           spacing: 4,
           children: [
-            SvgPicture.asset('assets/icons/pin.svg'),
-            MyText.grey(
+            SvgPicture.asset(
+              isDark ? 'assets/icons/dark-pin.svg' : 'assets/icons/pin.svg',
+              width: 13,
+              height: 13,
+            ),
+            MyText(
               location.length > 30
                   ? '${location.substring(0, 27)}...'
                   : location,
               fontSize: 12,
+              color: AppColors.grey,
             ),
           ],
         ),
         Container(
           padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: Color.fromRGBO(249, 245, 235, 1),
+            color: AppColors.adaptiveDarkBrownOrLightWhite(isDark),
             borderRadius: BorderRadius.circular(6),
           ),
           child: MyText(

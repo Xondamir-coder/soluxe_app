@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/hotels.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
@@ -32,9 +33,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
     super.initState();
   }
 
-  void _openFilters(BuildContext context) {
+  void _openFilters(BuildContext context, bool isDark) {
     showModalBottomSheet(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.adaptiveDeepBlueOrWhite(isDark),
       context: context,
       isScrollControlled: true,
       builder: (ctx) => const FilterSheet(
@@ -45,6 +46,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -52,7 +54,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         appBar: DefaultAppbar(
           title: 'Explore',
           iconPath: 'assets/icons/filter.svg',
-          onTap: () => _openFilters(context),
+          onTap: () => _openFilters(context, isDark),
         ),
         body: SingleChildScrollView(
           child: Padding(

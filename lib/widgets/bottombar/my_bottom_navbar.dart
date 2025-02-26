@@ -50,11 +50,12 @@ class MyBottomNavbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       height: 82,
       padding: EdgeInsets.symmetric(vertical: 12.5, horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.adaptiveDarkBlueOrWhite(isDark),
         boxShadow: [
           BoxShadow(
             color: AppColors.deepBlue.withValues(alpha: 0.03),

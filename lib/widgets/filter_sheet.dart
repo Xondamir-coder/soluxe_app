@@ -52,6 +52,8 @@ class _FilterSheetState extends State<FilterSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -64,11 +66,15 @@ class _FilterSheetState extends State<FilterSheet> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MyText.deepBlue('Filter', fontSize: 20),
+                  MyText(
+                    'Filter',
+                    fontSize: 20,
+                    color: AppColors.adaptiveGreyOrDeepBlue(isDark),
+                  ),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
                     icon: SvgPicture.asset(
-                      'assets/icons/x.svg',
+                      isDark ? 'assets/icons/dark-x.svg' : 'assets/icons/x.svg',
                       width: 24,
                       height: 24,
                     ),
@@ -81,7 +87,7 @@ class _FilterSheetState extends State<FilterSheet> {
                   selectedCategory: value,
                   categories: widget.mainCategories,
                   iconPath: 'assets/icons/date.svg',
-                  bgColor: AppColors.lightGrey,
+                  bgColor: AppColors.adaptiveDarkBlueOrLightGrey(isDark),
                   onCategorySelected: (val) => selectedMainCategory.value = val,
                 ),
               ),
@@ -92,7 +98,7 @@ class _FilterSheetState extends State<FilterSheet> {
                   children: [
                     MyText(
                       'Country',
-                      color: AppColors.darkBrown,
+                      color: AppColors.adaptiveGreyOrDarkBrown(isDark),
                       fontWeight: FontWeight.w700,
                     ),
                     ValueListenableBuilder<String>(
@@ -100,7 +106,7 @@ class _FilterSheetState extends State<FilterSheet> {
                       builder: (context, value, child) => CategoryTabs(
                         selectedCategory: value,
                         categories: widget.secondaryCategories,
-                        bgColor: AppColors.lightGrey,
+                        bgColor: AppColors.adaptiveDarkBlueOrLightGrey(isDark),
                         onCategorySelected: (val) =>
                             selectedSecondaryCategory.value = val,
                       ),
@@ -111,7 +117,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 alignment: Alignment.centerLeft,
                 child: MyText(
                   'Price Range',
-                  color: AppColors.darkBrown,
+                  color: AppColors.adaptiveGreyOrDarkBrown(isDark),
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -129,6 +135,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 valueListenable: selectedDate,
                 builder: (context, value, child) => ExpandedDatePicker(
                   date: selectedDate.value,
+                  darkBlueBgColor: true,
                   onDateChange: (val) {
                     selectedDate.value = val;
                     print(DateFormat('yyyy-MM-dd').format(selectedDate.value));
@@ -141,7 +148,7 @@ class _FilterSheetState extends State<FilterSheet> {
                   Expanded(
                     child: GreyOutlinedButton(
                       'Cancel',
-                      onTap: () {},
+                      onTap: () => Navigator.of(context).pop(),
                     ),
                   ),
                   Expanded(

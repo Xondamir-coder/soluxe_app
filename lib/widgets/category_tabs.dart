@@ -8,7 +8,7 @@ class CategoryTabs extends StatelessWidget {
   final Function(String) onCategorySelected;
   final String selectedCategory;
   final String iconPath;
-  final Color bgColor;
+  final Color? bgColor;
 
   const CategoryTabs({
     super.key,
@@ -16,11 +16,13 @@ class CategoryTabs extends StatelessWidget {
     required this.categories,
     required this.onCategorySelected,
     this.iconPath = '',
-    this.bgColor = Colors.white,
+    this.bgColor,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return SizedBox(
       height: 45, // Adjust height as needed
       child: ListView.separated(
@@ -30,8 +32,12 @@ class CategoryTabs extends StatelessWidget {
         itemBuilder: (context, index) {
           final String category = categories[index];
           bool isSelected = category == selectedCategory;
-          final backColor = isSelected ? AppColors.accentYellow : bgColor;
-          final textColor = isSelected ? Colors.white : AppColors.deepBlue;
+          final backColor = isSelected
+              ? AppColors.accentYellow
+              : bgColor ?? AppColors.adaptiveDarkBlueOrWhite(isDark);
+          final textColor = isSelected
+              ? Colors.white
+              : AppColors.adaptiveSoftWhiteOrDarkBlue(isDark);
 
           return GestureDetector(
             onTap: () => onCategorySelected(category),
@@ -69,7 +75,7 @@ class CategoryTabs extends StatelessWidget {
                       SvgPicture.asset(
                         iconPath,
                         colorFilter: ColorFilter.mode(
-                          AppColors.darkBrown,
+                          AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
                           BlendMode.srcIn,
                         ),
                         width: 18,

@@ -9,12 +9,14 @@ class ExpandedDatePicker extends StatefulWidget {
   final DateTime date;
   final ValueChanged onDateChange;
   final bool isMonthCentered;
+  final bool darkBlueBgColor;
 
   const ExpandedDatePicker({
     super.key,
     required this.onDateChange,
     required this.date,
     this.isMonthCentered = false,
+    this.darkBlueBgColor = false,
   });
 
   @override
@@ -54,7 +56,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
   }
 
   /// Builds the calendar grid for the current month
-  Widget _buildCalendar() {
+  Widget _buildCalendar(bool isDark) {
     DateTime firstDayOfMonth = DateTime(widget.date.year, widget.date.month, 1);
     int startingWeekday = firstDayOfMonth.weekday;
     int daysInMonth = DateTime(widget.date.year, widget.date.month + 1, 0).day;
@@ -83,7 +85,9 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                   decoration: BoxDecoration(
                     color: isSelected
                         ? AppColors.accentYellow
-                        : AppColors.almostWhite,
+                        : widget.darkBlueBgColor
+                            ? AppColors.adaptiveDarkBlueOrAlmostWhite(isDark)
+                            : AppColors.adaptiveDeepBlueOrAlmostWhite(isDark),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Material(
@@ -105,13 +109,14 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                               style: GoogleFonts.instrumentSans(
                                 color: isSelected
                                     ? Colors.white
-                                    : AppColors.deepBlue,
+                                    : AppColors.adaptiveAccentWhiteOrDeepBlue(
+                                        isDark),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
                               child: Text('${day.day}'),
                             ),
-                            SizedBox(height: 2),
+                            SizedBox(height: 4),
                             AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
                               width: 5,
@@ -150,6 +155,8 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       children: [
         // Month & Navigation Row
@@ -160,7 +167,9 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
               : MainAxisAlignment.start,
           children: [
             Material(
-              color: AppColors.lightGrey,
+              color: widget.darkBlueBgColor
+                  ? AppColors.adaptiveDarkBlueOrLightGrey(isDark)
+                  : AppColors.adaptiveTransparentOrLightGrey(isDark),
               borderRadius: BorderRadius.circular(8),
               clipBehavior: Clip.antiAlias,
               child: InkWell(
@@ -172,7 +181,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                   child: SvgPicture.asset(
                     'assets/icons/arrow-left.svg',
                     colorFilter: ColorFilter.mode(
-                      AppColors.darkGrey,
+                      AppColors.adaptiveGreyOrDarkGrey(isDark),
                       BlendMode.srcIn,
                     ),
                   ),
@@ -185,7 +194,9 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
               fontWeight: FontWeight.w500,
             ),
             Material(
-              color: AppColors.lightGrey,
+              color: widget.darkBlueBgColor
+                  ? AppColors.adaptiveDarkBlueOrLightGrey(isDark)
+                  : AppColors.adaptiveTransparentOrLightGrey(isDark),
               borderRadius: BorderRadius.circular(8),
               clipBehavior: Clip.antiAlias,
               child: InkWell(
@@ -197,7 +208,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                   child: SvgPicture.asset(
                     'assets/icons/arrow-right.svg',
                     colorFilter: ColorFilter.mode(
-                      AppColors.darkGrey,
+                      AppColors.adaptiveGreyOrDarkGrey(isDark),
                       BlendMode.srcIn,
                     ),
                   ),
@@ -218,7 +229,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                     day,
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.darkGrey,
+                    color: AppColors.adaptiveGreyOrDarkGrey(isDark),
                   ),
                 ),
               )
@@ -226,7 +237,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
         ),
 
         // Calendar Grid
-        _buildCalendar(),
+        _buildCalendar(isDark),
       ],
     );
   }

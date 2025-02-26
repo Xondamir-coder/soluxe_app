@@ -48,6 +48,8 @@ class _MySearchBarState extends State<MySearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return TextField(
       controller: _textController,
       onEditingComplete: () {
@@ -110,9 +112,10 @@ class _MySearchBarState extends State<MySearchBar> {
           color: AppColors.grey,
         ),
         filled: true,
-        fillColor: Colors.white,
-        border: _buildInputBorder(Colors.white),
-        enabledBorder: _buildInputBorder(Colors.white),
+        fillColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
+        border: _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
+        enabledBorder:
+            _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
         focusedBorder: _buildInputBorder(AppColors.accentYellow),
       ),
     );

@@ -8,27 +8,26 @@ class MyTitle extends StatelessWidget {
   final double fontSize;
   final double height;
   final double letterSpacing;
-  final Color color;
 
   const MyTitle(
     this.title, {
     this.fontSize = 24,
     this.fontWeight = FontWeight.w700,
     this.height = 1.5,
-    this.color = AppColors.darkBrown,
     this.letterSpacing = -0.2,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Text(
       title,
       style: GoogleFonts.instrumentSans(
         fontSize: fontSize,
         fontWeight: fontWeight,
         height: height,
-        color: color,
+        color: isDark ? AppColors.beige : AppColors.darkBrown,
         letterSpacing: letterSpacing,
       ),
     );

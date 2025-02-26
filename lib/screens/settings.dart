@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/screens/faq/faq.dart';
 import 'package:soluxe/screens/languages.dart';
 import 'package:soluxe/screens/push_notifications.dart';
@@ -14,7 +15,7 @@ import 'package:transparent_image/transparent_image.dart';
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
-  Widget _buildProfile() {
+  Widget _buildProfile(bool isDark) {
     return Row(
       spacing: 16,
       children: [
@@ -24,7 +25,10 @@ class SettingsScreen extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: Colors.white, width: 6),
+            border: Border.all(
+              color: AppColors.adaptiveDarkBlueOrWhite(isDark),
+              width: 6,
+            ),
             borderRadius: BorderRadius.circular(100),
           ),
           child: ClipRRect(
@@ -39,8 +43,15 @@ class SettingsScreen extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MyText.deepBlue(userData.name, fontSize: 18),
-            MyText.grey(userData.email!),
+            MyText(
+              userData.name,
+              fontSize: 18,
+              color: isDark ? AppColors.softWhite : AppColors.deepBlue,
+            ),
+            MyText(
+              userData.email!,
+              color: AppColors.adaptiveDarkerGreyOrGrey(isDark),
+            ),
           ],
         )
       ],
@@ -72,6 +83,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 4),
       appBar: const DefaultAppbar(title: 'Profile'),
@@ -81,7 +94,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             spacing: 16,
             children: [
-              _buildProfile(),
+              _buildProfile(isDark),
               Column(
                 spacing: 24,
                 children: [

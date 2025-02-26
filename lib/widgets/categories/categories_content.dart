@@ -26,18 +26,18 @@ class CategoriesContent extends StatefulWidget {
 class _CategoriesContentState extends State<CategoriesContent> {
   var _selectedTab = Tabs.about;
 
-  Widget _buildDot() {
+  Widget _buildDot(bool isDark) {
     return Container(
       width: 4,
       height: 4,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        color: AppColors.grey,
+        color: AppColors.adaptiveDarkGreyOrGrey(isDark),
       ),
     );
   }
 
-  Widget _buildTop() {
+  Widget _buildTop(bool isDark) {
     return Column(
       spacing: 9,
       children: [
@@ -54,7 +54,8 @@ class _CategoriesContentState extends State<CategoriesContent> {
             ),
             IconButton(
               onPressed: () => Navigator.of(context).pop(),
-              icon: SvgPicture.asset('assets/icons/x.svg'),
+              icon: SvgPicture.asset(
+                  isDark ? 'assets/icons/dark-x.svg' : 'assets/icons/x.svg'),
             ),
           ],
         ),
@@ -63,10 +64,10 @@ class _CategoriesContentState extends State<CategoriesContent> {
           spacing: 10,
           children: [
             StarRating(star: '4'),
-            _buildDot(),
+            _buildDot(isDark),
             SvgPicture.asset('assets/icons/car.svg'),
             MyText.grey('5 min', fontSize: 12),
-            _buildDot(),
+            _buildDot(isDark),
             MyText.grey('1 Km', fontSize: 12),
           ],
         ),
@@ -92,7 +93,9 @@ class _CategoriesContentState extends State<CategoriesContent> {
                           height: _selectedTab == tab ? 3 : 1,
                           color: _selectedTab == tab
                               ? AppColors.accentYellow
-                              : Color.fromRGBO(229, 231, 235, 1),
+                              : isDark
+                                  ? AppColors.darkBlue
+                                  : Color.fromRGBO(229, 231, 235, 1),
                         ),
                       ],
                     ),
@@ -134,6 +137,7 @@ class _CategoriesContentState extends State<CategoriesContent> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Transform.translate(
       offset: Offset(0, -20),
       child: Container(
@@ -144,7 +148,7 @@ class _CategoriesContentState extends State<CategoriesContent> {
           bottom: 0,
         ),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.adaptiveDeepBlueOrWhite(isDark),
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(28),
           ),
@@ -152,7 +156,7 @@ class _CategoriesContentState extends State<CategoriesContent> {
         child: Column(
           spacing: 16,
           children: [
-            _buildTop(),
+            _buildTop(isDark),
             AnimatedSwitcher(
               duration: Duration(milliseconds: 300),
               transitionBuilder: (Widget child, Animation<double> animation) {

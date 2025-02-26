@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/event.dart';
 import 'package:soluxe/widgets/buttons/circular_back_button.dart';
-import 'package:soluxe/widgets/buttons/grey_outlined_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/content_row.dart';
 import 'package:soluxe/widgets/event/event_date_item.dart';
@@ -17,6 +16,8 @@ class EventScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -28,11 +29,17 @@ class EventScreen extends StatelessWidget {
               height: 32,
               margin: EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.adaptiveDarkBlueOrWhite(isDark),
                 borderRadius: BorderRadius.circular(100),
               ),
               child: IconButton(
-                icon: SvgPicture.asset('assets/icons/dots-vertical.svg'),
+                icon: SvgPicture.asset(
+                  'assets/icons/dots-vertical.svg',
+                  colorFilter: ColorFilter.mode(
+                    AppColors.adaptiveLightWhiteOrRichBrown(isDark),
+                    BlendMode.srcIn,
+                  ),
+                ),
                 padding: EdgeInsets.zero,
                 onPressed: () {},
               ),
@@ -62,8 +69,12 @@ class EventScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            AppColors.creamWhite.withValues(alpha: .1),
-                            AppColors.creamWhite,
+                            Theme.of(context).brightness == Brightness.dark
+                                ? AppColors.deepBlue.withValues(alpha: .1)
+                                : AppColors.creamWhite.withValues(alpha: .1),
+                            Theme.of(context).brightness == Brightness.dark
+                                ? AppColors.deepBlue
+                                : AppColors.creamWhite,
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -108,19 +119,21 @@ class EventScreen extends StatelessWidget {
                     ],
                   ),
                   Column(
-                    spacing: 4,
+                    spacing: 8,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyText(
                         event.title,
-                        fontSize: 18,
+                        fontSize: 24,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.darkBrown,
+                        color: AppColors.adaptiveWhiteOrVeryDarkBrown(
+                          isDark,
+                        ),
                       ),
                       MyText(
                         event.description,
-                        fontSize: 14,
-                        color: AppColors.warmBrown,
+                        fontSize: 16,
+                        color: AppColors.adaptiveAlmostWhiteOrWarmBrown(isDark),
                       ),
                     ],
                   ),

@@ -22,12 +22,14 @@ class HotelHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyText(
           title,
-          color: AppColors.darkBrown,
+          color: AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
           fontSize: 20,
           fontWeight: FontWeight.w700,
         ),
@@ -38,7 +40,10 @@ class HotelHeader extends StatelessWidget {
             StarRating(star: star),
             Row(
               children: [
-                MyText(price, color: AppColors.blue),
+                MyText(
+                  price,
+                  color: AppColors.adaptiveLightBlueOrBlue(isDark),
+                ),
                 const SizedBox(width: 2),
                 MyText('/night', color: AppColors.darkGrey, fontSize: 12),
               ],
@@ -53,7 +58,7 @@ class HotelHeader extends StatelessWidget {
               spacing: 4,
               children: [
                 SvgPicture.asset(
-                  'assets/icons/pin.svg',
+                  isDark ? 'assets/icons/dark-pin.svg' : 'assets/icons/pin.svg',
                   width: 24,
                   height: 24,
                 ),
@@ -69,7 +74,7 @@ class HotelHeader extends StatelessWidget {
                     width: 20,
                     height: 20,
                     colorFilter: ColorFilter.mode(
-                      AppColors.grey,
+                      AppColors.adaptiveDarkGreyOrGrey(isDark),
                       BlendMode.srcIn,
                     ),
                   ),

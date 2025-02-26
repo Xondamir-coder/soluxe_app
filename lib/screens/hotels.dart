@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/hotels.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/hotel/hotels_filter_sheet.dart';
@@ -9,12 +10,14 @@ class HotelsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: DefaultAppbar(
         title: 'Hotels',
         onTap: () => showModalBottomSheet(
           context: context,
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.adaptiveDeepBlueOrWhite(isDark),
           isScrollControlled: true,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(

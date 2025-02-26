@@ -12,7 +12,7 @@ final testEvent = Event(
   openingHours: 'Daily 10:00 - 23:00',
   phoneNumber: '+998 90 900 90 99',
   website: 'www.nihol.uz',
-  star: '5',
+  star: '3',
   timeSlot: '10:00 - End',
   banner:
       'https://static1.srcdn.com/wordpress/wp-content/uploads/invincible.jpg',

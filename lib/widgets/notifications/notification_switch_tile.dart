@@ -20,20 +20,23 @@ class NotificationSwitchTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return SwitchListTile(
-      tileColor: Colors.white,
+      tileColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
       thumbColor: WidgetStateProperty.all(Colors.white),
       trackOutlineColor: WidgetStatePropertyAll(Colors.transparent),
-      inactiveTrackColor: Color.fromRGBO(229, 231, 235, 1),
-      activeTrackColor: AppColors.accentYellow,
+      inactiveTrackColor:
+          isDark ? AppColors.grey : Color.fromRGBO(229, 231, 235, 1),
+      activeTrackColor: AppColors.adaptiveDarkerGreyOrAccentYellow(isDark),
       secondary: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: AppColors.almostWhite,
+          color: AppColors.adaptiveDeepBlueOrAlmostWhite(isDark),
         ),
         child: SvgPicture.asset(
           iconPath,
@@ -48,7 +51,8 @@ class NotificationSwitchTile extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
       dense: true,
       title: MyText.deepBlue(title),
-      subtitle: MyText.grey(subtitle),
+      subtitle:
+          MyText(subtitle, color: AppColors.adaptiveDarkGreyOrGrey(isDark)),
       value: value,
       onChanged: onChanged,
     );

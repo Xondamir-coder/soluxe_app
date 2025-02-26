@@ -22,8 +22,9 @@ class NotFound extends StatelessWidget {
           Column(
             spacing: 8,
             children: [
-              MyTitle(
+              MyText(
                 'Not found',
+                fontSize: 24,
                 color: AppColors.accentYellow,
               ),
               MyText.grey(

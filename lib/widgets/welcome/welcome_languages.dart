@@ -36,6 +36,7 @@ class _WelcomeLanguagesState extends State<WelcomeLanguages> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.only(top: 30),
       child: Column(
@@ -45,11 +46,13 @@ class _WelcomeLanguagesState extends State<WelcomeLanguages> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.softWhite, width: 1),
+                border: Border.all(
+                    color: AppColors.adaptiveAccentBlueOrSoftWhite(isDark),
+                    width: 1),
               ),
               child: Material(
                 borderRadius: BorderRadius.circular(16),
-                color: Colors.white,
+                color: AppColors.adaptiveDarkBlueOrWhite(isDark),
                 clipBehavior: Clip.hardEdge,
                 child: Theme(
                   data: Theme.of(context).copyWith(
@@ -76,7 +79,8 @@ class _WelcomeLanguagesState extends State<WelcomeLanguages> {
                           style: GoogleFonts.instrumentSans(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
-                            color: AppColors.deepBlue,
+                            color:
+                                AppColors.adaptiveAccentWhiteOrDeepBlue(isDark),
                           ),
                         ),
                       ],
