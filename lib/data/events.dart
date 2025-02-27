@@ -15,21 +15,21 @@ final testEvent = Event(
   star: '3',
   timeSlot: '10:00 - End',
   banner:
-      'https://static1.srcdn.com/wordpress/wp-content/uploads/invincible.jpg',
+      'https://s3-alpha-sig.figma.com/img/a57d/397b/cb8baf649d7360e2e273fb414f9863d9?Expires=1741564800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pPyjQv6lbgBnthf9ahI6FfxM22y3mhBg-Vj9WgOnNQnFl60C7Aduu-~1PwXH6TyGWzFp7STnYfLmb4mmqwYwk9dggyWCQQEzMFmDsWAO1Ek-jiNCEFyV81oUpG56bb-ok~hiPA7S9EtDPr6d-oVwh66asZOMhUraxFfdk8QMo4yol8AA34KKX628vOMUpSLQcONPlUDv6xyGzoGaPwW20s4W9b4Bo~2BPSa4H4uR01DFaDTVMwzwcUFrFJApH1P2IHarYPmg0SlCduDgmdv-MbXcikG4jz3ZKqmOfCw67jQycsGXWN4nj8SX~blTd19620Eo~LPU9etaHhgbI4z00A__',
   images: [
-    'https://assets-prd.ignimgs.com/2023/10/31/invincible-thestorysofar-blogroll-1698783536876.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTve-NFgmtTgQfSEeRnUptsVEufHTOY8oO52A&s',
-    'https://okcomics.co.uk/cdn/shop/files/9781534340268_1200x1200.jpg?v=1711885682',
-    'https://i.redd.it/r2th4esr1qe91.jpg',
-    'https://goldenapplecomics.com/cdn/shop/products/84720-hr.jpg?v=1684939500'
+    'https://s3-alpha-sig.figma.com/img/da6d/1aeb/08dfb16d0b034c49a3fa9ef94b1f8aca?Expires=1741564800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=EHB~nDmdtKkw0fwYafLyDwjXDjKR6dLXbb03lJfJ2UdWmeGXrC64YCWfj21jft1wK1hE29ZftJV~yfMLMwmkbIUuOUjtABW7gzr5OISgaVLNnfEH3WZ2xDrZ~ryZhoXrrpEBuLyNAcHSwb8cZLy35GSumlQHnKfMgl~BdrIBS2ULmCcJeyoXtEGnnMfgTz~t1ryaDm6P06FkdzZ~Jixb30SKAyI8nSFPJSoO4miFbwV8ADX7T5fsvRz-V5aJcSPzT14jhP1rruQazBdG~YDC3~oqt5jN7cJ~xp0jqCpm1NbgmZWh~iqZGRx37jAs0mCxj~KnnnDGKM0tl6s9ag7jTQ__',
+    'https://s3-alpha-sig.figma.com/img/47c6/c9f4/66bb721215e6e9e5ad75efa35d9f36c2?Expires=1741564800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=fczTkpcxVN~GQnUfMSZuIX1Zw4YoTm~u-TyYgurYi2EJRzwkW5CHp44aD3zw~6sVEfzhp-ak5U47v9K3JmlaMaSBgQUpTYbNyIg8bJT~4S15DTkJ~ynSTgi7WTpaUDBVO34uVDYOOg3Tq-qubdAoq9bTYtRbZN-e1LfqjJ1Px9kp1ziTAirwqaCbqDCSAW4LBEczivARVy-u5suHFOUpRVaipzWzOAF54AmEpZ~jIxAviaUWcvfdLO7a2scE2ELNa8JeVBhPX7gaFwg1YikF6xcukKcUOe0CeaE2A3K226JQ0HMZZZImAwGOtxS56U816Eq61Qi1XfIT0tAhnmqIvg__',
+    'https://s3-alpha-sig.figma.com/img/ac16/8dca/49c90ea41525b6a540aa9b3b1140bdb0?Expires=1741564800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=stRfTPqr3DNhsdfq4ly4QKo-aCYzLuJAXzqj5H5~QesMtz5EjLOcDlzXHFqgWOQhMcLAIs~h3TfNz~XZmR1Vk2SxNLXfTCNjPU-xxYazkL4Iy9pmmHKYAKl6CscwkH5K8a2fZbxgcM9uZ9nBF4V7YR1vXL0RYJZVCOVZ10fBpdwiiSHaluarxStFYSWbgAGBvMwodfDPGZMsuFU-mwb5mzowfB0gUKRG5u~rrzdF3uaM7-ZTlWiMML1rSlsRRZT5lqoX7imiHyFrzSJQQ-IHIrK5NUNc32YMZZ5Ar~mhKbUzWymjRaGzmigj1z6QvekvUr2cefRQy-GQIEV-S5EL7w__',
+    'https://s3-alpha-sig.figma.com/img/5dd8/394f/ff8ff5955827e3b001fa11806747cf12?Expires=1741564800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=qDM0YjiSHTKx6iyBGQnZ1S4Dm04yCEpjr4NdpmznNsusnE51ldBdms1SbI-aVaSDFssqVgB1ZlwBQXp6~ZI3u1qrVC5E~ERfkKnOJluAu5jpLZGeiufMVTT3nqnhynjWx4rSj6RGhjIlQpH4CXd1UU3fk4ttXfA~Ptr8uEq0GqgxmNnv3U5c6lOBaa7KpyLO3U98zgZ5S2uyIsfei~KaknE66Z~IvSlfq49Sb1CRl1ux-GbyEB4Xsz9BhIR9MmpmpUsuDvhQ3bK8rUqBu3HL-tqQesdw8sowZ6V013mvimeyuCLvVba3f9VQefHJDT~tpuRVT3JtQiBv8oZIB4JRPw__',
+    'https://s3-alpha-sig.figma.com/img/a57d/397b/cb8baf649d7360e2e273fb414f9863d9?Expires=1741564800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pPyjQv6lbgBnthf9ahI6FfxM22y3mhBg-Vj9WgOnNQnFl60C7Aduu-~1PwXH6TyGWzFp7STnYfLmb4mmqwYwk9dggyWCQQEzMFmDsWAO1Ek-jiNCEFyV81oUpG56bb-ok~hiPA7S9EtDPr6d-oVwh66asZOMhUraxFfdk8QMo4yol8AA34KKX628vOMUpSLQcONPlUDv6xyGzoGaPwW20s4W9b4Bo~2BPSa4H4uR01DFaDTVMwzwcUFrFJApH1P2IHarYPmg0SlCduDgmdv-MbXcikG4jz3ZKqmOfCw67jQycsGXWN4nj8SX~blTd19620Eo~LPU9etaHhgbI4z00A__'
   ],
   distance: '124',
   imgSrc:
-      'https://hips.hearstapps.com/hmg-prod/images/mh-4-9-comic-6615b05935883.jpg?crop=0.447xw:0.894xh;0.529xw,0.0353xh&resize=640:*',
+      'https://s3-alpha-sig.figma.com/img/da6d/1aeb/08dfb16d0b034c49a3fa9ef94b1f8aca?Expires=1741564800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=EHB~nDmdtKkw0fwYafLyDwjXDjKR6dLXbb03lJfJ2UdWmeGXrC64YCWfj21jft1wK1hE29ZftJV~yfMLMwmkbIUuOUjtABW7gzr5OISgaVLNnfEH3WZ2xDrZ~ryZhoXrrpEBuLyNAcHSwb8cZLy35GSumlQHnKfMgl~BdrIBS2ULmCcJeyoXtEGnnMfgTz~t1ryaDm6P06FkdzZ~Jixb30SKAyI8nSFPJSoO4miFbwV8ADX7T5fsvRz-V5aJcSPzT14jhP1rruQazBdG~YDC3~oqt5jN7cJ~xp0jqCpm1NbgmZWh~iqZGRx37jAs0mCxj~KnnnDGKM0tl6s9ag7jTQ__',
   location: 'Tashkent, Concert hall',
   description:
-      "The wait is over! Invincible is coming back for Season 3, and things are about to get even more intense. Let's dive into what's next for Mark Grayson, Omni-Man, and the blood-soaked universe of Invincible!",
-  title: 'Invincible Returns for Season 3 – What to Expect!',
+      "Let’s continue your journey through Uzbekistan—there’s so much more to explore!",
+  title: 'Lola returns to Tashkent for a concert after 10 years',
   dateString: '2025-02-15T14:37:40.658Z',
 );
 final events = List.generate(10, (index) => testEvent);

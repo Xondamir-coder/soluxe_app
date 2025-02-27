@@ -7,6 +7,7 @@ class ScaleUpWidget extends StatefulWidget {
   final double endScale;
   final Curve curve;
   final int delay;
+  final bool isFading;
 
   const ScaleUpWidget({
     super.key,
@@ -16,7 +17,17 @@ class ScaleUpWidget extends StatefulWidget {
     this.duration = const Duration(milliseconds: 700),
     this.curve = Curves.ease,
     this.delay = 0,
-  });
+  }) : isFading = false;
+
+  const ScaleUpWidget.fade({
+    super.key,
+    required this.child,
+    this.beginScale = 0.0,
+    this.endScale = 1.0,
+    this.duration = const Duration(milliseconds: 700),
+    this.curve = Curves.ease,
+    this.delay = 0,
+  }) : isFading = true;
 
   @override
   State<ScaleUpWidget> createState() => _ScaleUpWidgetState();
@@ -26,6 +37,7 @@ class _ScaleUpWidgetState extends State<ScaleUpWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
+  Animation<double>? _fadeAnimation;
 
   @override
   void initState() {
@@ -44,6 +56,18 @@ class _ScaleUpWidgetState extends State<ScaleUpWidget>
       ),
     );
 
+    if (widget.isFading) {
+      _fadeAnimation = Tween<double>(
+        begin: 0,
+        end: 1,
+      ).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: widget.curve,
+        ),
+      );
+    }
+
     if (widget.delay > 0) {
       Future.delayed(Duration(milliseconds: widget.delay), () {
         _controller.forward();
@@ -61,9 +85,18 @@ class _ScaleUpWidgetState extends State<ScaleUpWidget>
 
   @override
   Widget build(BuildContext context) {
-    return ScaleTransition(
+    Widget animatedChild = ScaleTransition(
       scale: _scaleAnimation,
       child: widget.child,
     );
+
+    if (widget.isFading && _fadeAnimation != null) {
+      animatedChild = FadeTransition(
+        opacity: _fadeAnimation!,
+        child: animatedChild,
+      );
+    }
+
+    return animatedChild;
   }
 }

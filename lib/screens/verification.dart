@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/user.dart';
 import 'package:soluxe/screens/success.dart';
+import 'package:soluxe/widgets/animations/scale_up_widget.dart';
 import 'package:soluxe/widgets/appbars/arrow_appbar.dart';
 import 'package:soluxe/widgets/inputs/otp_input.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
@@ -47,33 +48,35 @@ class VerificationScreen extends StatelessWidget {
         backgroundColor: AppColors.adaptiveTransparentBg(isDark),
       ),
       extendBodyBehindAppBar: true,
-      body: Padding(
-        padding: EdgeInsets.only(
-          left: 24,
-          right: 24,
-          bottom: 36,
-        ),
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Opacity(
-                opacity: .2,
-                child: SvgPicture.asset(
-                  'assets/vectors/pattern.svg',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Opacity(
+              opacity: .2,
+              child: SvgPicture.asset(
+                'assets/vectors/pattern.svg',
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
               ),
             ),
-            SafeArea(
+          ),
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 24,
+                right: 24,
+                bottom: 36,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    isDark
-                        ? 'assets/icons/verification-dark.svg'
-                        : 'assets/icons/verification.svg',
+                  ScaleUpWidget.fade(
+                    child: SvgPicture.asset(
+                      isDark
+                          ? 'assets/icons/verification-dark.svg'
+                          : 'assets/icons/verification.svg',
+                    ),
                   ),
                   const SizedBox(height: 40),
                   MyTitle('Verification Code'),
@@ -81,13 +84,25 @@ class VerificationScreen extends StatelessWidget {
                   Column(
                     spacing: 3,
                     children: [
-                      MyText.warmBrown('We are sending verification code to'),
-                      MyText.deepBlue(appUser.phoneNumber!),
+                      MyText.warmBrown(
+                        'We are sending verification code to',
+                        beginOffset: Offset(0, 1.5),
+                        animationDelay: 200,
+                      ),
+                      MyText.deepBlue(
+                        appUser.phoneNumber!,
+                        animationDelay: 300,
+                        beginOffset: Offset(0, 1.5),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 30),
-                  OtpInput(
-                    onChangeOtpValues: (vals) => populatOtpValues(vals),
+                  ScaleUpWidget.fade(
+                    beginScale: 0.75,
+                    delay: 400,
+                    child: OtpInput(
+                      onChangeOtpValues: (vals) => populatOtpValues(vals),
+                    ),
                   ),
                   const SizedBox(height: 5),
                   TextButton(
@@ -99,15 +114,21 @@ class VerificationScreen extends StatelessWidget {
                       'Resend OTP code',
                       fontWeight: FontWeight.w700,
                       color: AppColors.accentYellow,
+                      animationDelay: 500,
+                      beginOffset: Offset(0, 1),
                     ),
                   ),
                   Spacer(),
-                  YellowButton('Next', onTap: () => _verifyCode(context)),
+                  YellowButton(
+                    'Next',
+                    onTap: () => _verifyCode(context),
+                    animationDelay: 600,
+                  ),
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

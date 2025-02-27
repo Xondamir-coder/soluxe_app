@@ -26,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
           height: 88,
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.adaptiveDarkBlueOrWhite(isDark),
             border: Border.all(
               color: AppColors.adaptiveDarkBlueOrWhite(isDark),
               width: 6,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:soluxe/widgets/typography/my_title.dart';
 
 class NotFound extends StatelessWidget {
   final double topPadding;

@@ -1,16 +1,15 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/screens/login.dart';
-import 'package:soluxe/screens/register.dart';
+import 'package:soluxe/widgets/animations/scale_up_widget.dart';
+import 'package:soluxe/widgets/animations/slide_in_widget.dart';
+
+import 'package:soluxe/widgets/welcome/welcome_first.dart';
 import 'package:soluxe/widgets/welcome/welcome_languages.dart';
-import 'package:soluxe/widgets/buttons/provider_button.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
+import 'package:soluxe/widgets/welcome/welcome_last.dart';
+import 'package:soluxe/widgets/welcome/welcome_second.dart';
 
 class WelcomeBody extends StatelessWidget {
   final int currentIndex;
@@ -22,98 +21,15 @@ class WelcomeBody extends StatelessWidget {
     required this.onTap,
   });
 
-  void _continueWithProvider(String name) {
-    print(name);
-  }
-
-  void _goLoginForm(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
-  }
-
-  void _goRegisterForm(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const RegisterScreen(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    const toolbarHeight = 56;
     String? title;
     String? subtitle;
     double gap = 8;
     double fontSize = 24;
     double titleHeight = 1.5;
-    Widget content = SizedBox(
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 48,
-          vertical: 59,
-        ),
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Positioned(
-              top: 30,
-              left: 0,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  'assets/images/login/img-3.jpg',
-                  width: 174,
-                  height: 121,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Positioned(
-              left: -21,
-              top: MediaQuery.of(context).size.height * 0.2,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  'assets/images/login/img-2.jpg',
-                  width: 119,
-                  height: 160,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.1,
-              right: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 4,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: Image.asset(
-                    'assets/images/login/img-1.jpg',
-                    width: 139,
-                    height: 188,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    Widget content;
 
     if (currentIndex == 0) {
       title = 'Explore Uzbekistan like a local!';
@@ -122,50 +38,12 @@ class WelcomeBody extends StatelessWidget {
       fontSize = 32;
       gap = 12;
       titleHeight = 1.4;
+      content = const WelcomeFirst();
     } else if (currentIndex == 1) {
       title = 'Welcome to Your Pocket Guide to Uzbekistan!';
       subtitle =
           'Discover the beauty, history, and culture of Uzbekistan with ease. From ancient Silk Road cities to hidden local gems—everything you need is right at your fingertips. Let’s start exploring!';
-      content = SizedBox(
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 48,
-            vertical: 59,
-          ),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.1,
-                right: 0,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    'assets/images/login/img-4.jpg',
-                    width: 131,
-                    height: 237,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: -21,
-                top: MediaQuery.of(context).size.height * 0.05,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    'assets/images/login/img-5.jpg',
-                    width: 131,
-                    height: 237,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+      content = const WelcomeSecond();
     } else if (currentIndex == 2) {
       title = 'Pick a language, start exploring!';
       subtitle = 'Set your preferred language for the best experience.';
@@ -174,65 +52,7 @@ class WelcomeBody extends StatelessWidget {
       title = 'Let’s Get Started';
       subtitle = 'Class conubia dui lectus eget porta primis platea nisl risus';
       fontSize = 20;
-      content = Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        spacing: 8,
-        children: [
-          Image.asset(
-            isDark
-                ? 'assets/images/welcome-dark-pattern.png'
-                : 'assets/images/login/img-6.png',
-            height: 351,
-            fit: BoxFit.cover,
-          ),
-          Expanded(
-            child: Column(
-              spacing: 12,
-              children: [
-                YellowButton(
-                  'Continue mobile phone',
-                  onTap: () => _goLoginForm(context),
-                ),
-                ProviderButton(
-                  'Continue with Google',
-                  icon: SvgPicture.asset('assets/icons/google.svg'),
-                  onTap: () => _continueWithProvider('google'),
-                ),
-                if (Platform.isIOS)
-                  ProviderButton(
-                    'Continue with Apple',
-                    icon: SvgPicture.asset('assets/icons/apple.svg'),
-                    onTap: () => _continueWithProvider('apple'),
-                  ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Don’t have an account?',
-                style: GoogleFonts.instrumentSans(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.adaptiveWhiteOrDeepBlue(isDark),
-                ),
-              ),
-              TextButton(
-                onPressed: () => _goRegisterForm(context),
-                style: TextButton.styleFrom(
-                  foregroundColor: AppColors.accentYellow,
-                  textStyle: GoogleFonts.instrumentSans(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                child: Text('Signup'),
-              ),
-            ],
-          )
-        ],
-      );
+      content = const WelcomeLast();
     }
 
     return Stack(
@@ -251,37 +71,90 @@ class WelcomeBody extends StatelessWidget {
         ),
 
         // Foreground Content
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 24,
-            right: 24,
-            top: toolbarHeight * 2,
-            bottom: 36,
-          ),
-          child: Column(
-            children: [
-              Column(
-                spacing: gap,
-                crossAxisAlignment: currentIndex == 3
-                    ? CrossAxisAlignment.center
-                    : CrossAxisAlignment.start,
-                children: [
-                  MyTitle(title, fontSize: fontSize, height: titleHeight),
-                  SizedBox(
-                    width: currentIndex == 3 ? 30 * 8 : double.infinity,
-                    child: MyText(
-                      subtitle,
-                      color: isDark ? AppColors.darkBeige : AppColors.warmBrown,
-                      textAlign: currentIndex == 3
-                          ? TextAlign.center
-                          : TextAlign.start,
-                    ),
+        SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 24,
+              right: 24,
+              bottom: 36,
+            ),
+            child: Column(
+              children: [
+                SlideInWidget.fade(
+                  begin: const Offset(0, 0.35),
+                  child: Column(
+                    spacing: gap,
+                    crossAxisAlignment: currentIndex == 3
+                        ? CrossAxisAlignment.center
+                        : CrossAxisAlignment.start,
+                    children: [
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 500),
+                        transitionBuilder: (child, animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          );
+                        },
+                        child: MyTitle(
+                          title,
+                          fontSize: fontSize,
+                          height: titleHeight,
+                          key:
+                              ValueKey(title), // Key changes when title changes
+                        ),
+                      ),
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 500),
+                        transitionBuilder: (child, animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          );
+                        },
+                        child: SizedBox(
+                          key: ValueKey(
+                              subtitle), // Key changes when subtitle changes
+                          width: currentIndex == 3 ? 30 * 8 : double.infinity,
+                          child: MyText.warmBrown(
+                            subtitle,
+                            textAlign: currentIndex == 3
+                                ? TextAlign.center
+                                : TextAlign.start,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Expanded(child: content),
-              if (currentIndex < 2) YellowButton('Kettu', onTap: onTap),
-            ],
+                ),
+                Expanded(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    child: content,
+                    transitionBuilder: (child, animation) {
+                      final offsetAnimation = Tween<Offset>(
+                        begin: const Offset(-0.25, 0.0), // Slide in from right
+                        end: Offset.zero,
+                      ).animate(animation);
+
+                      return FadeTransition(
+                        opacity: animation,
+                        child: SlideTransition(
+                          position: offsetAnimation,
+                          child: child,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                if (currentIndex < 2)
+                  ScaleUpWidget.fade(
+                    beginScale: 1.3,
+                    delay: 600,
+                    child: YellowButton('Kettu', onTap: onTap),
+                  ),
+              ],
+            ),
           ),
         ),
       ],

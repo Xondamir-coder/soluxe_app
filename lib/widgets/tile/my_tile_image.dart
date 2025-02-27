@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -16,6 +17,8 @@ class MyTileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     if (day.isNotEmpty && month.isNotEmpty) {
       return Container(
         width: 90,
@@ -40,7 +43,7 @@ class MyTileImage extends StatelessWidget {
                 width: 35,
                 height: 35,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.adaptiveDarkBlueOrWhite(isDark),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Column(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/widgets/animations/slide_in_widget.dart';
 
 class InputField extends StatelessWidget {
   final void Function(String) onSave;
@@ -11,6 +12,7 @@ class InputField extends StatelessWidget {
   final SvgPicture icon;
   final String? initialVal;
   final FloatingLabelBehavior? floatingLabelBehavior;
+  final int? animationDelay;
 
   // Only for password
   final bool hidePassword;
@@ -24,6 +26,7 @@ class InputField extends StatelessWidget {
     required this.icon,
     this.initialVal,
     this.onComplete,
+    this.animationDelay,
     this.floatingLabelBehavior,
   })  : hidePassword = false,
         onTogglePasswordVisibility = null;
@@ -39,6 +42,7 @@ class InputField extends StatelessWidget {
     this.floatingLabelBehavior,
     this.initialVal,
     this.onComplete,
+    this.animationDelay,
   });
 
   OutlineInputBorder _buildInputBorder(Color color) {
@@ -55,67 +59,71 @@ class InputField extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return TextFormField(
-      onEditingComplete: onComplete,
-      keyboardType: type,
-      obscureText: hidePassword,
-      initialValue: initialVal,
-      decoration: InputDecoration(
-        floatingLabelBehavior: floatingLabelBehavior,
-        labelText: label,
-        labelStyle: GoogleFonts.instrumentSans(
+    return SlideInWidget.fade(
+      begin: const Offset(0, 0.35),
+      delay: animationDelay ?? 300,
+      child: TextFormField(
+        onEditingComplete: onComplete,
+        keyboardType: type,
+        obscureText: hidePassword,
+        initialValue: initialVal,
+        decoration: InputDecoration(
+          floatingLabelBehavior: floatingLabelBehavior,
+          labelText: label,
+          labelStyle: GoogleFonts.instrumentSans(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: AppColors.grey,
+          ),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(
+              right: 14,
+              top: 14,
+              bottom: 14,
+              left: 20,
+            ),
+            child: icon,
+          ),
+          suffixIcon: type == TextInputType.visiblePassword
+              ? GestureDetector(
+                  onTap: onTogglePasswordVisibility,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 12,
+                      top: 12,
+                      right: 12,
+                      left: 12,
+                    ),
+                    child: SvgPicture.asset('assets/icons/eye-off.svg'),
+                  ),
+                )
+              : null,
+          filled: true,
+          fillColor: AppColors.adaptiveDarkBlueOrWhite(
+              isDark), // Light background color
+          focusedBorder: _buildInputBorder(AppColors.accentYellow),
+          errorBorder: _buildInputBorder(Colors.red),
+          border: _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
+          enabledBorder:
+              _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
+          contentPadding: EdgeInsets.symmetric(vertical: 17.5, horizontal: 14),
+        ),
+        style: GoogleFonts.instrumentSans(
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: AppColors.grey,
+          color: AppColors.adaptiveAccentWhiteOrDeepBlue(isDark),
         ),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.only(
-            right: 14,
-            top: 14,
-            bottom: 14,
-            left: 20,
-          ),
-          child: icon,
-        ),
-        suffixIcon: type == TextInputType.visiblePassword
-            ? GestureDetector(
-                onTap: onTogglePasswordVisibility,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 12,
-                    top: 12,
-                    right: 12,
-                    left: 12,
-                  ),
-                  child: SvgPicture.asset('assets/icons/eye-off.svg'),
-                ),
-              )
-            : null,
-        filled: true,
-        fillColor:
-            AppColors.adaptiveDarkBlueOrWhite(isDark), // Light background color
-        focusedBorder: _buildInputBorder(AppColors.accentYellow),
-        errorBorder: _buildInputBorder(Colors.red),
-        border: _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
-        enabledBorder:
-            _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
-        contentPadding: EdgeInsets.symmetric(vertical: 17.5, horizontal: 14),
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'Please enter a valid ${label.toLowerCase()}';
+          }
+          if (type == TextInputType.emailAddress && !value.contains('@')) {
+            return 'Please enter a valid email address';
+          }
+          return null;
+        },
+        onSaved: (newValue) => onSave(newValue!),
       ),
-      style: GoogleFonts.instrumentSans(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: AppColors.adaptiveAccentWhiteOrDeepBlue(isDark),
-      ),
-      validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return 'Please enter a valid ${label.toLowerCase()}';
-        }
-        if (type == TextInputType.emailAddress && !value.contains('@')) {
-          return 'Please enter a valid email address';
-        }
-        return null;
-      },
-      onSaved: (newValue) => onSave(newValue!),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/widgets/animations/slide_in_widget.dart';
 
 enum MyTextVariant { warmBrown, deepBlue, grey, flexible }
 
@@ -12,6 +13,8 @@ class MyText extends StatelessWidget {
   final Color? color;
   final TextAlign textAlign;
   final MyTextVariant variant;
+  final int? animationDelay;
+  final Offset? beginOffset;
 
   const MyText(
     this.text, {
@@ -20,6 +23,8 @@ class MyText extends StatelessWidget {
     this.height = 1.5,
     this.color = AppColors.warmBrown,
     this.textAlign = TextAlign.start,
+    this.animationDelay,
+    this.beginOffset,
     super.key,
   }) : variant = MyTextVariant.flexible;
 
@@ -30,6 +35,8 @@ class MyText extends StatelessWidget {
     this.height = 1.5,
     this.color = AppColors.warmBrown,
     this.textAlign = TextAlign.start,
+    this.animationDelay,
+    this.beginOffset,
     super.key,
   }) : variant = MyTextVariant.warmBrown;
 
@@ -40,6 +47,8 @@ class MyText extends StatelessWidget {
     this.height = 1.5,
     this.textAlign = TextAlign.start,
     this.color,
+    this.animationDelay,
+    this.beginOffset,
     super.key,
   }) : variant = MyTextVariant.deepBlue;
 
@@ -50,6 +59,8 @@ class MyText extends StatelessWidget {
     this.height = 1.5,
     this.textAlign = TextAlign.start,
     this.color,
+    this.animationDelay,
+    this.beginOffset,
     super.key,
   }) : variant = MyTextVariant.grey;
 
@@ -71,14 +82,18 @@ class MyText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = _getDefaultColor(context);
-    return Text(
-      text,
-      textAlign: textAlign,
-      style: GoogleFonts.instrumentSans(
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        color: color,
-        height: height,
+    return SlideInWidget.fade(
+      begin: beginOffset ?? const Offset(0, 0.25),
+      delay: animationDelay ?? 200,
+      child: Text(
+        text,
+        textAlign: textAlign,
+        style: GoogleFonts.instrumentSans(
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          color: color,
+          height: height,
+        ),
       ),
     );
   }

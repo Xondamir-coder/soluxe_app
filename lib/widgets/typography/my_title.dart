@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/widgets/animations/slide_in_widget.dart';
 
 class MyTitle extends StatelessWidget {
   final String title;
@@ -21,14 +22,17 @@ class MyTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Text(
-      title,
-      style: GoogleFonts.instrumentSans(
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        height: height,
-        color: isDark ? AppColors.beige : AppColors.darkBrown,
-        letterSpacing: letterSpacing,
+    return SlideInWidget.fade(
+      begin: const Offset(0, 1),
+      child: Text(
+        title,
+        style: GoogleFonts.instrumentSans(
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          height: height,
+          color: isDark ? AppColors.beige : AppColors.darkBrown,
+          letterSpacing: letterSpacing,
+        ),
       ),
     );
   }

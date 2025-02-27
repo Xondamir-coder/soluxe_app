@@ -16,12 +16,9 @@ class FaqTopicsScreen extends StatelessWidget {
         child: Column(
           spacing: 16,
           children: [
-            SlideInWidget.fade(
-              begin: Offset(-0.5, 0),
-              child: MySearchBar(
-                label: 'Search',
-                onSearch: (query) => print(query),
-              ),
+            MySearchBar(
+              label: 'Search',
+              onSearch: (query) => print(query),
             ),
             FaqTopics.grid(),
           ],

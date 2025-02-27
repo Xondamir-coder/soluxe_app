@@ -6,6 +6,8 @@ import 'package:soluxe/data/hotels.dart';
 import 'package:soluxe/screens/events.dart';
 import 'package:soluxe/screens/hotels.dart';
 import 'package:soluxe/screens/notifications.dart';
+import 'package:soluxe/widgets/animations/scale_up_widget.dart';
+import 'package:soluxe/widgets/animations/slide_in_widget.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/event/event_card.dart';
@@ -56,44 +58,49 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           backgroundColor: AppColors.adaptiveDeepBlueOrCreamWhite(isDark),
           actions: [
-            Container(
-              width: 44,
-              height: 44,
-              margin: EdgeInsets.only(right: 12),
-              child: IconButton(
-                onPressed: () => _navigateToNotifications(context),
-                style: IconButton.styleFrom(
-                  backgroundColor: AppColors.adaptiveAccentBlueOrWhite(
-                    isDark,
+            ScaleUpWidget.fade(
+              child: Container(
+                width: 44,
+                height: 44,
+                margin: EdgeInsets.only(right: 12),
+                child: IconButton(
+                  onPressed: () => _navigateToNotifications(context),
+                  style: IconButton.styleFrom(
+                    backgroundColor: AppColors.adaptiveAccentBlueOrWhite(
+                      isDark,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                icon: SvgPicture.asset(
-                  'assets/icons/notification.svg',
-                  colorFilter: ColorFilter.mode(
-                    AppColors.adaptiveAccentWhiteOrDeepBlue(isDark),
-                    BlendMode.srcIn,
+                  icon: SvgPicture.asset(
+                    'assets/icons/notification.svg',
+                    colorFilter: ColorFilter.mode(
+                      AppColors.adaptiveAccentWhiteOrDeepBlue(isDark),
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
               ),
             ),
           ],
-          title: Column(
-            spacing: 4,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MyText(
-                'Find events near',
-                color: AppColors.adaptiveDarkGreyOrAccentYellow(isDark),
-              ),
-              MyText(
-                'Uzbekistan',
-                fontSize: 18,
-                color: AppColors.adaptiveGreyOrWarmBrown(isDark),
-              ),
-            ],
+          title: SlideInWidget.fade(
+            begin: const Offset(-0.5, 0),
+            child: Column(
+              spacing: 4,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MyText(
+                  'Find events near',
+                  color: AppColors.adaptiveDarkGreyOrAccentYellow(isDark),
+                ),
+                MyText(
+                  'Uzbekistan',
+                  fontSize: 18,
+                  color: AppColors.adaptiveGreyOrWarmBrown(isDark),
+                ),
+              ],
+            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -130,6 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     SectionHeader(
                       title: 'Upcoming events',
+                      totalDelay: 300,
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (ctx) => const EventsScreen(),
@@ -142,7 +150,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (ctx, index) {
                           final event = events[index];
-                          return EventCard(event: event);
+                          return EventCard(
+                            event: event,
+                            animDelay: index * 150 + 300,
+                          );
                         },
                         itemCount: events.length,
                       ),
@@ -154,6 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     SectionHeader(
                       title: 'Hotels',
+                      totalDelay: 500,
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (ctx) => const HotelsScreen(),
@@ -163,7 +175,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     Column(
                       spacing: 10,
                       children: [
-                        for (final hotel in hotels) HotelsItem(hotel: hotel),
+                        for (var i = 0; i < hotels.length; i++)
+                          HotelsItem(
+                            hotel: hotels[i],
+                            delay: i * 150 + 500,
+                          ),
                       ],
                     )
                   ],

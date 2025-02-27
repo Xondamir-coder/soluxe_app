@@ -3,9 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/data/user.dart';
 import 'package:soluxe/screens/verification.dart';
-import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
-import 'package:soluxe/widgets/settings/settings_label.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class SettingsForm extends StatefulWidget {
