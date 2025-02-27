@@ -1,16 +1,15 @@
 import 'package:intl/intl.dart';
+import 'package:soluxe/models/user_summary.dart';
 
 class HotelComment {
-  final String imgSrc;
-  final String name;
-  final String dateString;
   final String text;
+  final String dateString;
+  final UserSummary user;
 
   const HotelComment({
-    required this.imgSrc,
-    required this.name,
-    required this.dateString,
+    required this.user,
     required this.text,
+    required this.dateString,
   });
 
   DateTime get date => DateTime.parse(dateString);

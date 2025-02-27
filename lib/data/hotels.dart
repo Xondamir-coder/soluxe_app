@@ -3,6 +3,7 @@ import 'package:soluxe/models/hotel/hotel_amenity.dart';
 import 'package:soluxe/models/hotel/hotel_comment.dart';
 import 'package:soluxe/models/hotel/hotel_review.dart';
 import 'package:soluxe/models/hotel/hotel_room.dart';
+import 'package:soluxe/models/user_summary.dart';
 
 final images = [
   'https://images.pexels.com/photos/28124028/pexels-photo-28124028.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
@@ -38,9 +39,12 @@ final testHotelAmenities = [
 ];
 
 final testHotelComment = HotelComment(
-  imgSrc:
-      'https://upload.wikimedia.org/wikipedia/commons/5/57/Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29_%28cropped%29.jpg',
-  name: 'Scarlett Johansson',
+  user: UserSummary(
+    id: '2',
+    name: 'Scarlett Johansson',
+    profileImgSrc:
+        'https://upload.wikimedia.org/wikipedia/commons/5/57/Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29_%28cropped%29.jpg',
+  ),
   dateString: DateTime.now().toIso8601String(),
   text:
       'Dictum ipsum scelerisque posuere adipiscing; tempor vestibulum ligula. Primis nunc vivamus eu eros malesuada',

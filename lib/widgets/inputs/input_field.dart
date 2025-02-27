@@ -5,9 +5,12 @@ import 'package:soluxe/constants/colors.dart';
 
 class InputField extends StatelessWidget {
   final void Function(String) onSave;
+  final void Function()? onComplete;
   final String label;
   final TextInputType type;
   final SvgPicture icon;
+  final String? initialVal;
+  final FloatingLabelBehavior? floatingLabelBehavior;
 
   // Only for password
   final bool hidePassword;
@@ -19,6 +22,9 @@ class InputField extends StatelessWidget {
     required this.onSave,
     required this.label,
     required this.icon,
+    this.initialVal,
+    this.onComplete,
+    this.floatingLabelBehavior,
   })  : hidePassword = false,
         onTogglePasswordVisibility = null;
 
@@ -30,6 +36,9 @@ class InputField extends StatelessWidget {
     required this.icon,
     required this.hidePassword,
     required this.onTogglePasswordVisibility,
+    this.floatingLabelBehavior,
+    this.initialVal,
+    this.onComplete,
   });
 
   OutlineInputBorder _buildInputBorder(Color color) {
@@ -47,9 +56,12 @@ class InputField extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return TextFormField(
+      onEditingComplete: onComplete,
       keyboardType: type,
       obscureText: hidePassword,
+      initialValue: initialVal,
       decoration: InputDecoration(
+        floatingLabelBehavior: floatingLabelBehavior,
         labelText: label,
         labelStyle: GoogleFonts.instrumentSans(
           fontSize: 14,

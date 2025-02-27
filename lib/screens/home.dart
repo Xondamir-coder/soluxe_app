@@ -13,7 +13,6 @@ import 'package:soluxe/widgets/hotel/hotels_item.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/section_header.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:soluxe/widgets/typography/my_title.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/data/user.dart';
+import 'package:soluxe/screens/success.dart';
 import 'package:soluxe/widgets/appbars/arrow_appbar.dart';
 import 'package:soluxe/widgets/inputs/otp_input.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
@@ -22,9 +24,15 @@ class VerificationScreen extends StatelessWidget {
     print('resending ...');
   }
 
-  void _verifyCode() {
+  void _verifyCode(BuildContext context) {
     if (otpValues.every((code) => code.isNotEmpty)) {
       print('verifying ...');
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => const SuccessScreen(
+              text: 'You have successfully\nchanged your email'),
+        ),
+      );
     } else {
       print('enter all codes!');
     }
@@ -74,7 +82,7 @@ class VerificationScreen extends StatelessWidget {
                     spacing: 3,
                     children: [
                       MyText.warmBrown('We are sending verification code to'),
-                      MyText.deepBlue('+998 90 900 09 90'),
+                      MyText.deepBlue(appUser.phoneNumber!),
                     ],
                   ),
                   const SizedBox(height: 30),
@@ -94,7 +102,7 @@ class VerificationScreen extends StatelessWidget {
                     ),
                   ),
                   Spacer(),
-                  YellowButton('Next', onTap: _verifyCode),
+                  YellowButton('Next', onTap: () => _verifyCode(context)),
                 ],
               ),
             )

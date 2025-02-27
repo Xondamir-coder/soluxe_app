@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/screens/faq/faq.dart';
 import 'package:soluxe/screens/languages.dart';
+import 'package:soluxe/screens/personal_info.dart';
+import 'package:soluxe/screens/privacy_policy.dart';
 import 'package:soluxe/screens/push_notifications.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
@@ -34,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: FadeInImage.memoryNetwork(
-              image: userData.profileImgSrc,
+              image: appUser.profileImgSrc,
               placeholder: kTransparentImage,
               fit: BoxFit.cover,
             ),
@@ -44,12 +46,12 @@ class SettingsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MyText(
-              userData.name,
+              appUser.name,
               fontSize: 18,
               color: isDark ? AppColors.softWhite : AppColors.deepBlue,
             ),
             MyText(
-              userData.email!,
+              appUser.email!,
               color: AppColors.adaptiveDarkerGreyOrGrey(isDark),
             ),
           ],
@@ -63,6 +65,11 @@ class SettingsScreen extends StatelessWidget {
     switch (name) {
       case 'languages':
         route = const LanguagesScreen();
+      case 'policy':
+        route = const PrivacyPolicyScreen();
+        break;
+      case 'personal':
+        route = const PersonalInfoScreen();
         break;
       case 'faq':
         route = const FaqScreen();

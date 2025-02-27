@@ -8,6 +8,8 @@ class AppColors {
   static const Color warmBrown = Color.fromRGBO(118, 90, 35, 1);
   static const Color accentYellow = Color.fromRGBO(208, 171, 98, 1);
   static const Color yellow = Color.fromRGBO(255, 199, 0, 1);
+  static const Color lightYellow = Color.fromRGBO(220, 192, 137, 1);
+  static const Color darkYellow = Color.fromRGBO(157, 120, 47, 1);
   static const Color deepBlue = Color.fromRGBO(17, 24, 39, 1);
   static const Color darkBlue = Color.fromRGBO(31, 41, 55, 1);
   static const Color accentBlue = Color.fromRGBO(55, 65, 81, 1);
@@ -30,12 +32,19 @@ class AppColors {
   // Conditional colors
   static Color adaptiveTransparentOrLightGrey(bool isDark) =>
       isDark ? Colors.transparent : AppColors.lightGrey;
+
+  static Color adaptiveLightYellowOrDarkYellow(bool isDark) =>
+      isDark ? AppColors.lightYellow : AppColors.darkYellow;
+
   static Color adaptiveTransparentBg(bool isDark) => isDark
       ? AppColors.deepBlue.withValues(alpha: 0.01)
       : AppColors.creamWhite.withValues(alpha: 0.01);
 
   static Color adaptiveDarkBeigeOrWarmBrown(bool isDark) =>
       isDark ? AppColors.darkBeige : AppColors.warmBrown;
+
+  static Color adaptiveBeigeOrDarkBrown(bool isDark) =>
+      isDark ? AppColors.beige : AppColors.darkBrown;
 
   static Color adaptiveTransparentOrWhite(bool isDark) =>
       isDark ? Colors.transparent : Colors.white;
@@ -111,6 +120,9 @@ class AppColors {
 
   static Color adaptiveAccentWhiteOrDeepBlue(bool isDark) =>
       isDark ? AppColors.accentWhite : AppColors.deepBlue;
+
+  static Color adaptiveAccentWhiteOrDarkerGrey(bool isDark) =>
+      isDark ? AppColors.accentWhite : AppColors.darkerGrey;
 
   static Color adaptiveWhiteOrDeepBlue(bool isDark) =>
       isDark ? Colors.white : AppColors.deepBlue;

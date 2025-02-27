@@ -89,6 +89,7 @@ flutter:
         - assets/icons/breakfast.svg
         - assets/icons/google.svg
         - assets/icons/cup.svg
+        - assets/icons/camera.svg
         - assets/icons/bed.svg
         - assets/icons/categories.svg
         - assets/icons/verification.svg
@@ -125,6 +126,7 @@ flutter:
         - assets/icons/profile.svg
         - assets/icons/circle-check.svg
         - assets/vectors/pattern.svg
+        - assets/vectors/success.svg
         - assets/vectors/not-found.svg
         - assets/images/login/img-1.jpg
         - assets/images/login/img-2.jpg
