@@ -52,7 +52,7 @@ class NotificationsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildMessage() {
+  Widget _buildMessage(bool isDark) {
     return RichText(
       text: TextSpan(
         style: GoogleFonts.instrumentSans(
@@ -69,7 +69,7 @@ class NotificationsCard extends StatelessWidget {
                 print('tapped username: ${notification.user.name}');
               },
             style: GoogleFonts.instrumentSans(
-              color: AppColors.deepBlue,
+              color: AppColors.adaptiveWhiteOrDeepBlue(isDark),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -79,7 +79,7 @@ class NotificationsCard extends StatelessWidget {
                 ? notification.post!.title
                 : notification.invitationLocation,
             style: GoogleFonts.instrumentSans(
-              color: AppColors.deepBlue,
+              color: AppColors.adaptiveWhiteOrDeepBlue(isDark),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -143,6 +143,8 @@ class NotificationsCard extends StatelessWidget {
   @override
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return InkWell(
       highlightColor: Colors.white,
       splashColor: Colors.white.withValues(alpha: .75),
@@ -172,7 +174,7 @@ class NotificationsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 8,
                 children: [
-                  _buildMessage(), // RichText with proper space
+                  _buildMessage(isDark), // RichText with proper space
                   _buildDate(),
                   if (notification.type == NotificationType.invitation)
                     _buildActionButtons(),

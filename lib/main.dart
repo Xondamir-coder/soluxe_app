@@ -5,8 +5,6 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/preference_helper.dart';
 import 'package:soluxe/providers/theme_provider.dart';
 import 'package:soluxe/screens/home.dart';
-import 'package:soluxe/screens/verification.dart';
-import 'package:soluxe/screens/welcome.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

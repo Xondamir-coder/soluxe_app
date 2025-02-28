@@ -4,7 +4,6 @@ import 'package:soluxe/models/faq/faq_topic.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/faq/faq_accordions.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
-import 'package:soluxe/widgets/animations/slide_in_widget.dart';
 
 class FaqQuestionsScreen extends StatelessWidget {
   final FaqTopic faqTopic;

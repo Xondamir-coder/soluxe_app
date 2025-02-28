@@ -144,18 +144,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 290,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (ctx, index) {
-                          final event = events[index];
-                          return EventCard(
-                            event: event,
-                            animDelay: index * 150 + 300,
-                          );
-                        },
-                        itemCount: events.length,
+                    SlideInWidget.fade(
+                      begin: const Offset(0, 0.25),
+                      delay: 500,
+                      child: SizedBox(
+                        height: 290,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (ctx, index) {
+                            final event = events[index];
+                            return EventCard(event: event);
+                          },
+                          itemCount: events.length,
+                        ),
                       ),
                     ),
                   ],
