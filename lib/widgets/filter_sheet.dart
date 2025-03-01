@@ -123,12 +123,9 @@ class _FilterSheetState extends State<FilterSheet> {
               ),
               ValueListenableBuilder<RangeValues>(
                 valueListenable: selectedPrice,
-                builder: (context, value, child) => SizedBox(
-                  height: 80,
-                  child: PriceRangeSlider(
-                    selectedPrice: value,
-                    onSelectPrice: (val) => selectedPrice.value = val,
-                  ),
+                builder: (context, value, child) => PriceRangeSlider(
+                  selectedPrice: value,
+                  onSelectPrice: (val) => selectedPrice.value = val,
                 ),
               ),
               ValueListenableBuilder<DateTime>(

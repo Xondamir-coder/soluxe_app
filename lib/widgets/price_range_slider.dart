@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/widgets/typography/my_text.dart';
 
 class PriceRangeSlider extends StatelessWidget {
   final RangeValues selectedPrice;
-  final Function(RangeValues) onSelectPrice;
+  final ValueChanged<RangeValues> onSelectPrice;
 
   const PriceRangeSlider({
     super.key,
@@ -13,16 +14,22 @@ class PriceRangeSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
+      spacing: 4,
       children: [
-        // Range Slider
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
+            // Track colors
             activeTrackColor: AppColors.accentYellow,
-            inactiveTrackColor: Color.fromRGBO(243, 234, 216, 1),
+            inactiveTrackColor: AppColors.beige,
             trackHeight: 4,
+
+            // Hide tick marks if you don't want them
             activeTickMarkColor: Colors.transparent,
             inactiveTickMarkColor: Colors.transparent,
+            rangeTrackShape: RectangularRangeSliderTrackShape(),
+
             thumbShape: RoundSliderThumbShape(
               enabledThumbRadius: 12.0,
               elevation: 0,
@@ -42,20 +49,19 @@ class PriceRangeSlider extends StatelessWidget {
             onChanged: onSelectPrice,
           ),
         ),
-
-        // Price Labels
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //     children: const [
-        //       Text("\$0", style: TextStyle(color: Colors.grey)),
-        //       Text("\$50", style: TextStyle(fontWeight: FontWeight.bold)),
-        //       Text("\$400", style: TextStyle(fontWeight: FontWeight.bold)),
-        //       Text("\$2000", style: TextStyle(color: Colors.grey)),
-        //     ],
-        //   ),
-        // ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MyText(
+              '\$0',
+              color: AppColors.adaptiveDarkerGreyOrGrey(isDark),
+            ),
+            MyText(
+              '\$2000',
+              color: AppColors.adaptiveDarkerGreyOrGrey(isDark),
+            ),
+          ],
+        )
       ],
     );
   }
