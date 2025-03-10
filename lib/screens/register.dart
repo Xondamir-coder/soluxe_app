@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/helpers/provider_helper.dart';
 import 'package:soluxe/widgets/appbars/arrow_appbar.dart';
 import 'package:soluxe/widgets/buttons/provider_button.dart';
 import 'package:soluxe/widgets/forms/register_form.dart';
@@ -12,8 +13,10 @@ import 'package:soluxe/widgets/typography/my_title.dart';
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
+  void foo() async {}
+
   void _signUpWithProvider(String name) {
-    print(name);
+    if (name == 'google') ProviderHelper.signInWithGoogle();
   }
 
   @override

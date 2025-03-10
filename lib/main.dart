@@ -4,15 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/preference_helper.dart';
 import 'package:soluxe/providers/theme_provider.dart';
-import 'package:soluxe/screens/home.dart';
+import 'package:soluxe/screens/welcome.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(
-    ProviderScope(
-      child: MyApp(),
-    ),
-  );
+  runApp(ProviderScope(child: MyApp()));
 }
 
 final kTheme = ThemeData.light().copyWith(
@@ -52,7 +48,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       darkTheme: kDarkTheme,
       themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: WelcomeScreen(),
     );
   }
 }

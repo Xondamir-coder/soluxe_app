@@ -30,7 +30,7 @@ class PersonalInfoScreen extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: FadeInImage.memoryNetwork(
-                image: appUser.profileImgSrc,
+                image: appUser.profileImgSrc!,
                 placeholder: kTransparentImage,
                 fit: BoxFit.cover,
               ),

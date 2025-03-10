@@ -3,12 +3,12 @@ class UserSummary {
   final String name;
   final String? email;
   final String? phoneNumber;
-  final String profileImgSrc;
+  final String? profileImgSrc;
 
   const UserSummary({
     required this.id,
     required this.name,
-    required this.profileImgSrc,
+    this.profileImgSrc,
     this.email,
     this.phoneNumber,
   });

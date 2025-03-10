@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/helpers/provider_helper.dart';
 import 'package:soluxe/screens/login.dart';
 import 'package:soluxe/screens/register.dart';
 import 'package:soluxe/widgets/buttons/provider_button.dart';
@@ -13,7 +14,7 @@ class WelcomeLast extends StatelessWidget {
   const WelcomeLast({super.key});
 
   void _continueWithProvider(String name) {
-    print(name);
+    if (name == 'google') ProviderHelper.signInWithGoogle();
   }
 
   void _goLoginForm(BuildContext context) {
