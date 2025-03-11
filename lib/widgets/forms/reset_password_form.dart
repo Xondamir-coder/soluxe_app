@@ -1,27 +1,67 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/providers/user_provider.dart';
+import 'package:soluxe/screens/success.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
+import 'package:http/http.dart' as http;
 
-class ResetPasswordForm extends StatefulWidget {
+class ResetPasswordForm extends ConsumerStatefulWidget {
   const ResetPasswordForm({super.key});
 
   @override
-  State<ResetPasswordForm> createState() => _ResetPasswordFormState();
+  ConsumerState<ResetPasswordForm> createState() => _ResetPasswordFormState();
 }
 
-class _ResetPasswordFormState extends State<ResetPasswordForm> {
+class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
   final _formKey = GlobalKey<FormState>();
-  String? _otpPassword;
+  String? _emailCode;
   String? _newPassword;
 
-  var _hideOldPassword = true;
   var _hideNewPassword = true;
+
+  void _serverResetPassword() async {
+    try {
+      final res = await http.post(
+        Uri.parse('${Constants.baseUrl}/confirm-forget-password'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'email': ref.read(userProvider).email!,
+          'email_verified_code': _emailCode,
+          'password': _newPassword,
+        }),
+      );
+
+      if (res.statusCode != 200 || res.statusCode != 201) {
+        throw 'Error: ${res.statusCode}';
+      }
+
+      if (!mounted) return;
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => SuccessScreen(text: 'Password reset successfully'),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('An error occurred. Please try again.'),
+        ),
+      );
+    }
+  }
 
   void _resetPassword() {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    print('resetting ...');
+    _serverResetPassword();
   }
 
   @override
@@ -31,14 +71,11 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
       child: Column(
         spacing: 16,
         children: [
-          InputField.password(
-            type: TextInputType.visiblePassword,
-            onSave: (val) => _otpPassword = val,
-            label: 'Otp Password',
-            icon: SvgPicture.asset('assets/icons/lock.svg'),
-            hidePassword: _hideOldPassword,
-            onTogglePasswordVisibility: () =>
-                setState(() => _hideOldPassword = !_hideOldPassword),
+          InputField(
+            type: TextInputType.text,
+            onSave: (val) => _emailCode = val,
+            label: 'Email code',
+            icon: SvgPicture.asset('assets/icons/email.svg'),
           ),
           InputField.password(
             type: TextInputType.visiblePassword,

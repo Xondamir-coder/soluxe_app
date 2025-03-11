@@ -13,10 +13,9 @@ import 'package:soluxe/widgets/typography/my_title.dart';
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
-  void foo() async {}
-
   void _signUpWithProvider(String name) {
     if (name == 'google') ProviderHelper.signInWithGoogle();
+    if (name == 'apple') ProviderHelper.signInWithApple();
   }
 
   @override

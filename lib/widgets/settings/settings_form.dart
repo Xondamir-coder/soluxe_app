@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/data/user.dart';
-import 'package:soluxe/screens/verification.dart';
+import 'package:soluxe/providers/user_provider.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
-class SettingsForm extends StatefulWidget {
+class SettingsForm extends ConsumerStatefulWidget {
   const SettingsForm({super.key});
 
   @override
-  State<SettingsForm> createState() => _SettingsFormState();
+  ConsumerState<SettingsForm> createState() => _SettingsFormState();
 }
 
-class _SettingsFormState extends State<SettingsForm> {
+class _SettingsFormState extends ConsumerState<SettingsForm> {
   final _formKey = GlobalKey<FormState>();
   var _name = '';
   var _email = '';
@@ -26,29 +26,38 @@ class _SettingsFormState extends State<SettingsForm> {
     );
   }
 
+  void _initData() {
+    final user = ref.read(userProvider);
+    _name = user.name!;
+    _email = user.email!;
+    _phoneNumber = user.phoneNumber!;
+  }
+
   @override
   void initState() {
-    _name = appUser.name;
-    _email = appUser.email!;
-    _phoneNumber = appUser.phoneNumber!;
+    _initData();
     super.initState();
   }
 
   void _changeData(String type) {
     if (!_formKey.currentState!.validate()) return;
 
+    final user = ref.read(userProvider);
+
     _formKey.currentState!.save();
 
-    if (type == 'email' && _email == appUser.email) return;
-    if (type == 'phone' && _phoneNumber == appUser.phoneNumber) return;
-    if (type == 'name' && _name == appUser.name) return;
+    if (type == 'email' && _email == user.email) return;
+    if (type == 'phone' && _phoneNumber == user.phoneNumber) return;
+    if (type == 'name' && _name == user.name) return;
 
     if (type == 'email') {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => VerificationScreen(),
-        ),
-      );
+      // TODO:
+
+      // Navigator.of(context).push(
+      //   MaterialPageRoute(
+      //     builder: (ctx) => VerificationScreen(),
+      //   ),
+      // );
     } else {
       print('Updating other details like name or phone number');
     }
@@ -57,6 +66,8 @@ class _SettingsFormState extends State<SettingsForm> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    ref.watch(userProvider);
+
     return Form(
       key: _formKey,
       child: Column(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/models/user_summary.dart';
+import 'package:soluxe/providers/user_provider.dart';
 import 'package:soluxe/screens/faq/faq.dart';
 import 'package:soluxe/screens/languages.dart';
 import 'package:soluxe/screens/personal_info.dart';
@@ -11,13 +14,12 @@ import 'package:soluxe/widgets/settings/settings_tile.dart';
 import 'package:soluxe/widgets/settings/settings_label.dart';
 import 'package:soluxe/widgets/settings/settings_switch_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:soluxe/data/user.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
-  Widget _buildProfile(bool isDark) {
+  Widget _buildProfile(bool isDark, UserSummary user) {
     return Row(
       spacing: 16,
       children: [
@@ -36,7 +38,7 @@ class SettingsScreen extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: FadeInImage.memoryNetwork(
-              image: appUser.profileImgSrc!,
+              image: user.profileImgSrc!,
               placeholder: kTransparentImage,
               fit: BoxFit.cover,
             ),
@@ -46,12 +48,12 @@ class SettingsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MyText(
-              appUser.name,
+              user.name!,
               fontSize: 18,
               color: isDark ? AppColors.softWhite : AppColors.deepBlue,
             ),
             MyText(
-              appUser.email!,
+              user.email!,
               color: AppColors.adaptiveDarkerGreyOrGrey(isDark),
             ),
           ],
@@ -89,8 +91,9 @@ class SettingsScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final user = ref.watch(userProvider);
 
     return Scaffold(
       bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 4),
@@ -101,7 +104,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             spacing: 16,
             children: [
-              _buildProfile(isDark),
+              _buildProfile(isDark, user),
               Column(
                 spacing: 24,
                 children: [

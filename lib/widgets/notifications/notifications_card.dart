@@ -25,7 +25,7 @@ class NotificationsCard extends StatelessWidget {
 
   Widget _buildProfileAvatar() {
     final hasProfileImg = notification.user.profileImgSrc!.isNotEmpty;
-    final shortenedName = notification.user.name.substring(0, 2).toUpperCase();
+    final shortenedName = notification.user.name!.substring(0, 2).toUpperCase();
     final child = hasProfileImg
         ? FadeInImage.memoryNetwork(
             image: notification.user.profileImgSrc!,

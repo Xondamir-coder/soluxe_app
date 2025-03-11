@@ -1,13 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/screens/forgot_password.dart';
 import 'package:soluxe/screens/verification.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
+import 'package:http/http.dart' as http;
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  final bool isEmail;
+
+  const LoginForm({super.key, required this.isEmail});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -15,7 +21,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  String? _phoneNumber;
+  String? _login;
   String? _password;
   var hidePassword = true;
 
@@ -27,14 +33,44 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
+  void _serverLogin() async {
+    try {
+      final res = await http.post(
+        Uri.parse('${Constants.baseUrl}/login'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          widget.isEmail ? 'email' : 'phone': _login,
+          'password': _password,
+          'auth_provider': widget.isEmail ? 'email' : 'phone',
+        }),
+      );
+
+      if (res.statusCode != 200 || res.statusCode != 201) {
+        throw json.decode(res.body)['en'];
+      }
+
+      if (!mounted) return;
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => VerificationScreen(
+            isEmail: widget.isEmail,
+            successMessage: 'Successfully logged in',
+          ),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('$e')),
+      );
+    }
+  }
+
   void _submitForm() {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => VerificationScreen(),
-      ),
-    );
+    _serverLogin();
   }
 
   @override
@@ -48,10 +84,14 @@ class _LoginFormState extends State<LoginForm> {
             spacing: 16,
             children: [
               InputField(
-                type: TextInputType.phone,
-                label: 'Number',
-                icon: SvgPicture.asset('assets/icons/phone.svg'),
-                onSave: (val) => (_phoneNumber = val),
+                type: widget.isEmail
+                    ? TextInputType.emailAddress
+                    : TextInputType.phone,
+                label: widget.isEmail ? 'Email' : 'Number',
+                icon: SvgPicture.asset(widget.isEmail
+                    ? 'assets/icons/email.svg'
+                    : 'assets/icons/phone.svg'),
+                onSave: (val) => (_login = val),
               ),
               InputField.password(
                 type: TextInputType.visiblePassword,

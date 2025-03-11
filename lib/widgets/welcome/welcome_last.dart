@@ -15,12 +15,13 @@ class WelcomeLast extends StatelessWidget {
 
   void _continueWithProvider(String name) {
     if (name == 'google') ProviderHelper.signInWithGoogle();
+    if (name == 'apple') ProviderHelper.signInWithApple();
   }
 
-  void _goLoginForm(BuildContext context) {
+  void _goLoginForm(BuildContext context, {bool isEmail = false}) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
+        builder: (context) => LoginScreen(isEmail: isEmail),
       ),
     );
   }
@@ -53,8 +54,12 @@ class WelcomeLast extends StatelessWidget {
             spacing: 12,
             children: [
               YellowButton(
-                'Continue mobile phone',
+                'Continue with phone',
                 onTap: () => _goLoginForm(context),
+              ),
+              YellowButton(
+                'Continue with email',
+                onTap: () => _goLoginForm(context, isEmail: true),
               ),
               ProviderButton(
                 'Continue with Google',

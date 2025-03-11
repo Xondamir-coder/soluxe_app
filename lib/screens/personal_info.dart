@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/data/user.dart';
+import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/settings/settings_form.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -29,10 +29,19 @@ class PersonalInfoScreen extends StatelessWidget {
           Positioned.fill(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
-              child: FadeInImage.memoryNetwork(
-                image: appUser.profileImgSrc!,
-                placeholder: kTransparentImage,
-                fit: BoxFit.cover,
+              child: FutureBuilder(
+                future: LocalStorageHelper.getUserData(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return FadeInImage.memoryNetwork(
+                      image: snapshot.data!.profileImgSrc!,
+                      placeholder: kTransparentImage,
+                      fit: BoxFit.cover,
+                    );
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                },
               ),
             ),
           ),

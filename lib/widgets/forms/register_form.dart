@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/constants.dart';
-import 'package:soluxe/helpers/local_storage_helper.dart';
+import 'package:soluxe/screens/verification.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:http/http.dart' as http;
@@ -22,7 +22,43 @@ class _RegisterFormState extends State<RegisterForm> {
   String? _email;
   var hidePassword = true;
 
-  void registerWithEmail() async {
+  void _sendVerificationCode() async {
+    // Send email verification code
+    try {
+      final res = await http.post(
+        Uri.parse('${Constants.baseUrl}/email-send'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(
+          {
+            'email': _email,
+          },
+        ),
+      );
+
+      if (res.statusCode != 200 || res.statusCode != 201) {
+        throw 'Error: ${res.statusCode}';
+      }
+
+      if (!mounted) return;
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => VerificationScreen(
+            isEmail: true,
+            successMessage: 'You have successfully confirmed your email',
+          ),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error occurred. Try again')),
+      );
+    }
+  }
+
+  void _registerWithEmail() async {
     try {
       final res = await http.post(
         Uri.parse('${Constants.baseUrl}/register'),
@@ -36,25 +72,21 @@ class _RegisterFormState extends State<RegisterForm> {
           'auth_provider': 'email',
         }),
       );
-      final body = json.decode(res.body);
 
-      // Optionally, handle different status codes
       if (res.statusCode == 200 || res.statusCode == 201) {
-        // Saving user data on client side
-        await LocalStorageHelper.saveUserData(
-          token: body['token'],
-          email: body['user']['email'],
-          fullName: body['user']['full_name'],
-        );
+        _sendVerificationCode();
       } else {
         throw 'Error: ${res.statusCode}';
       }
     } catch (e) {
-      print('Exception caught: $e');
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error occurred. Try again')),
+      );
     }
   }
 
-  void trimValues() {
+  void _trimValues() {
     _name = _name!.trim();
     _email = _email!.trim();
     _password = _password!.trim();
@@ -63,8 +95,8 @@ class _RegisterFormState extends State<RegisterForm> {
   void _submitForm() {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    trimValues();
-    registerWithEmail();
+    _trimValues();
+    _registerWithEmail();
   }
 
   @override

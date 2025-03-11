@@ -8,7 +8,6 @@ class SettingsLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return MyText.grey(text, fontWeight: FontWeight.w700);
   }
 }

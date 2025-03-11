@@ -11,10 +11,13 @@ import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  final bool isEmail;
+
+  const LoginScreen({super.key, required this.isEmail});
 
   void _signInWithProvider(String name) {
     if (name == 'google') ProviderHelper.signInWithGoogle(isRegister: false);
+    if (name == 'apple') ProviderHelper.signInWithApple(isRegister: false);
   }
 
   @override
@@ -44,7 +47,7 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const LoginForm(),
+              LoginForm(isEmail: isEmail),
               Row(
                 spacing: 16,
                 children: [

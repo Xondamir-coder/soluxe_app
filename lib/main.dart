@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/helpers/preference_helper.dart';
 import 'package:soluxe/providers/theme_provider.dart';
+import 'package:soluxe/providers/user_provider.dart';
 import 'package:soluxe/screens/welcome.dart';
 
 void main() {
@@ -30,6 +32,8 @@ class MyApp extends ConsumerStatefulWidget {
 class _MyAppState extends ConsumerState<MyApp> {
   void _loadTheme() async {
     ref.read(themeProvider.notifier).state = await PreferenceHelper.getTheme();
+    ref.read(userProvider.notifier).state =
+        await LocalStorageHelper.getUserData();
   }
 
   @override

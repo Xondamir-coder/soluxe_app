@@ -46,7 +46,7 @@ class HotelCommentsItem extends StatelessWidget {
                 spacing: 2,
                 children: [
                   MyText(
-                    comment.user.name,
+                    comment.user.name!,
                     fontSize: 11,
                     color: AppColors.adaptiveAlmostWhiteOrDarkBlue(isDark),
                   ),
