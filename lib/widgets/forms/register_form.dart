@@ -1,21 +1,23 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/helpers/fetch_helper.dart';
+import 'package:soluxe/models/user_summary.dart';
+import 'package:soluxe/providers/user_provider.dart';
 import 'package:soluxe/screens/verification.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
-import 'package:http/http.dart' as http;
+import 'package:soluxe/widgets/my_dialog.dart';
 
-class RegisterForm extends StatefulWidget {
+class RegisterForm extends ConsumerStatefulWidget {
   const RegisterForm({super.key});
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  ConsumerState<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _RegisterFormState extends ConsumerState<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   String? _name;
   String? _password;
@@ -23,26 +25,13 @@ class _RegisterFormState extends State<RegisterForm> {
   var hidePassword = true;
 
   void _sendVerificationCode() async {
-    // Send email verification code
     try {
-      final res = await http.post(
-        Uri.parse('${Constants.baseUrl}/email-send'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: json.encode(
-          {
-            'email': _email,
-          },
-        ),
-      );
+      await FetchHelper.sendCode(true, _email!);
 
-      if (res.statusCode != 200 || res.statusCode != 201) {
-        throw 'Error: ${res.statusCode}';
-      }
+      // Update state
+      ref.read(userProvider.notifier).state = UserSummary(email: _email);
 
       if (!mounted) return;
-
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => VerificationScreen(
@@ -52,36 +41,34 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error occurred. Try again')),
+      showDialog(
+        context: context,
+        builder: (ctx) => MyDialog(
+          message: '${(e as Map)['body']['en'] ?? (e)['body']['message']}',
+        ),
       );
     }
   }
 
   void _registerWithEmail() async {
     try {
-      final res = await http.post(
-        Uri.parse('${Constants.baseUrl}/register'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: json.encode({
-          'full_name': _name,
-          'email': _email,
-          'password': _password,
-          'auth_provider': 'email',
-        }),
-      );
-
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        _sendVerificationCode();
-      } else {
-        throw 'Error: ${res.statusCode}';
-      }
+      await FetchHelper.fetch(url: '${Constants.baseUrl}/register', reqBody: {
+        'full_name': _name,
+        'email': _email,
+        'password': _password,
+        'auth_provider': 'email',
+      });
     } catch (e) {
+      if ((e as Map)['code'] == 401) {
+        _sendVerificationCode();
+        return;
+      }
+
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error occurred. Try again')),
+      showDialog(
+        context: context,
+        builder: (ctx) =>
+            MyDialog(message: '${(e)['body']['en'] ?? (e)['body']['message']}'),
       );
     }
   }

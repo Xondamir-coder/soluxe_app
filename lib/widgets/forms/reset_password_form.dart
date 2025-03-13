@@ -1,14 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/providers/user_provider.dart';
 import 'package:soluxe/screens/success.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
-import 'package:http/http.dart' as http;
+import 'package:soluxe/widgets/my_dialog.dart';
 
 class ResetPasswordForm extends ConsumerStatefulWidget {
   const ResetPasswordForm({super.key});
@@ -26,21 +25,14 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
 
   void _serverResetPassword() async {
     try {
-      final res = await http.post(
-        Uri.parse('${Constants.baseUrl}/confirm-forget-password'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: json.encode({
+      await FetchHelper.fetch(
+        url: '${Constants.baseUrl}/confirm-forget-password',
+        reqBody: {
           'email': ref.read(userProvider).email!,
           'email_verified_code': _emailCode,
           'password': _newPassword,
-        }),
+        },
       );
-
-      if (res.statusCode != 200 || res.statusCode != 201) {
-        throw 'Error: ${res.statusCode}';
-      }
 
       if (!mounted) return;
       Navigator.of(context).push(
@@ -49,11 +41,10 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
         ),
       );
     } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('An error occurred. Please try again.'),
-        ),
+      showDialog(
+        context: context,
+        builder: (ctx) => MyDialog(
+            message: '${(e as Map)['body']['en'] ?? (e)['body']['message']}'),
       );
     }
   }

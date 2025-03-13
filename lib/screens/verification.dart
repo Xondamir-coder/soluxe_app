@@ -1,20 +1,18 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/models/user_summary.dart';
 import 'package:soluxe/providers/user_provider.dart';
 import 'package:soluxe/screens/success.dart';
 import 'package:soluxe/widgets/animations/scale_up_widget.dart';
 import 'package:soluxe/widgets/appbars/arrow_appbar.dart';
 import 'package:soluxe/widgets/inputs/otp_input.dart';
+import 'package:soluxe/widgets/my_dialog.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
-import 'package:http/http.dart' as http;
 
 class VerificationScreen extends ConsumerWidget {
   final bool isEmail;
@@ -34,55 +32,34 @@ class VerificationScreen extends ConsumerWidget {
   }
 
   void _resendCode(BuildContext context, UserSummary user) async {
-    final endpoint = isEmail ? 'email-send' : 'sms-send';
     try {
-      // Send code to email/phone
-      final res = await http.post(
-        Uri.parse('${Constants.baseUrl}/$endpoint'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: json.encode({
-          if (isEmail) 'email': user.email,
-          if (!isEmail) 'phone': user.phoneNumber,
-        }),
+      await FetchHelper.sendCode(
+        isEmail,
+        isEmail ? user.email! : user.phoneNumber!,
       );
-
-      if (res.statusCode != 200 || res.statusCode != 201) {
-        throw 'Error: ${res.statusCode}';
-      }
 
       // Show success message
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Code has been sent.')),
+      showDialog(
+        context: context,
+        builder: (ctx) => MyDialog(message: 'Code has been sent'),
       );
     } catch (e) {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error resending code. Try again')),
+      showDialog(
+        context: context,
+        builder: (ctx) => MyDialog(
+            message: '${(e as Map)['body']['en'] ?? (e)['body']['message']}'),
       );
     }
   }
 
   void _serverVerifyCode(BuildContext context, UserSummary user) async {
-    final endpoint = isEmail ? 'email-verify' : 'sms-verify';
     try {
-      final res = await http.post(
-        Uri.parse('${Constants.baseUrl}/$endpoint'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: json.encode({
-          if (isEmail) 'email': user.email,
-          if (!isEmail) 'phone': user.phoneNumber,
-          'verify_code': otpValues.join(''),
-        }),
+      await FetchHelper.verifyCode(
+        isEmail,
+        isEmail ? user.email! : user.phoneNumber!,
+        otpValues.join(''),
       );
-
-      if (res.statusCode != 200 || res.statusCode != 201) {
-        throw 'Error: ${res.statusCode}';
-      }
 
       if (!context.mounted) return;
       Navigator.of(context).push(
@@ -91,9 +68,10 @@ class VerificationScreen extends ConsumerWidget {
         ),
       );
     } catch (e) {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error verifying code. Try again')),
+      showDialog(
+        context: context,
+        builder: (ctx) => MyDialog(
+            message: '${(e as Map)['body']['en'] ?? (e)['body']['message']}'),
       );
     }
   }
@@ -102,8 +80,11 @@ class VerificationScreen extends ConsumerWidget {
     if (otpValues.every((code) => code.isNotEmpty)) {
       _serverVerifyCode(context, user);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Enter all codes!')),
+      showDialog(
+        context: context,
+        builder: (ctx) => MyDialog(
+          message: 'Enter all codes',
+        ),
       );
     }
   }

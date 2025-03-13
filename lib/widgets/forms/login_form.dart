@@ -1,25 +1,29 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/helpers/fetch_helper.dart';
+import 'package:soluxe/helpers/local_storage_helper.dart';
+import 'package:soluxe/models/user_summary.dart';
+import 'package:soluxe/providers/user_provider.dart';
 import 'package:soluxe/screens/forgot_password.dart';
+import 'package:soluxe/screens/home.dart';
 import 'package:soluxe/screens/verification.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
+import 'package:soluxe/widgets/my_dialog.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
-import 'package:http/http.dart' as http;
 
-class LoginForm extends StatefulWidget {
+class LoginForm extends ConsumerStatefulWidget {
   final bool isEmail;
 
   const LoginForm({super.key, required this.isEmail});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  ConsumerState<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends ConsumerState<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   String? _login;
   String? _password;
@@ -33,24 +37,26 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void _serverLogin() async {
+  void _showMsg(String message) {
+    if (!mounted) return;
+    showDialog(
+      context: context,
+      builder: (ctx) => MyDialog(message: message),
+    );
+  }
+
+  void _sendVerificationCode() async {
     try {
-      final res = await http.post(
-        Uri.parse('${Constants.baseUrl}/login'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: json.encode({
-          widget.isEmail ? 'email' : 'phone': _login,
-          'password': _password,
-          'auth_provider': widget.isEmail ? 'email' : 'phone',
-        }),
+      // Send code to email/phone
+      await FetchHelper.sendCode(widget.isEmail, _login!);
+
+      // Update state
+      ref.read(userProvider.notifier).state = UserSummary(
+        email: widget.isEmail ? _login : '',
+        phoneNumber: !widget.isEmail ? _login : '',
       );
 
-      if (res.statusCode != 200 || res.statusCode != 201) {
-        throw json.decode(res.body)['en'];
-      }
-
+      // Verify email/phone
       if (!mounted) return;
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -61,9 +67,52 @@ class _LoginFormState extends State<LoginForm> {
         ),
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('$e')),
+      _showMsg((e as Map)['body']['en'] ?? (e)['body']['message']);
+    }
+  }
+
+  void _serverLogin() async {
+    try {
+      // Login
+      final body = await FetchHelper.fetch(
+        url: '${Constants.baseUrl}/login',
+        reqBody: {
+          widget.isEmail ? 'email' : 'phone': _login,
+          'password': _password,
+          'auth_provider': widget.isEmail ? 'email' : 'phone',
+        },
       );
+
+      // Save to storage
+      await LocalStorageHelper.saveUserData(
+        token: body['token'],
+        email: body['user']['email'],
+        fullName: body['user']['full_name'],
+      );
+
+      // Update state
+      ref.read(userProvider.notifier).state = UserSummary(
+        id: body['token'],
+        email: body['user']['email'],
+        name: body['user']['full_name'],
+        phoneNumber: body['user']['phone'],
+      );
+
+      // Navigate to home
+      if (!mounted) return;
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (ctx) => const HomeScreen(),
+        ),
+        (route) => false,
+      );
+    } catch (e) {
+      // If the email/phone isn't confirmed
+      if ((e as Map)['code'] == 401) {
+        _sendVerificationCode();
+      } else {
+        _showMsg((e)['body']['en'] ?? (e)['body']['message']);
+      }
     }
   }
 

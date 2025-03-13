@@ -24,7 +24,9 @@ class SuccessScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                'assets/vectors/success.svg',
+                isDark
+                    ? 'assets/vectors/success-dark.svg'
+                    : 'assets/vectors/success.svg',
               ),
               const SizedBox(height: 30),
               MyText(
