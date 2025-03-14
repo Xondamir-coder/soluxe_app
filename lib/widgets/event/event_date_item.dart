@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/event.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class EventDateItem extends StatelessWidget {
-  final EventDate date;
+  final String day;
+  final String month;
 
-  const EventDateItem({required this.date, super.key});
+  const EventDateItem({required this.month, required this.day, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,8 @@ class EventDateItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          MyText.deepBlue(date.day.toString()),
-          MyText.grey(date.month, fontSize: 10),
+          MyText.deepBlue(day.toString()),
+          MyText.grey(month, fontSize: 10),
         ],
       ),
     );

@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
-import 'package:soluxe/models/user_summary.dart';
-import 'package:soluxe/providers/user_provider.dart';
+import 'package:soluxe/models/account.dart';
+import 'package:soluxe/models/user.dart';
+import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/verification.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
@@ -29,7 +30,9 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
       await FetchHelper.sendCode(true, _email!);
 
       // Update state
-      ref.read(userProvider.notifier).state = UserSummary(email: _email);
+      ref.read(accountProvider.notifier).state = Account(
+        user: User(email: _email),
+      );
 
       if (!mounted) return;
       Navigator.of(context).push(
@@ -52,12 +55,16 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   void _registerWithEmail() async {
     try {
-      await FetchHelper.fetch(url: '${Constants.baseUrl}/register', reqBody: {
-        'full_name': _name,
-        'email': _email,
-        'password': _password,
-        'auth_provider': 'email',
-      });
+      await FetchHelper.fetch(
+        url: '${Constants.apiUrl}/register',
+        method: HttpMethod.post,
+        reqBody: {
+          'full_name': _name,
+          'email': _email,
+          'password': _password,
+          'auth_provider': 'email',
+        },
+      );
     } catch (e) {
       if ((e as Map)['code'] == 401) {
         _sendVerificationCode();

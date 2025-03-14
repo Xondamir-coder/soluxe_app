@@ -5,8 +5,8 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/helpers/preference_helper.dart';
 import 'package:soluxe/providers/theme_provider.dart';
-import 'package:soluxe/providers/user_provider.dart';
-import 'package:soluxe/screens/register.dart';
+import 'package:soluxe/providers/account_provider.dart';
+import 'package:soluxe/screens/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +32,8 @@ class MyApp extends ConsumerStatefulWidget {
 class _MyAppState extends ConsumerState<MyApp> {
   void _initProviders() async {
     ref.read(themeProvider.notifier).state = await PreferenceHelper.getTheme();
-    ref.read(userProvider.notifier).state =
-        await LocalStorageHelper.getUserData();
+    ref.read(accountProvider.notifier).state =
+        await LocalStorageHelper.getAccountData();
   }
 
   @override
@@ -52,7 +52,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       darkTheme: kDarkTheme,
       themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
-      home: RegisterScreen(),
+      home: HomeScreen(),
     );
   }
 }

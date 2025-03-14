@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
+import 'package:soluxe/models/user.dart';
 
 class ProviderHelper {
   // Google Sign In configuration
@@ -24,7 +25,7 @@ class ProviderHelper {
       // Server sign
       final endpoint = isRegister ? 'register' : 'login';
       final res = await http.post(
-        Uri.parse('${Constants.baseUrl}/$endpoint'),
+        Uri.parse('${Constants.apiUrl}/$endpoint'),
         body: json.encode({
           'email': account?.email,
           if (isRegister) 'full_name': account?.displayName,
@@ -36,10 +37,9 @@ class ProviderHelper {
       if (account == null) return;
 
       // Update local state
-      await LocalStorageHelper.saveUserData(
+      await LocalStorageHelper.saveAccountData(
         token: resBody['token'],
-        email: resBody['user']['email'],
-        fullName: resBody['user']['full_name'],
+        user: User.fromMap(resBody['user']),
       );
     } catch (e) {
       print('Error signing in with Google: $e');
@@ -53,7 +53,7 @@ class ProviderHelper {
       await googleSignIn.signOut();
 
       // Update local state
-      await LocalStorageHelper.deleteUserData();
+      await LocalStorageHelper.deleteAccountData();
     } catch (e) {
       print('Error signing out with Google: $e');
     }
@@ -73,7 +73,7 @@ class ProviderHelper {
 
       // Send request to server
       final res = await http.post(
-        Uri.parse('${Constants.baseUrl}/$endpoint'),
+        Uri.parse('${Constants.apiUrl}/$endpoint'),
         body: json.encode({
           'email':
               credential.email ?? '', // Some users might not share their email
@@ -84,10 +84,9 @@ class ProviderHelper {
       final Map<String, dynamic> resBody = json.decode(res.body);
 
       // Update local storage
-      await LocalStorageHelper.saveUserData(
+      await LocalStorageHelper.saveAccountData(
         token: resBody['token'],
-        email: resBody['user']['email'],
-        fullName: resBody['user']['full_name'],
+        user: User.fromMap(resBody['user']),
       );
     } catch (e) {
       print('Error signing in with Apple: $e');
@@ -96,9 +95,7 @@ class ProviderHelper {
 
   static Future<void> signOutWithApple() async {
     try {
-      // Sign out (Apple doesn't have an explicit sign-out API)
-      // Just clear local user data
-      await LocalStorageHelper.deleteUserData();
+      await LocalStorageHelper.deleteAccountData();
     } catch (e) {
       print('Error signing out with Apple: $e');
     }

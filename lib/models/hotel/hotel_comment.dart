@@ -1,10 +1,10 @@
 import 'package:intl/intl.dart';
-import 'package:soluxe/models/user_summary.dart';
+import 'package:soluxe/models/user.dart';
 
 class HotelComment {
   final String text;
   final String dateString;
-  final UserSummary user;
+  final User user;
 
   const HotelComment({
     required this.user,

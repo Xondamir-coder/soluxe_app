@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/user_summary.dart';
-import 'package:soluxe/providers/user_provider.dart';
+import 'package:soluxe/models/account.dart';
+import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/faq/faq.dart';
 import 'package:soluxe/screens/languages.dart';
 import 'package:soluxe/screens/personal_info.dart';
@@ -19,7 +19,7 @@ import 'package:transparent_image/transparent_image.dart';
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
-  Widget _buildProfile(bool isDark, UserSummary user) {
+  Widget _buildProfile(bool isDark, Account account) {
     return Row(
       spacing: 16,
       children: [
@@ -38,7 +38,7 @@ class SettingsScreen extends ConsumerWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: FadeInImage.memoryNetwork(
-              image: user.profileImgSrc!,
+              image: account.user!.profilePic!,
               placeholder: kTransparentImage,
               fit: BoxFit.cover,
             ),
@@ -48,12 +48,12 @@ class SettingsScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MyText(
-              user.name!,
+              account.user!.fullName!,
               fontSize: 18,
               color: isDark ? AppColors.softWhite : AppColors.deepBlue,
             ),
             MyText(
-              user.email!,
+              account.user!.email!,
               color: AppColors.adaptiveDarkerGreyOrGrey(isDark),
             ),
           ],
@@ -93,7 +93,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final user = ref.watch(userProvider);
+    final user = ref.watch(accountProvider);
 
     return Scaffold(
       bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 4),

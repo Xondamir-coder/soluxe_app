@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
-import 'package:soluxe/providers/user_provider.dart';
+import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/success.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
@@ -26,9 +26,10 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
   void _serverResetPassword() async {
     try {
       await FetchHelper.fetch(
-        url: '${Constants.baseUrl}/confirm-forget-password',
+        url: '${Constants.apiUrl}/confirm-forget-password',
+        method: HttpMethod.post,
         reqBody: {
-          'email': ref.read(userProvider).email!,
+          'email': ref.read(accountProvider).user!.email!,
           'email_verified_code': _emailCode,
           'password': _newPassword,
         },

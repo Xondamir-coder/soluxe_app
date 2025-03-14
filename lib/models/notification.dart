@@ -1,11 +1,11 @@
 import 'package:intl/intl.dart';
 import 'package:soluxe/models/post_summary.dart';
-import 'package:soluxe/models/user_summary.dart';
+import 'package:soluxe/models/user.dart';
 
 enum NotificationType { comment, invitation }
 
 class NotificationModel {
-  final UserSummary user; // The user who triggered the notification
+  final User user; // The user who triggered the notification
   final PostSummary? post; // Only exists for comment notifications
   final String message; // Main notification text
   final String dateString; // Timestamp

@@ -1,37 +1,33 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:soluxe/models/user_summary.dart';
+import 'package:soluxe/models/account.dart';
+import 'package:soluxe/models/user.dart';
 
 class LocalStorageHelper {
   // Create an instance of FlutterSecureStorage
   static final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
 
   // Save user token and details
-  static Future<void> saveUserData({
+  static Future<void> saveAccountData({
     required String token,
-    required String email,
-    required String fullName,
+    required User user,
   }) async {
     await _secureStorage.write(key: 'token', value: token);
-    await _secureStorage.write(key: 'email', value: email);
-    await _secureStorage.write(key: 'fullName', value: fullName);
+    await _secureStorage.write(key: 'user', value: user.toJson());
   }
 
   // Retrieve user data
-  static Future<UserSummary> getUserData() async {
+  static Future<Account> getAccountData() async {
     final token = await _secureStorage.read(key: 'token');
-    final email = await _secureStorage.read(key: 'email');
-    final fullName = await _secureStorage.read(key: 'fullName');
-    return UserSummary(
-      id: token!,
-      email: email!,
-      name: fullName!,
+    final user = await _secureStorage.read(key: 'user');
+    return Account(
+      token: token!,
+      user: User.fromJson(user!),
     );
   }
 
   // Delete user data (e.g., during sign out)
-  static Future<void> deleteUserData() async {
+  static Future<void> deleteAccountData() async {
     await _secureStorage.delete(key: 'token');
-    await _secureStorage.delete(key: 'email');
-    await _secureStorage.delete(key: 'fullName');
+    await _secureStorage.delete(key: 'user');
   }
 }

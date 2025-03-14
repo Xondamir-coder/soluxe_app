@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/providers/events_date_provider.dart';
+import 'package:soluxe/providers/events_provider.dart';
 import 'package:soluxe/widgets/date_pickers/collapsed_date_picker.dart';
 import 'package:soluxe/widgets/date_pickers/expanded_date_picker.dart';
 import 'package:soluxe/widgets/drag_handle.dart';

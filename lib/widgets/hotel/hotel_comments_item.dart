@@ -35,7 +35,7 @@ class HotelCommentsItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
                 child: FadeInImage.memoryNetwork(
                   placeholder: kTransparentImage,
-                  image: comment.user.profileImgSrc!,
+                  image: comment.user.profilePic!,
                   fit: BoxFit.cover,
                   width: 32,
                   height: 32,
@@ -46,7 +46,7 @@ class HotelCommentsItem extends StatelessWidget {
                 spacing: 2,
                 children: [
                   MyText(
-                    comment.user.name!,
+                    comment.user.fullName!,
                     fontSize: 11,
                     color: AppColors.adaptiveAlmostWhiteOrDarkBlue(isDark),
                   ),

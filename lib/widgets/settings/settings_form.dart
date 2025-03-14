@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/providers/user_provider.dart';
+import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
@@ -27,10 +27,10 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
   }
 
   void _initData() {
-    final user = ref.read(userProvider);
-    _name = user.name!;
-    _email = user.email!;
-    _phoneNumber = user.phoneNumber!;
+    final account = ref.read(accountProvider);
+    _name = account.user!.fullName!;
+    _email = account.user!.email!;
+    _phoneNumber = account.user!.phone!;
   }
 
   @override
@@ -42,13 +42,13 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
   void _changeData(String type) {
     if (!_formKey.currentState!.validate()) return;
 
-    final user = ref.read(userProvider);
+    final account = ref.read(accountProvider);
 
     _formKey.currentState!.save();
 
-    if (type == 'email' && _email == user.email) return;
-    if (type == 'phone' && _phoneNumber == user.phoneNumber) return;
-    if (type == 'name' && _name == user.name) return;
+    if (type == 'email' && _email == account.user!.email) return;
+    if (type == 'phone' && _phoneNumber == account.user!.phone) return;
+    if (type == 'name' && _name == account.user!.fullName) return;
 
     if (type == 'email') {
       // TODO:
@@ -66,7 +66,7 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    ref.watch(userProvider);
+    ref.watch(accountProvider);
 
     return Form(
       key: _formKey,

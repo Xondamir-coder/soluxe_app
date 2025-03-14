@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/event.dart';
+import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/models/event/event.dart';
 import 'package:soluxe/screens/event.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -32,7 +33,7 @@ class EventCard extends StatelessWidget {
           children: [
             Positioned.fill(
               child: FadeInImage.memoryNetwork(
-                image: event.imgSrc,
+                image: '${Constants.apiUrl}/${event.place.images[0]}',
                 placeholder: kTransparentImage,
                 fit: BoxFit.cover,
               ),
@@ -56,7 +57,7 @@ class EventCard extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            event.day,
+                            event.eventFormatted.day,
                             style: GoogleFonts.instrumentSans(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -65,7 +66,7 @@ class EventCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            event.month,
+                            event.eventFormatted.month,
                             style: GoogleFonts.instrumentSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -89,7 +90,7 @@ class EventCard extends StatelessWidget {
                       spacing: 8,
                       children: [
                         MyText(
-                          event.title,
+                          event.titleEn,
                           color:
                               AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
                           fontWeight: FontWeight.w700,
@@ -98,7 +99,7 @@ class EventCard extends StatelessWidget {
                           spacing: 4,
                           children: [
                             MyText(
-                              event.location,
+                              event.city,
                               fontSize: 12,
                               color: AppColors.grey,
                             ),
@@ -111,7 +112,7 @@ class EventCard extends StatelessWidget {
                               ),
                             ),
                             MyText(
-                              event.time,
+                              event.eventFormatted.time,
                               fontSize: 12,
                               color: AppColors.grey,
                             ),

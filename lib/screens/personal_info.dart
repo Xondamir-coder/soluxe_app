@@ -30,11 +30,11 @@ class PersonalInfoScreen extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: FutureBuilder(
-                future: LocalStorageHelper.getUserData(),
+                future: LocalStorageHelper.getAccountData(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return FadeInImage.memoryNetwork(
-                      image: snapshot.data!.profileImgSrc!,
+                      image: snapshot.data!.user!.profilePic!,
                       placeholder: kTransparentImage,
                       fit: BoxFit.cover,
                     );

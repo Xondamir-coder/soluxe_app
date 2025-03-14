@@ -24,11 +24,12 @@ class NotificationsCard extends StatelessWidget {
   }
 
   Widget _buildProfileAvatar() {
-    final hasProfileImg = notification.user.profileImgSrc!.isNotEmpty;
-    final shortenedName = notification.user.name!.substring(0, 2).toUpperCase();
+    final hasProfileImg = notification.user.profilePic!.isNotEmpty;
+    final shortenedName =
+        notification.user.fullName!.substring(0, 2).toUpperCase();
     final child = hasProfileImg
         ? FadeInImage.memoryNetwork(
-            image: notification.user.profileImgSrc!,
+            image: notification.user.profilePic!,
             placeholder: kTransparentImage,
           )
         : MyText(
@@ -63,10 +64,10 @@ class NotificationsCard extends StatelessWidget {
         ),
         children: [
           TextSpan(
-            text: notification.user.name,
+            text: notification.user.fullName,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                print('tapped username: ${notification.user.name}');
+                print('tapped username: ${notification.user.fullName}');
               },
             style: GoogleFonts.instrumentSans(
               color: AppColors.adaptiveWhiteOrDeepBlue(isDark),

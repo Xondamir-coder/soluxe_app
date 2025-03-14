@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/event.dart';
+import 'package:soluxe/models/event/event.dart';
 import 'package:soluxe/models/hotel/hotel.dart';
 import 'package:soluxe/models/places.dart';
 import 'package:soluxe/screens/event.dart';

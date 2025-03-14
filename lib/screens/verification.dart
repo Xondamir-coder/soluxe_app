@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
-import 'package:soluxe/models/user_summary.dart';
-import 'package:soluxe/providers/user_provider.dart';
+import 'package:soluxe/models/account.dart';
+import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/success.dart';
 import 'package:soluxe/widgets/animations/scale_up_widget.dart';
 import 'package:soluxe/widgets/appbars/arrow_appbar.dart';
@@ -31,11 +31,11 @@ class VerificationScreen extends ConsumerWidget {
     otpValues.addAll(values);
   }
 
-  void _resendCode(BuildContext context, UserSummary user) async {
+  void _resendCode(BuildContext context, Account account) async {
     try {
       await FetchHelper.sendCode(
         isEmail,
-        isEmail ? user.email! : user.phoneNumber!,
+        isEmail ? account.user!.email! : account.user!.phone!,
       );
 
       // Show success message
@@ -53,11 +53,11 @@ class VerificationScreen extends ConsumerWidget {
     }
   }
 
-  void _serverVerifyCode(BuildContext context, UserSummary user) async {
+  void _serverVerifyCode(BuildContext context, Account account) async {
     try {
       await FetchHelper.verifyCode(
         isEmail,
-        isEmail ? user.email! : user.phoneNumber!,
+        isEmail ? account.user!.email! : account.user!.phone!,
         otpValues.join(''),
       );
 
@@ -76,9 +76,9 @@ class VerificationScreen extends ConsumerWidget {
     }
   }
 
-  void _verifyCode(BuildContext context, UserSummary user) async {
+  void _verifyCode(BuildContext context, Account account) async {
     if (otpValues.every((code) => code.isNotEmpty)) {
-      _serverVerifyCode(context, user);
+      _serverVerifyCode(context, account);
     } else {
       showDialog(
         context: context,
@@ -92,7 +92,7 @@ class VerificationScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final user = ref.watch(userProvider);
+    final account = ref.watch(accountProvider);
 
     return Scaffold(
       appBar: ArrowAppbar(
@@ -141,7 +141,7 @@ class VerificationScreen extends ConsumerWidget {
                         animationDelay: 200,
                       ),
                       MyText.deepBlue(
-                        isEmail ? user.email! : user.phoneNumber!,
+                        isEmail ? account.user!.email! : account.user!.phone!,
                         animationDelay: 300,
                         beginOffset: Offset(0, 1.5),
                       ),
@@ -157,7 +157,7 @@ class VerificationScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 5),
                   TextButton(
-                    onPressed: () => _resendCode(context, user),
+                    onPressed: () => _resendCode(context, account),
                     style: TextButton.styleFrom(
                       overlayColor: AppColors.accentYellow,
                     ),
@@ -172,7 +172,7 @@ class VerificationScreen extends ConsumerWidget {
                   Spacer(),
                   YellowButton(
                     'Next',
-                    onTap: () => _verifyCode(context, user),
+                    onTap: () => _verifyCode(context, account),
                     animationDelay: 600,
                   ),
                 ],

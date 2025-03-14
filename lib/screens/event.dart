@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/event.dart';
+import 'package:soluxe/models/event/event.dart';
 import 'package:soluxe/widgets/buttons/circular_back_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/content_row.dart';
@@ -60,7 +60,7 @@ class EventScreen extends StatelessWidget {
                   Positioned.fill(
                     child: FadeInImage.memoryNetwork(
                       placeholder: kTransparentImage,
-                      image: event.banner,
+                      image: event.place.images[0],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -95,7 +95,7 @@ class EventScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                     child: FadeInImage.memoryNetwork(
                       placeholder: kTransparentImage,
-                      image: event.images[0],
+                      image: event.place.images[1],
                       fit: BoxFit.cover,
                       height: 160,
                       width: double.infinity,
@@ -104,7 +104,7 @@ class EventScreen extends StatelessWidget {
                   Row(
                     spacing: 6,
                     children: [
-                      for (final image in event.images)
+                      for (final image in event.place.images)
                         Expanded(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
@@ -123,7 +123,7 @@ class EventScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyText(
-                        event.title,
+                        event.titleEn,
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                         color: AppColors.adaptiveWhiteOrVeryDarkBrown(
@@ -131,7 +131,7 @@ class EventScreen extends StatelessWidget {
                         ),
                       ),
                       MyText(
-                        event.description,
+                        event.descriptionEn,
                         fontSize: 16,
                         color: AppColors.adaptiveAlmostWhiteOrWarmBrown(isDark),
                       ),
@@ -140,13 +140,22 @@ class EventScreen extends StatelessWidget {
                   Row(
                     spacing: 6,
                     children: [
-                      for (final date in event.dates) EventDateItem(date: date),
+                      EventDateItem(
+                        day: event.eventFormatted.day,
+                        month: event.eventFormatted.month,
+                      ),
+                      EventDateItem(
+                        day: event.eventTillFormatted.day,
+                        month: event.eventTillFormatted.month,
+                      ),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          MyText.deepBlue(event.weekday),
-                          MyText.grey(event.timeSlot),
+                          MyText.deepBlue(event.eventFormatted.weekday),
+                          MyText.grey(
+                            '${event.eventFormatted.time} - ${event.eventTillFormatted.time}',
+                          ),
                         ],
                       ),
                       const Spacer(),
@@ -176,18 +185,18 @@ class EventScreen extends StatelessWidget {
                     children: [
                       ContentRow(
                         title: 'Average price',
-                        text: event.averagePrice,
+                        text: '${event.place.priceRate}',
                         iconPath: 'assets/icons/wallet.svg',
                       ),
                       ContentRow.interactive(
                         title: 'Contacts',
-                        phone: event.phoneNumber,
-                        website: event.website,
+                        phone: event.place.contactInfo,
+                        website: event.place.contactUrl,
                         iconPath: 'assets/icons/contacts-phone.svg',
                       ),
                       ContentRow(
                         title: 'Opening Hours',
-                        text: event.openingHours,
+                        text: 'N/A',
                         iconPath: 'assets/icons/bold-clock.svg',
                       ),
                     ],
@@ -199,9 +208,9 @@ class EventScreen extends StatelessWidget {
                       MyText.deepBlue('Location', fontSize: 16),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(16),
-                        child: FadeInImage.memoryNetwork(
-                          placeholder: kTransparentImage,
-                          image: event.locationImgSrc,
+                        child: Image.asset(
+                          // placeholder: kTransparentImage,
+                          '../../assets/images/map.png',
                           fit: BoxFit.cover,
                           height: 160,
                           width: double.infinity,

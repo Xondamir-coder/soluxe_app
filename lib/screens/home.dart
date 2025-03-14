@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/data/events.dart';
 import 'package:soluxe/data/hotels.dart';
+import 'package:soluxe/providers/events_provider.dart';
 import 'package:soluxe/screens/events.dart';
 import 'package:soluxe/screens/hotels.dart';
 import 'package:soluxe/screens/notifications.dart';
@@ -16,14 +17,14 @@ import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/section_header.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   var query = '';
   var selectedCategory = '';
   final categories = [
@@ -37,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     selectedCategory = categories[0];
+    ref.read(eventsProvider.notifier).fetchEvents();
     super.initState();
   }
 
@@ -51,6 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final events = ref.watch(eventsProvider);
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(

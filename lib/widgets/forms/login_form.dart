@@ -4,8 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
-import 'package:soluxe/models/user_summary.dart';
-import 'package:soluxe/providers/user_provider.dart';
+import 'package:soluxe/models/account.dart';
+import 'package:soluxe/models/user.dart';
+import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/forgot_password.dart';
 import 'package:soluxe/screens/home.dart';
 import 'package:soluxe/screens/verification.dart';
@@ -51,9 +52,11 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       await FetchHelper.sendCode(widget.isEmail, _login!);
 
       // Update state
-      ref.read(userProvider.notifier).state = UserSummary(
-        email: widget.isEmail ? _login : '',
-        phoneNumber: !widget.isEmail ? _login : '',
+      ref.read(accountProvider.notifier).state = Account(
+        user: User(
+          email: widget.isEmail ? _login : null,
+          phone: widget.isEmail ? null : _login,
+        ),
       );
 
       // Verify email/phone
@@ -75,7 +78,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
     try {
       // Login
       final body = await FetchHelper.fetch(
-        url: '${Constants.baseUrl}/login',
+        url: '${Constants.apiUrl}/login',
+        method: HttpMethod.post,
         reqBody: {
           widget.isEmail ? 'email' : 'phone': _login,
           'password': _password,
@@ -84,18 +88,15 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       );
 
       // Save to storage
-      await LocalStorageHelper.saveUserData(
+      await LocalStorageHelper.saveAccountData(
         token: body['token'],
-        email: body['user']['email'],
-        fullName: body['user']['full_name'],
+        user: User.fromMap(body['user']),
       );
 
       // Update state
-      ref.read(userProvider.notifier).state = UserSummary(
-        id: body['token'],
-        email: body['user']['email'],
-        name: body['user']['full_name'],
-        phoneNumber: body['user']['phone'],
+      ref.read(accountProvider.notifier).state = Account(
+        token: body['token'],
+        user: User.fromMap(body['user']),
       );
 
       // Navigate to home
