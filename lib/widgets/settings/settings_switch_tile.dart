@@ -39,8 +39,7 @@ class SettingsSwitchTile extends ConsumerWidget {
       ),
       value: isDark,
       onChanged: (val) {
-        ref.read(themeProvider.notifier).state = val;
-        PreferenceHelper.saveTheme(val);
+        ref.read(themeProvider.notifier).setTheme(val);
       },
       trackOutlineColor: WidgetStatePropertyAll(Colors.transparent),
     );

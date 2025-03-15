@@ -1,17 +1,20 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/helpers/local_storage_helper.dart';
+import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/models/account.dart';
+import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/settings/settings_form.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class PersonalInfoScreen extends StatelessWidget {
+class PersonalInfoScreen extends ConsumerWidget {
   const PersonalInfoScreen({super.key});
 
-  Widget _buildProfile(bool isDark) {
+  Widget _buildProfile(bool isDark, Account account) {
     return Container(
       width: 100,
       height: 100,
@@ -29,20 +32,17 @@ class PersonalInfoScreen extends StatelessWidget {
           Positioned.fill(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
-              child: FutureBuilder(
-                future: LocalStorageHelper.getAccountData(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return FadeInImage.memoryNetwork(
-                      image: snapshot.data!.user!.profilePic!,
+              child: account.user?.profilePic != null
+                  ? FadeInImage.memoryNetwork(
+                      image:
+                          '${Constants.baseUrl}/${account.user!.profilePic!}',
                       placeholder: kTransparentImage,
                       fit: BoxFit.cover,
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
+                    )
+                  : SvgPicture.asset(
+                      'assets/icons/profile.svg',
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
           Positioned(
@@ -67,8 +67,9 @@ class PersonalInfoScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final account = ref.watch(accountProvider);
 
     return Scaffold(
       appBar: const DefaultAppbar(title: 'Personal Information'),
@@ -76,7 +77,7 @@ class PersonalInfoScreen extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
-            _buildProfile(isDark),
+            _buildProfile(isDark, account),
             const SettingsForm(),
           ],
         ),

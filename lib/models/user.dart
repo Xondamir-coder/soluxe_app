@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:soluxe/constants/constants.dart';
-
 class User {
   final int? id;
   final String? fullName;
@@ -79,15 +77,15 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['id'].toInt() as int,
-      fullName: map['full_name'] as String,
-      email: map['email'] as String,
-      emailVerifiedCode: map['email_verified_code'].toInt() as int,
+      id: map['id'] as int,
+      fullName: map['full_name'] as String?,
+      email: map['email'] as String?,
+      emailVerifiedCode: map['email_verified_code'] as int?,
       emailVerified: map['email_verified'] as bool,
       authProvider: map['auth_provider'] as String,
-      profilePic: '${Constants.imgUrl}/${map['profile_pic'] as String}',
-      phone: map['phone'] as String,
-      phoneVerifyCode: map['phone_verify_code'] as String,
+      profilePic: map['profile_pic'] as String?,
+      phone: map['phone'] as String?,
+      phoneVerifyCode: map['phone_verify_code'] as String?,
       phoneVerified: map['phone_verified'] as bool,
       createdAt: map['created_at'] as String,
       updatedAt: map['updated_at'] as String,

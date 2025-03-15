@@ -28,9 +28,9 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
 
   void _initData() {
     final account = ref.read(accountProvider);
-    _name = account.user!.fullName!;
-    _email = account.user!.email!;
-    _phoneNumber = account.user!.phone!;
+    _name = account.user?.fullName ?? '';
+    _email = account.user?.email ?? '';
+    _phoneNumber = account.user?.phone ?? '';
   }
 
   @override
@@ -46,9 +46,9 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
 
     _formKey.currentState!.save();
 
-    if (type == 'email' && _email == account.user!.email) return;
-    if (type == 'phone' && _phoneNumber == account.user!.phone) return;
-    if (type == 'name' && _name == account.user!.fullName) return;
+    if (type == 'email' && _email == account.user?.email) return;
+    if (type == 'phone' && _phoneNumber == account.user?.phone) return;
+    if (type == 'name' && _name == account.user?.fullName) return;
 
     if (type == 'email') {
       // TODO:

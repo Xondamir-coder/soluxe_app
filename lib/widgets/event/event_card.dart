@@ -32,11 +32,15 @@ class EventCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: FadeInImage.memoryNetwork(
-                image: '${Constants.apiUrl}/${event.place.images[0]}',
-                placeholder: kTransparentImage,
-                fit: BoxFit.cover,
-              ),
+              child: event.place?.images?[0] != null
+                  ? FadeInImage.memoryNetwork(
+                      image: '${Constants.baseUrl}/${event.place?.images![0]}',
+                      placeholder: kTransparentImage,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(
+                      color: AppColors.adaptiveDeepBlueOrWhite(isDark),
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.all(12),
@@ -57,7 +61,7 @@ class EventCard extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            event.eventFormatted.day,
+                            event.eventFormatted?.day ?? 'N/A',
                             style: GoogleFonts.instrumentSans(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -66,7 +70,7 @@ class EventCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            event.eventFormatted.month,
+                            event.eventFormatted?.month ?? 'N/A',
                             style: GoogleFonts.instrumentSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -90,7 +94,7 @@ class EventCard extends StatelessWidget {
                       spacing: 8,
                       children: [
                         MyText(
-                          event.titleEn,
+                          event.titleEn ?? 'N/A',
                           color:
                               AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
                           fontWeight: FontWeight.w700,
@@ -99,7 +103,7 @@ class EventCard extends StatelessWidget {
                           spacing: 4,
                           children: [
                             MyText(
-                              event.city,
+                              event.place?.city ?? 'N/A',
                               fontSize: 12,
                               color: AppColors.grey,
                             ),
@@ -112,7 +116,7 @@ class EventCard extends StatelessWidget {
                               ),
                             ),
                             MyText(
-                              event.eventFormatted.time,
+                              event.eventFormatted?.time ?? 'N/A',
                               fontSize: 12,
                               color: AppColors.grey,
                             ),

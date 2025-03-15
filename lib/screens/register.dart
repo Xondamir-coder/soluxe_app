@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/provider_helper.dart';
@@ -10,16 +11,16 @@ import 'package:soluxe/widgets/forms/register_form.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends ConsumerWidget {
   const RegisterScreen({super.key});
 
-  void _signUpWithProvider(String name) {
-    if (name == 'google') ProviderHelper.signInWithGoogle();
-    if (name == 'apple') ProviderHelper.signInWithApple();
+  void _signUpWithProvider(String name, WidgetRef ref) {
+    if (name == 'google') ProviderHelper.signInWithGoogle(ref: ref);
+    if (name == 'apple') ProviderHelper.signInWithApple(ref: ref);
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: const ArrowAppbar(),
       body: Padding(
@@ -63,13 +64,13 @@ class RegisterScreen extends StatelessWidget {
             ),
             ProviderButton(
               'Sign Up with Google',
-              onTap: () => _signUpWithProvider('google'),
+              onTap: () => _signUpWithProvider('google', ref),
               icon: SvgPicture.asset('assets/icons/google.svg'),
             ),
             if (Platform.isIOS)
               ProviderButton(
                 'Sign Up with Apple',
-                onTap: () => _signUpWithProvider('apple'),
+                onTap: () => _signUpWithProvider('apple', ref),
                 icon: SvgPicture.asset('assets/icons/apple.svg'),
               ),
           ],

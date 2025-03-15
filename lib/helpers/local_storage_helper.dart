@@ -19,10 +19,12 @@ class LocalStorageHelper {
   static Future<Account> getAccountData() async {
     final token = await _secureStorage.read(key: 'token');
     final user = await _secureStorage.read(key: 'user');
-    return Account(
-      token: token!,
-      user: User.fromJson(user!),
-    );
+    return user != null
+        ? Account(
+            token: token,
+            user: User.fromJson(user),
+          )
+        : Account(token: token);
   }
 
   // Delete user data (e.g., during sign out)

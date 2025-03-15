@@ -17,7 +17,7 @@ class FetchHelper {
   }) async {
     try {
       // Parse the URL and add query parameters if it's a GET request.
-      Uri uri = Uri.parse(url);
+      Uri uri = Uri.parse('${Constants.apiUrl}/$url');
       if (method == HttpMethod.get && queryParams != null) {
         uri = uri.replace(queryParameters: queryParams);
       }
@@ -63,12 +63,14 @@ class FetchHelper {
   }
 
   static Future<Map<String, dynamic>> sendCode(
-      bool isEmail, String login) async {
+    bool isEmail,
+    String login,
+  ) async {
     final endpoint = isEmail ? 'email-send' : 'sms-send';
 
     try {
       final body = await fetch(
-        url: '${Constants.apiUrl}/$endpoint',
+        url: endpoint,
         method: HttpMethod.post,
         reqBody: {
           isEmail ? 'email' : 'phone': login,
@@ -82,11 +84,14 @@ class FetchHelper {
   }
 
   static Future<Map<String, dynamic>> verifyCode(
-      bool isEmail, String login, String code) async {
+    bool isEmail,
+    String login,
+    String code,
+  ) async {
     final endpoint = isEmail ? 'email-verify' : 'sms-verify';
     try {
       final body = await fetch(
-        url: '${Constants.apiUrl}/$endpoint',
+        url: endpoint,
         method: HttpMethod.post,
         reqBody: {
           isEmail ? 'email' : 'phone': login,

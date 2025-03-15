@@ -51,8 +51,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       // Send code to email/phone
       await FetchHelper.sendCode(widget.isEmail, _login!);
 
-      // Update state
-      ref.read(accountProvider.notifier).state = Account(
+      // Update state/storage
+      final accountNotifier = ref.read(accountProvider.notifier);
+      accountNotifier.updateAccount(
         user: User(
           email: widget.isEmail ? _login : null,
           phone: widget.isEmail ? null : _login,
@@ -78,7 +79,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
     try {
       // Login
       final body = await FetchHelper.fetch(
-        url: '${Constants.apiUrl}/login',
+        url: 'login',
         method: HttpMethod.post,
         reqBody: {
           widget.isEmail ? 'email' : 'phone': _login,
@@ -87,16 +88,11 @@ class _LoginFormState extends ConsumerState<LoginForm> {
         },
       );
 
-      // Save to storage
-      await LocalStorageHelper.saveAccountData(
-        token: body['token'],
-        user: User.fromMap(body['user']),
-      );
-
-      // Update state
-      ref.read(accountProvider.notifier).state = Account(
-        token: body['token'],
-        user: User.fromMap(body['user']),
+      // Update state/storage
+      final accountNotifier = ref.read(accountProvider.notifier);
+      accountNotifier.updateAccount(
+        token: body['token'] as String,
+        user: User.fromMap(body['user'] as Map<String, dynamic>),
       );
 
       // Navigate to home

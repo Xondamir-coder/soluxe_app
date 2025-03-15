@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/event/event.dart';
 import 'package:soluxe/widgets/buttons/circular_back_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
@@ -8,6 +9,7 @@ import 'package:soluxe/widgets/content_row.dart';
 import 'package:soluxe/widgets/event/event_date_item.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class EventScreen extends StatelessWidget {
   final Event event;
@@ -52,78 +54,84 @@ class EventScreen extends StatelessWidget {
         child: Column(
           spacing: 12,
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: 195,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      image: event.place.images[0],
-                      fit: BoxFit.cover,
+            if (event.place?.images != null)
+              SizedBox(
+                width: double.infinity,
+                height: 195,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image:
+                            '${Constants.baseUrl}/${event.place?.images![0]}',
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Theme.of(context).brightness == Brightness.dark
-                                ? AppColors.deepBlue.withValues(alpha: .1)
-                                : AppColors.creamWhite.withValues(alpha: .1),
-                            Theme.of(context).brightness == Brightness.dark
-                                ? AppColors.deepBlue
-                                : AppColors.creamWhite,
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
+                    Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? AppColors.deepBlue.withValues(alpha: .1)
+                                  : AppColors.creamWhite.withValues(alpha: .1),
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? AppColors.deepBlue
+                                  : AppColors.creamWhite,
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 spacing: 12,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      image: event.place.images[1],
-                      fit: BoxFit.cover,
-                      height: 160,
-                      width: double.infinity,
+                  if (event.place?.images != null &&
+                      event.place!.images!.length > 1)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image:
+                            '${Constants.baseUrl}/${event.place?.images![1]}',
+                        fit: BoxFit.cover,
+                        height: 160,
+                        width: double.infinity,
+                      ),
                     ),
-                  ),
-                  Row(
-                    spacing: 6,
-                    children: [
-                      for (final image in event.place.images)
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: FadeInImage.memoryNetwork(
-                              placeholder: kTransparentImage,
-                              image: image,
-                              fit: BoxFit.cover,
-                              height: 60,
+                  if (event.place?.images != null)
+                    Row(
+                      spacing: 6,
+                      children: [
+                        for (final image in event.place!.images!)
+                          Expanded(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: FadeInImage.memoryNetwork(
+                                placeholder: kTransparentImage,
+                                image: '${Constants.baseUrl}/$image',
+                                fit: BoxFit.cover,
+                                height: 60,
+                              ),
                             ),
-                          ),
-                        )
-                    ],
-                  ),
+                          )
+                      ],
+                    ),
                   Column(
                     spacing: 8,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyText(
-                        event.titleEn,
+                        event.titleEn ?? 'N/A',
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                         color: AppColors.adaptiveWhiteOrVeryDarkBrown(
@@ -131,7 +139,7 @@ class EventScreen extends StatelessWidget {
                         ),
                       ),
                       MyText(
-                        event.descriptionEn,
+                        event.descriptionEn ?? 'N/A',
                         fontSize: 16,
                         color: AppColors.adaptiveAlmostWhiteOrWarmBrown(isDark),
                       ),
@@ -141,20 +149,21 @@ class EventScreen extends StatelessWidget {
                     spacing: 6,
                     children: [
                       EventDateItem(
-                        day: event.eventFormatted.day,
-                        month: event.eventFormatted.month,
+                        day: event.eventFormatted?.day ?? 'N/A',
+                        month: event.eventFormatted?.month ?? 'N/A',
                       ),
                       EventDateItem(
-                        day: event.eventTillFormatted.day,
-                        month: event.eventTillFormatted.month,
+                        day: event.eventTillFormatted?.day ?? 'N/A',
+                        month: event.eventTillFormatted?.month ?? 'N/A',
                       ),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          MyText.deepBlue(event.eventFormatted.weekday),
+                          MyText.deepBlue(
+                              event.eventFormatted?.weekday ?? 'N/A'),
                           MyText.grey(
-                            '${event.eventFormatted.time} - ${event.eventTillFormatted.time}',
+                            '${event.eventFormatted?.time ?? 'N/A'} - ${event.eventTillFormatted?.time ?? 'N/A'}',
                           ),
                         ],
                       ),
@@ -185,15 +194,17 @@ class EventScreen extends StatelessWidget {
                     children: [
                       ContentRow(
                         title: 'Average price',
-                        text: '${event.place.priceRate}',
+                        text: event.place?.priceRate.toString() ?? 'N/A',
                         iconPath: 'assets/icons/wallet.svg',
                       ),
-                      ContentRow.interactive(
-                        title: 'Contacts',
-                        phone: event.place.contactInfo,
-                        website: event.place.contactUrl,
-                        iconPath: 'assets/icons/contacts-phone.svg',
-                      ),
+                      if (event.place?.contactInfo != null &&
+                          event.place?.contactUrl != null)
+                        ContentRow.interactive(
+                          title: 'Contacts',
+                          phone: event.place!.contactInfo!,
+                          website: event.place!.contactUrl!,
+                          iconPath: 'assets/icons/contacts-phone.svg',
+                        ),
                       ContentRow(
                         title: 'Opening Hours',
                         text: 'N/A',
@@ -210,7 +221,7 @@ class EventScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                         child: Image.asset(
                           // placeholder: kTransparentImage,
-                          '../../assets/images/map.png',
+                          'assets/images/map.png',
                           fit: BoxFit.cover,
                           height: 160,
                           width: double.infinity,
@@ -231,7 +242,10 @@ class EventScreen extends StatelessWidget {
                       ),
                       Expanded(
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (event.place?.contactInfo == null) return;
+                            launchUrlString('tel:${event.place!.contactInfo}');
+                          },
                           style: OutlinedButton.styleFrom(
                             elevation: 0,
                             shape: RoundedRectangleBorder(

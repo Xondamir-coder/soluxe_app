@@ -1,11 +1,10 @@
-import 'dart:convert';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart' as http;
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/user.dart';
+import 'package:soluxe/providers/account_provider.dart';
 
 class ProviderHelper {
   // Google Sign In configuration
@@ -17,29 +16,33 @@ class ProviderHelper {
   );
 
   // Google Sign In method
-  static Future<void> signInWithGoogle({bool isRegister = true}) async {
+  static Future<void> signInWithGoogle({
+    bool isRegister = true,
+    required WidgetRef ref,
+  }) async {
     try {
       // Google sign
       final account = await googleSignIn.signIn();
 
       // Server sign
       final endpoint = isRegister ? 'register' : 'login';
-      final res = await http.post(
-        Uri.parse('${Constants.apiUrl}/$endpoint'),
-        body: json.encode({
+      final body = await FetchHelper.fetch(
+        url: endpoint,
+        method: HttpMethod.post,
+        reqBody: {
           'email': account?.email,
           if (isRegister) 'full_name': account?.displayName,
           'auth_provider': 'google',
-        }),
+        },
       );
-      final Map<String, dynamic> resBody = json.decode(res.body);
 
       if (account == null) return;
 
-      // Update local state
-      await LocalStorageHelper.saveAccountData(
-        token: resBody['token'],
-        user: User.fromMap(resBody['user']),
+      // Update state/storage
+      final accountNotifier = ref.read(accountProvider.notifier);
+      accountNotifier.updateAccount(
+        token: body['token'] as String,
+        user: User.fromMap(body['user'] as Map<String, dynamic>),
       );
     } catch (e) {
       print('Error signing in with Google: $e');
@@ -59,7 +62,10 @@ class ProviderHelper {
     }
   }
 
-  static Future<void> signInWithApple({bool isRegister = true}) async {
+  static Future<void> signInWithApple({
+    bool isRegister = true,
+    required WidgetRef ref,
+  }) async {
     try {
       // Perform Apple sign-in
       final credential = await SignInWithApple.getAppleIDCredential(
@@ -72,21 +78,22 @@ class ProviderHelper {
       final endpoint = isRegister ? 'register' : 'login';
 
       // Send request to server
-      final res = await http.post(
-        Uri.parse('${Constants.apiUrl}/$endpoint'),
-        body: json.encode({
+      final body = await FetchHelper.fetch(
+        url: endpoint,
+        method: HttpMethod.post,
+        reqBody: {
           'email':
               credential.email ?? '', // Some users might not share their email
           if (isRegister) 'full_name': credential.givenName ?? '',
           'auth_provider': 'apple',
-        }),
+        },
       );
-      final Map<String, dynamic> resBody = json.decode(res.body);
 
-      // Update local storage
-      await LocalStorageHelper.saveAccountData(
-        token: resBody['token'],
-        user: User.fromMap(resBody['user']),
+      // Update state/storage
+      final accountNotifier = ref.read(accountProvider.notifier);
+      accountNotifier.updateAccount(
+        token: body['token'] as String,
+        user: User.fromMap(body['user'] as Map<String, dynamic>),
       );
     } catch (e) {
       print('Error signing in with Apple: $e');

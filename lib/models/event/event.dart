@@ -13,49 +13,52 @@ class FormattedDate {
 }
 
 class Event {
-  final int id;
-  final String titleEn;
-  final String titleZh;
-  final String descriptionEn;
-  final String descriptionZh;
-  final String eventDate;
-  final String eventDateTill;
-  final String address;
-  final String region;
-  final String city;
-  final String latitude;
-  final String longitude;
-  final String mediaLinks;
-  final String createdAt;
-  final String updatedAt;
-  final int placeId;
-  final int createdBy;
-  final Place place;
+  final int? id;
+  final String? titleEn;
+  final String? titleZh;
+  final String? descriptionEn;
+  final String? descriptionZh;
+  final String? eventDate;
+  final String? eventDateTill;
+  final String? createdAt;
+  final String? updatedAt;
+  final int? placeId;
+  final int? createdBy;
+  final Place? place;
+  final String? mediaLinks;
+  final String? address;
+  final String? city;
+  final String? latitude;
+  final String? longitude;
+  final String? region;
+
   Event({
-    required this.id,
-    required this.titleEn,
-    required this.titleZh,
-    required this.descriptionEn,
-    required this.descriptionZh,
-    required this.eventDate,
-    required this.eventDateTill,
-    required this.placeId,
-    required this.region,
-    required this.city,
-    required this.address,
-    required this.latitude,
-    required this.longitude,
-    required this.mediaLinks,
-    required this.createdBy,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.place,
+    this.id,
+    this.titleEn,
+    this.titleZh,
+    this.descriptionEn,
+    this.descriptionZh,
+    this.eventDate,
+    this.eventDateTill,
+    this.placeId,
+    this.createdBy,
+    this.createdAt,
+    this.updatedAt,
+    this.place,
+    this.region,
+    this.city,
+    this.address,
+    this.latitude,
+    this.longitude,
+    this.mediaLinks,
   });
 
-  // Getters
-  FormattedDate get eventFormatted => FormattedDate(DateTime.parse(eventDate));
-  FormattedDate get eventTillFormatted =>
-      FormattedDate(DateTime.parse(eventDateTill));
+  // If eventDate or eventDateTill is null, these getters return null.
+  FormattedDate? get eventFormatted =>
+      eventDate != null ? FormattedDate(DateTime.parse(eventDate!)) : null;
+  FormattedDate? get eventTillFormatted => eventDateTill != null
+      ? FormattedDate(DateTime.parse(eventDateTill!))
+      : null;
 
   Event copyWith({
     int? id,
@@ -101,24 +104,24 @@ class Event {
 
   factory Event.fromMap(Map<String, dynamic> map) {
     return Event(
-      id: map['id'].toInt(),
-      titleEn: map['title_en'] as String,
-      titleZh: map['title_zh'] as String,
-      descriptionEn: map['description_en'] as String,
-      descriptionZh: map['description_zh'] as String,
-      eventDate: map['event_date'] as String,
-      eventDateTill: map['event_date_till'] as String,
-      address: map['address'] as String,
-      region: map['region'] as String,
-      city: map['city'] as String,
-      latitude: map['latitude'] as String,
-      longitude: map['longitude'] as String,
-      mediaLinks: map['media_links'] as String,
-      createdAt: map['created_at'] as String,
-      updatedAt: map['updated_at'] as String,
-      placeId: map['place_id'].toInt(),
-      createdBy: map['created_by'].toInt(),
-      place: Place.fromMap(map['place']),
+      id: map['id'] as int?,
+      titleEn: map['title_en'] as String?,
+      titleZh: map['title_zh'] as String?,
+      descriptionEn: map['description_en'] as String?,
+      descriptionZh: map['description_zh'] as String?,
+      eventDate: map['event_date'] as String?,
+      eventDateTill: map['event_date_till'] as String?,
+      address: map['address'] as String?,
+      region: map['region'] as String?,
+      city: map['city'] as String?,
+      latitude: map['latitude'] as String?,
+      longitude: map['longitude'] as String?,
+      mediaLinks: map['media_links'] as String?,
+      createdAt: map['created_at'] as String?,
+      updatedAt: map['updated_at'] as String?,
+      placeId: map['place_id'] as int?,
+      createdBy: map['created_by'] as int?,
+      place: map['place'] != null ? Place.fromMap(map['place']) : null,
     );
   }
 

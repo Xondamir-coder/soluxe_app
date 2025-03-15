@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/category.dart';
 import 'package:soluxe/screens/categories/categories_direction.dart';
+import 'package:soluxe/screens/events.dart';
 import 'package:soluxe/screens/hotels.dart';
 import 'package:soluxe/widgets/animations/scale_up_widget.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
@@ -31,6 +32,7 @@ class GridCategoriesItem extends StatelessWidget {
           onTap: () {
             Widget screen = CategoriesDirectionScreen(category: category);
             if (category.name == 'Hotels') screen = const HotelsScreen();
+            if (category.name == 'Events') screen = const EventsScreen();
             Navigator.of(context).push(
               MaterialPageRoute(builder: (ctx) => screen),
             );

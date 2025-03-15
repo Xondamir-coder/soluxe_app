@@ -27,12 +27,13 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   void _sendVerificationCode() async {
     try {
-      await FetchHelper.sendCode(true, _email!);
+      final body = await FetchHelper.sendCode(true, _email!);
 
-      // Update state
-      ref.read(accountProvider.notifier).state = Account(
-        user: User(email: _email),
-      );
+      print('Send code: $body');
+
+      // Update state/storage
+      final accountNotifier = ref.read(accountProvider.notifier);
+      accountNotifier.updateAccount(user: User(email: _email));
 
       if (!mounted) return;
       Navigator.of(context).push(
@@ -55,8 +56,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   void _registerWithEmail() async {
     try {
-      await FetchHelper.fetch(
-        url: '${Constants.apiUrl}/register',
+      final body = await FetchHelper.fetch(
+        url: 'register',
         method: HttpMethod.post,
         reqBody: {
           'full_name': _name,
@@ -65,6 +66,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           'auth_provider': 'email',
         },
       );
+      print('Register: $body');
     } catch (e) {
       if ((e as Map)['code'] == 401) {
         _sendVerificationCode();

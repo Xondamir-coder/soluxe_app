@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/account.dart';
 import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/faq/faq.dart';
@@ -37,23 +39,28 @@ class SettingsScreen extends ConsumerWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: FadeInImage.memoryNetwork(
-              image: account.user!.profilePic!,
-              placeholder: kTransparentImage,
-              fit: BoxFit.cover,
-            ),
+            child: account.user?.profilePic != null
+                ? FadeInImage.memoryNetwork(
+                    image: '${Constants.baseUrl}/${account.user!.profilePic!}',
+                    placeholder: kTransparentImage,
+                    fit: BoxFit.cover,
+                  )
+                : SvgPicture.asset(
+                    'assets/icons/profile.svg',
+                    fit: BoxFit.cover,
+                  ),
           ),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MyText(
-              account.user!.fullName!,
+              account.user?.fullName ?? 'N/A',
               fontSize: 18,
               color: isDark ? AppColors.softWhite : AppColors.deepBlue,
             ),
             MyText(
-              account.user!.email!,
+              account.user?.email ?? 'N/A',
               color: AppColors.adaptiveDarkerGreyOrGrey(isDark),
             ),
           ],
@@ -93,7 +100,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final user = ref.watch(accountProvider);
+    final account = ref.watch(accountProvider);
 
     return Scaffold(
       bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 4),
@@ -104,7 +111,7 @@ class SettingsScreen extends ConsumerWidget {
           child: Column(
             spacing: 16,
             children: [
-              _buildProfile(isDark, user),
+              _buildProfile(isDark, account),
               Column(
                 spacing: 24,
                 children: [

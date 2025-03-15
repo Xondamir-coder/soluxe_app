@@ -1,49 +1,48 @@
 import 'dart:convert';
 
-import 'package:soluxe/constants/constants.dart';
-
 class Place {
-  final int id;
-  final String nameEn;
-  final String nameZh;
-  final String category;
-  final String subCategory;
-  final String hotelCategory;
-  final String descriptionEn;
-  final String descriptionZh;
-  final int priceRate;
-  final String address;
-  final String region;
-  final String city;
-  final String latitude;
-  final String longitude;
-  final String contactInfo;
-  final String contactUrl;
-  final List<String> images;
-  final int createdBy;
-  final String createdAt;
-  final String updatedAt;
+  final int? id;
+  final String? nameEn;
+  final String? nameZh;
+  final String? category;
+  final String? subCategory;
+  final String? hotelCategory;
+  final String? descriptionEn;
+  final String? descriptionZh;
+  final int? priceRate;
+  final String? address;
+  final String? region;
+  final String? city;
+  final String? latitude;
+  final String? longitude;
+  final String? contactInfo;
+  final String? contactUrl;
+  final List<String>? images;
+  final int? createdBy;
+  final String? createdAt;
+  final String? updatedAt;
+
   Place({
-    required this.id,
-    required this.nameEn,
-    required this.nameZh,
-    required this.category,
-    required this.subCategory,
-    required this.hotelCategory,
-    required this.descriptionEn,
-    required this.descriptionZh,
-    required this.priceRate,
-    required this.address,
-    required this.region,
-    required this.city,
-    required this.latitude,
-    required this.longitude,
-    required this.contactInfo,
-    required this.images,
-    required this.contactUrl,
-    required this.createdBy,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.nameEn,
+    this.nameZh,
+    this.category,
+    this.subCategory,
+    this.hotelCategory,
+    this.descriptionEn,
+    this.descriptionZh,
+    this.priceRate,
+    this.address,
+    this.region,
+    this.city,
+    this.latitude,
+    this.longitude,
+    this.contactInfo,
+    this.contactUrl,
+    this.images,
+    this.createdBy,
+    this.createdAt,
+    this.updatedAt,
   });
 
   Place copyWith({
@@ -109,7 +108,7 @@ class Place {
       'latitude': latitude,
       'longitude': longitude,
       'contact_info': contactInfo,
-      'images': json.encode(images),
+      'images': images != null ? json.encode(images) : null,
       'contact_url': contactUrl,
       'created_by': createdBy,
       'created_at': createdAt,
@@ -118,30 +117,31 @@ class Place {
   }
 
   factory Place.fromMap(Map<String, dynamic> map) {
-    final imagesArr = json.decode(map['images']) as List<String>;
-    final images = imagesArr.map((e) => '${Constants.imgUrl}/$e').toList();
-
     return Place(
-      id: map['id'].toInt() as int,
-      nameEn: map['name_en'] as String,
-      nameZh: map['name_zh'] as String,
-      category: map['category'] as String,
-      subCategory: map['sub_category'] as String,
-      hotelCategory: map['hotel_category'] as String,
-      descriptionEn: map['description_en'] as String,
-      descriptionZh: map['description_zh'] as String,
-      priceRate: map['price_rate'].toInt() as int,
-      address: map['address'] as String,
-      region: map['region'] as String,
-      city: map['city'] as String,
-      latitude: map['latitude'] as String,
-      longitude: map['longitude'] as String,
-      contactInfo: map['contact_info'] as String,
-      images: images,
-      contactUrl: map['contact_url'] as String,
-      createdBy: map['created_by'].toInt() as int,
-      createdAt: map['created_at'] as String,
-      updatedAt: map['updated_at'] as String,
+      id: map['id'] as int?,
+      nameEn: map['name_en'] as String?,
+      nameZh: map['name_zh'] as String?,
+      category: map['category'] as String?,
+      subCategory: map['sub_category'] as String?,
+      hotelCategory: map['hotel_category'] as String?,
+      descriptionEn: map['description_en'] as String?,
+      descriptionZh: map['description_zh'] as String?,
+      priceRate: map['price_rate'] as int?,
+      address: map['address'] as String?,
+      region: map['region'] as String?,
+      city: map['city'] as String?,
+      latitude: map['latitude'] as String?,
+      longitude: map['longitude'] as String?,
+      contactInfo: map['contact_info'] as String?,
+      images: map['images'] != null
+          ? (map['images'] is String
+              ? (json.decode(map['images']) as List).cast<String>()
+              : (map['images'] as List).cast<String>())
+          : null,
+      contactUrl: map['contact_url'] as String?,
+      createdBy: map['created_by'] as int?,
+      createdAt: map['created_at'] as String?,
+      updatedAt: map['updated_at'] as String?,
     );
   }
 

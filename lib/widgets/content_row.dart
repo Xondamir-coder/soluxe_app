@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ContentRow extends StatelessWidget {
   final String text;
@@ -29,26 +29,6 @@ class ContentRow extends StatelessWidget {
     required this.iconPath,
   })  : isInteractive = true,
         text = '';
-
-  // Function to launch a website
-  void _launchWebsite() async {
-    final site = Uri.parse('https://$website');
-    if (await canLaunchUrl(site)) {
-      launchUrl(site);
-    } else {
-      throw 'Could not launch $site';
-    }
-  }
-
-  // Function to make a phone call
-  void _makePhoneCall() async {
-    final call = Uri.parse('tel:$phone');
-    if (await canLaunchUrl(call)) {
-      launchUrl(call);
-    } else {
-      throw 'Could not launch $call';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +75,10 @@ class ContentRow extends StatelessWidget {
             ],
           ),
           InkWell(
-            onTap: _makePhoneCall,
+            onTap: () {
+              if (phone.isEmpty) return;
+              launchUrlString('tel:$phone');
+            },
             child: MyText(
               phone,
               fontSize: 12,
@@ -104,7 +87,10 @@ class ContentRow extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: _launchWebsite,
+            onTap: () {
+              if (website.isEmpty) return;
+              launchUrlString(website);
+            },
             child: MyText(
               website,
               fontSize: 12,

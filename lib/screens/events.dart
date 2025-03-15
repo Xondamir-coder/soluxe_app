@@ -5,7 +5,6 @@ import 'package:soluxe/providers/events_provider.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/event/events_date.dart';
-import 'package:soluxe/widgets/tile/my_tile.dart';
 
 class EventsScreen extends ConsumerWidget {
   const EventsScreen({super.key});
@@ -24,6 +23,7 @@ class EventsScreen extends ConsumerWidget {
       body: Column(
         children: [
           const EventsDate(),
+          // TODO:
           // Expanded(
           //   child: ListView.separated(
           //     separatorBuilder: (context, index) => SizedBox(height: 10),

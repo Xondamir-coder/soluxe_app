@@ -26,7 +26,7 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
   void _serverResetPassword() async {
     try {
       await FetchHelper.fetch(
-        url: '${Constants.apiUrl}/confirm-forget-password',
+        url: 'confirm-forget-password',
         method: HttpMethod.post,
         reqBody: {
           'email': ref.read(accountProvider).user!.email!,

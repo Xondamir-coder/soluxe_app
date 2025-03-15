@@ -38,7 +38,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     selectedCategory = categories[0];
-    ref.read(eventsProvider.notifier).fetchEvents();
     super.initState();
   }
 

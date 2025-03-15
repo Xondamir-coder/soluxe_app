@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/provider_helper.dart';
@@ -10,18 +11,22 @@ import 'package:soluxe/widgets/forms/login_form.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   final bool isEmail;
 
   const LoginScreen({super.key, required this.isEmail});
 
-  void _signInWithProvider(String name) {
-    if (name == 'google') ProviderHelper.signInWithGoogle(isRegister: false);
-    if (name == 'apple') ProviderHelper.signInWithApple(isRegister: false);
+  void _signInWithProvider(String name, WidgetRef ref) {
+    if (name == 'google') {
+      ProviderHelper.signInWithGoogle(isRegister: false, ref: ref);
+    }
+    if (name == 'apple') {
+      ProviderHelper.signInWithApple(isRegister: false, ref: ref);
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: const ArrowAppbar(),
       body: Padding(
@@ -85,13 +90,13 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   ProviderButton(
                     'Sign In with Google',
-                    onTap: () => _signInWithProvider('google'),
+                    onTap: () => _signInWithProvider('google', ref),
                     icon: SvgPicture.asset('assets/icons/google.svg'),
                   ),
                   if (Platform.isIOS)
                     ProviderButton(
                       'Sign In with Apple',
-                      onTap: () => _signInWithProvider('apple'),
+                      onTap: () => _signInWithProvider('apple', ref),
                       icon: SvgPicture.asset('assets/icons/apple.svg'),
                     ),
                 ],

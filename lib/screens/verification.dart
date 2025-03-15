@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
+import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/account.dart';
+import 'package:soluxe/models/user.dart';
 import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/success.dart';
 import 'package:soluxe/widgets/animations/scale_up_widget.dart';
@@ -53,12 +55,23 @@ class VerificationScreen extends ConsumerWidget {
     }
   }
 
-  void _serverVerifyCode(BuildContext context, Account account) async {
+  void _serverVerifyCode(
+    BuildContext context,
+    Account account,
+    WidgetRef ref,
+  ) async {
     try {
-      await FetchHelper.verifyCode(
+      final body = await FetchHelper.verifyCode(
         isEmail,
         isEmail ? account.user!.email! : account.user!.phone!,
         otpValues.join(''),
+      );
+
+      // Update state/storage
+      final accountNotifier = ref.read(accountProvider.notifier);
+      accountNotifier.updateAccount(
+        token: body['token'] as String,
+        user: User.fromMap(body['user'] as Map<String, dynamic>),
       );
 
       if (!context.mounted) return;
@@ -76,9 +89,9 @@ class VerificationScreen extends ConsumerWidget {
     }
   }
 
-  void _verifyCode(BuildContext context, Account account) async {
+  void _verifyCode(BuildContext context, Account account, WidgetRef ref) async {
     if (otpValues.every((code) => code.isNotEmpty)) {
-      _serverVerifyCode(context, account);
+      _serverVerifyCode(context, account, ref);
     } else {
       showDialog(
         context: context,
@@ -172,7 +185,7 @@ class VerificationScreen extends ConsumerWidget {
                   Spacer(),
                   YellowButton(
                     'Next',
-                    onTap: () => _verifyCode(context, account),
+                    onTap: () => _verifyCode(context, account, ref),
                     animationDelay: 600,
                   ),
                 ],
