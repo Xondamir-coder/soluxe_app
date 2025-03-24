@@ -7,7 +7,7 @@ import 'package:soluxe/widgets/typography/my_text.dart';
 
 class ExpandedDatePicker extends StatefulWidget {
   final DateTime date;
-  final ValueChanged onDateChange;
+  final ValueChanged<String> onDateChange;
   final bool isMonthCentered;
   final bool darkBlueBgColor;
 
@@ -51,7 +51,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
         : widget.date.day;
 
     final newDate = DateTime(targetYear, targetMonth, newDay);
-    widget.onDateChange(newDate);
+    widget.onDateChange(DateFormat('yyyy-MM-dd').format(newDate));
     _opacity = 1.0; // Fade in after state update
   }
 
@@ -244,6 +244,6 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
 
   /// Selects a new date and calls `onDateChange`
   void _selectDate(DateTime date) {
-    widget.onDateChange(date);
+    widget.onDateChange(DateFormat('yyyy-MM-dd').format(date));
   }
 }

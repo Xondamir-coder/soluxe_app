@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
-import 'package:soluxe/models/event/event.dart';
+import 'package:soluxe/models/event.dart';
 import 'package:soluxe/screens/event.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -32,9 +32,10 @@ class EventCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: event.place?.images?[0] != null
+              child: event.place?.images?.first != null
                   ? FadeInImage.memoryNetwork(
-                      image: '${Constants.baseUrl}/${event.place?.images![0]}',
+                      image:
+                          '${Constants.baseUrl}/${event.place?.images!.first}',
                       placeholder: kTransparentImage,
                       fit: BoxFit.cover,
                     )

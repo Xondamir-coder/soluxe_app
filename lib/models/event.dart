@@ -1,31 +1,17 @@
 import 'dart:convert';
-import 'package:intl/intl.dart';
-import 'place.dart';
+import 'package:soluxe/models/formatted_date.dart';
+import 'package:soluxe/models/place/base_place.dart';
+import 'package:soluxe/models/place/place.dart';
 
-class FormattedDate {
-  final DateTime date;
-  FormattedDate(this.date);
-
-  String get day => date.day.toString();
-  String get month => DateFormat('MMM').format(date);
-  String get time => DateFormat('h:mm a').format(date);
-  String get weekday => DateFormat('EEEE').format(date);
-}
-
-class Event {
-  final int? id;
+class Event extends BasePlace {
   final String? titleEn;
   final String? titleZh;
-  final String? descriptionEn;
-  final String? descriptionZh;
   final String? eventDate;
   final String? eventDateTill;
-  final String? createdAt;
-  final String? updatedAt;
   final int? placeId;
   final int? createdBy;
   final Place? place;
-  final String? mediaLinks;
+  final List<String>? mediaLinks;
   final String? address;
   final String? city;
   final String? latitude;
@@ -33,17 +19,17 @@ class Event {
   final String? region;
 
   Event({
-    this.id,
+    super.id,
+    super.descriptionEn,
+    super.descriptionZh,
+    super.createdAt,
+    super.updatedAt,
     this.titleEn,
     this.titleZh,
-    this.descriptionEn,
-    this.descriptionZh,
     this.eventDate,
     this.eventDateTill,
     this.placeId,
     this.createdBy,
-    this.createdAt,
-    this.updatedAt,
     this.place,
     this.region,
     this.city,
@@ -53,54 +39,15 @@ class Event {
     this.mediaLinks,
   });
 
+  get lat => double.tryParse(latitude!);
+  get lng => double.tryParse(latitude!);
+
   // If eventDate or eventDateTill is null, these getters return null.
   FormattedDate? get eventFormatted =>
       eventDate != null ? FormattedDate(DateTime.parse(eventDate!)) : null;
   FormattedDate? get eventTillFormatted => eventDateTill != null
       ? FormattedDate(DateTime.parse(eventDateTill!))
       : null;
-
-  Event copyWith({
-    int? id,
-    String? titleEn,
-    String? titleZh,
-    String? descriptionEn,
-    String? descriptionZh,
-    String? eventDate,
-    String? eventDateTill,
-    String? address,
-    String? region,
-    String? city,
-    String? latitude,
-    String? longitude,
-    String? mediaLinks,
-    int? placeId,
-    int? createdBy,
-    String? createdAt,
-    String? updatedAt,
-    Place? place,
-  }) {
-    return Event(
-      id: id ?? this.id,
-      titleEn: titleEn ?? this.titleEn,
-      titleZh: titleZh ?? this.titleZh,
-      descriptionEn: descriptionEn ?? this.descriptionEn,
-      descriptionZh: descriptionZh ?? this.descriptionZh,
-      eventDate: eventDate ?? this.eventDate,
-      eventDateTill: eventDateTill ?? this.eventDateTill,
-      placeId: placeId ?? this.placeId,
-      region: region ?? this.region,
-      city: city ?? this.city,
-      address: address ?? this.address,
-      latitude: latitude ?? this.latitude,
-      longitude: longitude ?? this.longitude,
-      mediaLinks: mediaLinks ?? this.mediaLinks,
-      createdBy: createdBy ?? this.createdBy,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      place: place ?? this.place,
-    );
-  }
 
   factory Event.fromMap(Map<String, dynamic> map) {
     return Event(
@@ -116,7 +63,9 @@ class Event {
       city: map['city'] as String?,
       latitude: map['latitude'] as String?,
       longitude: map['longitude'] as String?,
-      mediaLinks: map['media_links'] as String?,
+      mediaLinks: map['media_links'] != null
+          ? List<String>.from(map['media_links'])
+          : null,
       createdAt: map['created_at'] as String?,
       updatedAt: map['updated_at'] as String?,
       placeId: map['place_id'] as int?,
@@ -125,6 +74,7 @@ class Event {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,

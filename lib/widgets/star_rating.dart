@@ -4,14 +4,13 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class StarRating extends StatelessWidget {
-  final String star;
+  final double star;
 
   const StarRating({required this.star, super.key});
 
   @override
   Widget build(BuildContext context) {
     const maxStars = 5;
-    final starNumber = double.parse(star);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Row(
@@ -20,14 +19,14 @@ class StarRating extends StatelessWidget {
           SvgPicture.asset(
             'assets/icons/star.svg',
             colorFilter: ColorFilter.mode(
-              i < starNumber
+              i < star.floorToDouble()
                   ? AppColors.yellow
                   : AppColors.adaptiveDarkerGreyOrShadyGrey(isDark),
               BlendMode.srcIn,
             ),
           ),
         const SizedBox(width: 6),
-        MyText.grey(star, fontSize: 12),
+        MyText.grey('${star.floorToDouble()}', fontSize: 12),
       ],
     );
   }

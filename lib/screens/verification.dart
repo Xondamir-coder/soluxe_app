@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
-import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/account.dart';
 import 'package:soluxe/models/user.dart';
 import 'package:soluxe/providers/account_provider.dart';

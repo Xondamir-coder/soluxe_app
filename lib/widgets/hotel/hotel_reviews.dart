@@ -1,20 +1,36 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/hotel/hotel_review.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class HotelReviews extends StatelessWidget {
-  final HotelReview review;
+  final int? reviewsCount;
+  final double? reviewsAvgRating;
+  final double? reviews5Stars;
+  final double? reviews4Stars;
+  final double? reviews3Stars;
+  final double? reviews2Stars;
+  final double? reviews1Stars;
 
-  const HotelReviews({required this.review, super.key});
+  const HotelReviews({
+    super.key,
+    this.reviewsCount,
+    this.reviewsAvgRating,
+    this.reviews5Stars,
+    this.reviews4Stars,
+    this.reviews3Stars,
+    this.reviews2Stars,
+    this.reviews1Stars,
+  });
 
   List<double> get percentages => [
-        review.oneStarPercentage,
-        review.twoStarsPercentage,
-        review.threeStarsPercentage,
-        review.fourStarsPercentage,
-        review.fiveStarsPercentage,
+        reviews1Stars ?? 0,
+        reviews2Stars ?? 0,
+        reviews3Stars ?? 0,
+        reviews4Stars ?? 0,
+        reviews5Stars ?? 0,
       ];
 
   @override
@@ -26,11 +42,11 @@ class HotelReviews extends StatelessWidget {
           spacing: 4,
           children: [
             MyText(
-              review.rating.toString(),
+              reviewsAvgRating.toString(),
               color: AppColors.orange,
               fontWeight: FontWeight.w700,
             ),
-            MyText.grey('(${review.ratingCount})', fontSize: 12),
+            MyText.grey('($reviewsCount)', fontSize: 12),
           ],
         ),
         Column(
@@ -60,7 +76,7 @@ class HotelReviews extends StatelessWidget {
                       child: Stack(
                         children: [
                           FractionallySizedBox(
-                            widthFactor: percentages[i],
+                            widthFactor: (percentages[i] / 100),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: AppColors.orange,

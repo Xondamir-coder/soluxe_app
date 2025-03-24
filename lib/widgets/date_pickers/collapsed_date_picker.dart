@@ -8,7 +8,7 @@ import 'package:soluxe/widgets/typography/my_text.dart';
 class CollapsedDatePicker extends StatelessWidget {
   final DateTime date;
   final void Function() onExpandCalendar;
-  final ValueChanged<DateTime> onDateChange;
+  final ValueChanged<String> onDateChange;
 
   const CollapsedDatePicker({
     super.key,
@@ -48,7 +48,7 @@ class CollapsedDatePicker extends StatelessWidget {
     }
 
     final newDate = DateTime(newYear, newMonth, date.day);
-    onDateChange(newDate);
+    onDateChange(DateFormat('yyyy-MM-dd').format(newDate));
   }
 
   /// Builds the horizontal list of days for a given [month].
@@ -69,7 +69,7 @@ class CollapsedDatePicker extends StatelessWidget {
 
           return GestureDetector(
             onTap: () {
-              onDateChange(day);
+              onDateChange(DateFormat('yyyy-MM-dd').format(day));
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),

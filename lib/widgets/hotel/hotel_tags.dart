@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/hotel/hotel_amenity.dart';
+import 'package:soluxe/models/place/tag.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
-class HotelAmenities extends StatelessWidget {
-  final List<HotelAmenity> amenities;
+class HotelTags extends StatelessWidget {
+  final List<Tag> tags;
 
-  const HotelAmenities({required this.amenities, super.key});
+  const HotelTags({required this.tags, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,15 @@ class HotelAmenities extends StatelessWidget {
           child: Row(
             spacing: 6,
             children: [
-              SvgPicture.asset(
-                amenities[index].iconPath,
+              SvgPicture.string(
+                tags[index].icon,
                 colorFilter: ColorFilter.mode(
                   Colors.white,
                   BlendMode.srcIn,
                 ),
               ),
               MyText(
-                amenities[index].name,
+                tags[index].nameEn,
                 fontSize: 12,
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
@@ -41,7 +41,7 @@ class HotelAmenities extends StatelessWidget {
           ),
         ),
         separatorBuilder: (ctx, index) => const SizedBox(width: 10),
-        itemCount: amenities.length,
+        itemCount: tags.length,
       ),
     );
   }

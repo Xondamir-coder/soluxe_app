@@ -3,24 +3,25 @@ import 'package:geolocator/geolocator.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/helpers/position_helper.dart';
-import 'package:soluxe/models/place/place.dart';
-import 'package:soluxe/screens/hotel.dart';
-import 'package:soluxe/widgets/categories/categories_bottom_sheet.dart';
-import 'package:soluxe/widgets/star_rating.dart';
+import 'package:soluxe/models/event.dart';
+import 'package:soluxe/screens/event.dart';
 import 'package:soluxe/widgets/tile/my_tile_bottom.dart';
 import 'package:soluxe/widgets/tile/my_tile_image.dart';
 import 'package:soluxe/widgets/tile/my_tile_title.dart';
 
-class MyTile extends StatelessWidget {
-  final Place place;
+class MyTileEvent extends StatelessWidget {
+  final Event event;
 
-  const MyTile({
-    required this.place,
+  const MyTileEvent({
+    required this.event,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    double spacing = 16;
+    Color titleColor = AppColors.deepBlue;
+    double titleFontSize = 14;
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Material(
@@ -28,24 +29,10 @@ class MyTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(14),
       child: InkWell(
         onTap: () {
-          if (place.category == 'Hotels') {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (ctx) => HotelScreen(hotelId: place.id!),
-              ),
-            );
-            return;
-          }
-
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            clipBehavior: Clip.antiAlias,
-            backgroundColor: AppColors.adaptiveDeepBlueOrWhite(isDark),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (ctx) => EventScreen(event: event),
             ),
-            builder: (ctx) => CategoriesBottomSheet(place: place),
           );
         },
         borderRadius: BorderRadius.circular(14),
@@ -55,26 +42,35 @@ class MyTile extends StatelessWidget {
             spacing: 10,
             children: [
               MyTileImage(
-                imgSrc: '${Constants.baseUrl}/${place.images!.first}',
+                imgSrc: '${Constants.baseUrl}/${event.place?.images?.first}',
+                day: event.eventFormatted?.day ?? 'Unknown',
+                month: event.eventFormatted?.month ?? 'Unknown',
               ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 6,
+                  spacing: spacing,
                   children: [
                     MyTileTitle(
-                      title: place.nameEn ?? 'Unknown',
-                      color: isDark ? Colors.white : AppColors.darkBrown,
-                      fontSize: 12,
+                      title: event.titleEn ?? 'Unknown',
+                      color: isDark ? Colors.white : titleColor,
+                      fontSize: titleFontSize,
                     ),
-                    StarRating(star: place.reviewsAvgRating ?? 0),
                     FutureBuilder<Position>(
                         future: determinePosition(),
                         builder: (context, snapshot) {
+                          if (event.latitude == null ||
+                              event.longitude == null) {
+                            return MyTileBottom(
+                              location: event.city ?? 'Unknown',
+                              distance: 'N/A',
+                            );
+                          }
+
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             return MyTileBottom(
-                              location: place.city ?? 'Unknown',
+                              location: event.city ?? 'Unknown',
                               distance: 'Loading ...',
                             );
                           } else if (snapshot.connectionState ==
@@ -82,22 +78,23 @@ class MyTile extends StatelessWidget {
                               snapshot.hasData) {
                             {
                               final position = snapshot.data!;
+
                               final distance = (Geolocator.distanceBetween(
                                         position.latitude,
                                         position.longitude,
-                                        place.lat,
-                                        place.lng,
+                                        event.lat,
+                                        event.lng,
                                       ) /
                                       1000)
                                   .floor();
                               return MyTileBottom(
-                                location: place.city ?? 'Unknown',
+                                location: event.city ?? 'Unknown',
                                 distance: '$distance',
                               );
                             }
                           } else {
                             return MyTileBottom(
-                              location: place.city ?? 'Unknown',
+                              location: event.city ?? 'Unknown',
                               distance: 'N/A',
                             );
                           }

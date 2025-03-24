@@ -48,6 +48,9 @@ dependencies:
     google_sign_in: ^6.3.0
     sign_in_with_apple: ^6.1.4
     flutter_secure_storage: ^9.2.4
+    flutter_map: ^8.1.1
+    latlong2: ^0.9.1
+    geolocator: ^13.0.3
 
 dev_dependencies:
     flutter_test:
@@ -125,6 +128,7 @@ flutter:
         - assets/icons/wifi.svg
         - assets/icons/breakfast.svg
         - assets/icons/google.svg
+        - assets/icons/circle-pin.svg
         - assets/icons/cup.svg
         - assets/icons/camera.svg
         - assets/icons/bed.svg

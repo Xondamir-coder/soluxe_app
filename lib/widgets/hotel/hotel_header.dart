@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/models/place/tag.dart';
 import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class HotelHeader extends StatelessWidget {
-  final String star;
-  final String location;
-  final String price;
-  final String title;
-  final List<String> iconPaths;
+  final List<Tag>? tags;
+  final String? address;
+  final int? priceRate;
+  final double? reviewsAvgRating;
+  final String? name;
 
   const HotelHeader({
     super.key,
-    required this.star,
-    required this.location,
-    required this.price,
-    required this.title,
-    required this.iconPaths,
+    this.tags,
+    this.address,
+    this.priceRate,
+    this.reviewsAvgRating,
+    this.name,
   });
 
   @override
@@ -28,7 +29,7 @@ class HotelHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyText(
-          title,
+          name ?? 'Unknown',
           color: AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
           fontSize: 20,
           fontWeight: FontWeight.w700,
@@ -37,11 +38,11 @@ class HotelHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            StarRating(star: star),
+            StarRating(star: reviewsAvgRating ?? 0),
             Row(
               children: [
                 MyText(
-                  price,
+                  priceRate?.toString() ?? 'Unknown',
                   color: AppColors.adaptiveLightBlueOrBlue(isDark),
                 ),
                 const SizedBox(width: 2),
@@ -54,32 +55,37 @@ class HotelHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              spacing: 4,
-              children: [
-                SvgPicture.asset(
-                  isDark ? 'assets/icons/dark-pin.svg' : 'assets/icons/pin.svg',
-                  width: 24,
-                  height: 24,
-                ),
-                MyText.grey(location),
-              ],
-            ),
-            Row(
-              spacing: 7,
-              children: [
-                for (final iconPath in iconPaths)
+            Expanded(
+              child: Wrap(
+                spacing: 4,
+                children: [
                   SvgPicture.asset(
-                    iconPath,
-                    width: 20,
-                    height: 20,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.adaptiveDarkGreyOrGrey(isDark),
-                      BlendMode.srcIn,
-                    ),
+                    isDark
+                        ? 'assets/icons/dark-pin.svg'
+                        : 'assets/icons/pin.svg',
+                    width: 24,
+                    height: 24,
                   ),
-              ],
+                  MyText.grey(address ?? 'Unknown', softWrap: true),
+                ],
+              ),
             ),
+            if (tags != null && tags!.isNotEmpty)
+              Row(
+                spacing: 7,
+                children: [
+                  for (final iconPath in tags!.map((e) => e.icon))
+                    SvgPicture.string(
+                      iconPath,
+                      width: 20,
+                      height: 20,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.adaptiveDarkGreyOrGrey(isDark),
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                ],
+              ),
           ],
         )
       ],

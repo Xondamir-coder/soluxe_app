@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:soluxe/models/user.dart';
 
 class Account {
@@ -9,16 +8,6 @@ class Account {
     this.token,
     this.user,
   });
-
-  Account copyWith({
-    String? token,
-    User? user,
-  }) {
-    return Account(
-      token: token ?? this.token,
-      user: user ?? this.user,
-    );
-  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -30,7 +19,9 @@ class Account {
   factory Account.fromMap(Map<String, dynamic> map) {
     return Account(
       token: map['token'] as String,
-      user: User.fromMap(map['user'] as Map<String, dynamic>),
+      user: map['user'] != null
+          ? User.fromMap(map['user'] as Map<String, dynamic>)
+          : null,
     );
   }
 

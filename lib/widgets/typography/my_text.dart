@@ -15,6 +15,7 @@ class MyText extends StatelessWidget {
   final MyTextVariant variant;
   final int? animationDelay;
   final Offset? beginOffset;
+  final bool? softWrap;
 
   const MyText(
     this.text, {
@@ -25,6 +26,7 @@ class MyText extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.animationDelay,
     this.beginOffset,
+    this.softWrap,
     super.key,
   }) : variant = MyTextVariant.flexible;
 
@@ -37,6 +39,7 @@ class MyText extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.animationDelay,
     this.beginOffset,
+    this.softWrap,
     super.key,
   }) : variant = MyTextVariant.warmBrown;
 
@@ -49,6 +52,7 @@ class MyText extends StatelessWidget {
     this.color,
     this.animationDelay,
     this.beginOffset,
+    this.softWrap,
     super.key,
   }) : variant = MyTextVariant.deepBlue;
 
@@ -61,6 +65,7 @@ class MyText extends StatelessWidget {
     this.color,
     this.animationDelay,
     this.beginOffset,
+    this.softWrap,
     super.key,
   }) : variant = MyTextVariant.grey;
 
@@ -88,6 +93,7 @@ class MyText extends StatelessWidget {
       child: Text(
         text,
         textAlign: textAlign,
+        softWrap: softWrap,
         style: GoogleFonts.instrumentSans(
           fontSize: fontSize,
           fontWeight: fontWeight,

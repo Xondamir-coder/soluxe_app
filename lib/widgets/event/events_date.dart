@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/providers/events_provider.dart';
 import 'package:soluxe/widgets/date_pickers/collapsed_date_picker.dart';
@@ -53,16 +54,31 @@ class _EventsDateState extends ConsumerState<EventsDate> {
                       child: ExpandedDatePicker(
                         key: const ValueKey('expanded'),
                         date: eventsDate,
-                        onDateChange: (value) =>
-                            ref.read(eventsDateProvider.notifier).state = value,
+                        onDateChange: (value) {
+                          ref.read(eventsDateProvider.notifier).state =
+                              DateTime.parse(value);
+                          ref.read(eventsProvider.notifier).fetchEvents(
+                            queryParams: {
+                              'date': value,
+                            },
+                          );
+                        },
                         isMonthCentered: true,
                       ),
                     )
                   : CollapsedDatePicker(
                       key: const ValueKey('collapsed'),
                       date: eventsDate,
-                      onDateChange: (value) =>
-                          ref.read(eventsDateProvider.notifier).state = value,
+                      onDateChange: (value) {
+                        ref.read(eventsDateProvider.notifier).state =
+                            DateTime.parse(value);
+
+                        ref.read(eventsProvider.notifier).fetchEvents(
+                          queryParams: {
+                            'date': value,
+                          },
+                        );
+                      },
                       onExpandCalendar: () => expandCalendar(true),
                     ),
               transitionBuilder: (child, animation) {

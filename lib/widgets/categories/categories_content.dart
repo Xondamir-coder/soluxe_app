@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/helpers/position_helper.dart';
+import 'package:soluxe/models/place/place.dart';
 import 'package:soluxe/widgets/buttons/grey_outlined_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/categories/categories_about_tab.dart';
 import 'package:soluxe/widgets/categories/categories_photo_tab.dart';
 import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 enum Tabs {
   about,
@@ -17,7 +21,9 @@ String capitalize(String text) =>
     '${text[0].toUpperCase()}${text.substring(1)}';
 
 class CategoriesContent extends StatefulWidget {
-  const CategoriesContent({super.key});
+  final Place place;
+
+  const CategoriesContent({super.key, required this.place});
 
   @override
   State<CategoriesContent> createState() => _CategoriesContentState();
@@ -48,7 +54,7 @@ class _CategoriesContentState extends State<CategoriesContent> {
             Row(
               spacing: 4,
               children: [
-                MyText.deepBlue('Besh Qozon', fontSize: 20),
+                MyText.deepBlue(widget.place.nameEn!, fontSize: 20),
                 SvgPicture.asset('assets/icons/blue-check.svg'),
               ],
             ),
@@ -63,12 +69,70 @@ class _CategoriesContentState extends State<CategoriesContent> {
         Row(
           spacing: 10,
           children: [
-            StarRating(star: '4'),
+            StarRating(star: widget.place.reviewsAvgRating ?? 0),
             _buildDot(isDark),
             SvgPicture.asset('assets/icons/car.svg'),
-            MyText.grey('5 min', fontSize: 12),
+            FutureBuilder(
+              future: determinePosition(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return MyText.grey('Loading ...', fontSize: 12);
+                }
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  final position = snapshot.data!;
+                  final distanceInKm = Geolocator.distanceBetween(
+                        position.latitude,
+                        position.longitude,
+                        widget.place.lat,
+                        widget.place.lng,
+                      ) /
+                      1000;
+                  const averageSpeedKmPerHour = 60.0;
+                  final estimatedTimeInHours =
+                      distanceInKm / averageSpeedKmPerHour;
+                  final estimatedTimeInMinutes = estimatedTimeInHours * 60;
+
+                  String displayTime;
+                  if (estimatedTimeInMinutes >= 60) {
+                    displayTime =
+                        '${estimatedTimeInHours.toStringAsFixed(1)} hour(s)';
+                  } else {
+                    displayTime =
+                        '${estimatedTimeInMinutes.toStringAsFixed(0)} minutes';
+                  }
+                  return MyText.grey(
+                    displayTime,
+                    fontSize: 12,
+                  );
+                }
+                return MyText.grey('N/A', fontSize: 12);
+              },
+            ),
             _buildDot(isDark),
-            MyText.grey('1 Km', fontSize: 12),
+            FutureBuilder(
+              future: determinePosition(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return MyText.grey('Loading ...', fontSize: 12);
+                }
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  final position = snapshot.data!;
+                  final text = (Geolocator.distanceBetween(
+                            position.latitude,
+                            position.longitude,
+                            widget.place.lat,
+                            widget.place.lng,
+                          ) /
+                          1000)
+                      .floor();
+
+                  return MyText.grey('$text km', fontSize: 12);
+                }
+                return MyText.grey('N/A', fontSize: 12);
+              },
+            ),
           ],
         ),
         Row(
@@ -118,7 +182,11 @@ class _CategoriesContentState extends State<CategoriesContent> {
             child: YellowButton(
               'Destination',
               onTap: () {
-                print('goign to Destination');
+                if (widget.place.longitude != null &&
+                    widget.place.latitude != null) {
+                  launchUrlString(
+                      "https://yandex.com/maps/?pt=${widget.place.longitude},${widget.place.latitude}&z=12&l=map");
+                }
               },
             ),
           ),
@@ -126,7 +194,8 @@ class _CategoriesContentState extends State<CategoriesContent> {
             child: GreyOutlinedButton(
               'Call',
               onTap: () {
-                print('goign to Destination');
+                if (widget.place.contactInfo == null) return;
+                launchUrlString('tel:${widget.place.contactInfo}');
               },
             ),
           ),
@@ -174,7 +243,10 @@ class _CategoriesContentState extends State<CategoriesContent> {
               },
               child: _selectedTab == Tabs.about
                   ? CategoriesAboutTab(key: ValueKey('about tab'))
-                  : CategoriesPhotoTab(key: ValueKey('photo tab')),
+                  : CategoriesPhotoTab(
+                      key: ValueKey('photo tab'),
+                      images: widget.place.images!,
+                    ),
             ),
             _buildActionButtons(),
           ],

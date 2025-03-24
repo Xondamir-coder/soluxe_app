@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -16,7 +17,9 @@ class _HotelImagesState extends State<HotelImages> {
 
   @override
   Widget build(BuildContext context) {
-    final sublistedImages = widget.images.sublist(0, 6);
+    final sublistedImages =
+        widget.images.length > 6 ? widget.images.sublist(0, 6) : widget.images;
+
     return Column(
       spacing: 4,
       children: [
@@ -29,7 +32,7 @@ class _HotelImagesState extends State<HotelImages> {
           child: FadeInImage.memoryNetwork(
             placeholder: kTransparentImage,
             key: ValueKey<int>(_currentIndex),
-            image: widget.images[_currentIndex],
+            image: '${Constants.baseUrl}/${widget.images[_currentIndex]}',
             fit: BoxFit.cover,
             height: 260,
             width: double.infinity,
@@ -55,7 +58,8 @@ class _HotelImagesState extends State<HotelImages> {
                               child: FadeInImage.memoryNetwork(
                                 placeholder: kTransparentImage,
                                 fit: BoxFit.cover,
-                                image: sublistedImages[i],
+                                image:
+                                    '${Constants.baseUrl}/${sublistedImages[i]}',
                               ),
                             ),
                           ),
@@ -70,7 +74,8 @@ class _HotelImagesState extends State<HotelImages> {
                                 child: FadeInImage.memoryNetwork(
                                   placeholder: kTransparentImage,
                                   fit: BoxFit.cover,
-                                  image: sublistedImages[i],
+                                  image:
+                                      '${Constants.baseUrl}/${sublistedImages[i]}',
                                 ),
                               ),
                               Positioned.fill(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/success.dart';

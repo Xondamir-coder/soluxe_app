@@ -1,15 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/hotel/hotel_room.dart';
+import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/models/place/inside.dart';
+import 'package:soluxe/models/place/place.dart';
+import 'package:soluxe/screens/hotel.dart';
 import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HotelRoomsItem extends StatelessWidget {
-  final HotelRoom room;
+  final dynamic room; // room can be either an Inside or a Place
 
   const HotelRoomsItem({required this.room, super.key});
+
+  // Return the primary image from the room.
+  // For Place, we use the first image from its images list.
+  // For Inside, we use its image property.
+  String? get primaryImage {
+    if (room is Place) {
+      final Place place = room as Place;
+      return (place.images != null && place.images!.isNotEmpty)
+          ? place.images!.first
+          : null;
+    } else if (room is Inside) {
+      final Inside inside = room as Inside;
+      return inside.image;
+    }
+    return null;
+  }
+
+  // You can similarly provide getters for common properties if needed.
+  String get roomName => room.nameEn ?? 'Unknown';
+
+  num get priceRate => room.priceRate ?? 0;
+
+  double get reviewsAvgRating {
+    // Note: reviewsAvgRating in Place is a double,
+    // in Inside it's defined as a String in your model, so convert it.
+    if (room is Place) {
+      return room.reviewsAvgRating ?? 0;
+    } else if (room is Inside) {
+      final rating = double.tryParse(room.reviewsAvgRating?.toString() ?? '');
+      return rating ?? 0;
+    }
+    return 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +56,19 @@ class HotelRoomsItem extends StatelessWidget {
       color: AppColors.adaptiveDarkBlueOrWhite(isDark),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: () {},
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) => HotelScreen(
+              hotelId: room.id ?? room.placeId,
+            ),
+          ),
+        ),
         child: Padding(
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           child: Row(
             spacing: 10,
             children: [
+              // Image Container
               Container(
                 width: 72,
                 height: 72,
@@ -33,34 +76,35 @@ class HotelRoomsItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage,
-                  image: room.imgSrc,
-                  fit: BoxFit.cover,
-                ),
+                child: primaryImage != null
+                    ? FadeInImage.memoryNetwork(
+                        image: '${Constants.baseUrl}/$primaryImage',
+                        placeholder: kTransparentImage,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(color: Colors.grey),
               ),
+              // Information Column
               Expanded(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: MyText(
-                        room.title,
-                        fontSize: 13,
-                        color: AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
-                        fontWeight: FontWeight.w700,
-                      ),
+                    MyText(
+                      roomName,
+                      fontSize: 13,
+                      color: AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
+                      fontWeight: FontWeight.w700,
                     ),
                     const SizedBox(height: 4),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        StarRating(star: room.star),
+                        StarRating(star: reviewsAvgRating),
                         Row(
                           spacing: 2,
                           children: [
                             MyText(
-                              room.price,
+                              priceRate.toString(),
                               fontSize: 12,
                               color: AppColors.adaptiveLightBlueOrBlue(isDark),
                               fontWeight: FontWeight.w700,
@@ -75,29 +119,30 @@ class HotelRoomsItem extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 14),
-                    Row(
-                      spacing: 16,
-                      children: [
-                        for (final amenity in room.amenities)
-                          Row(
-                            spacing: 4,
-                            children: [
-                              SvgPicture.asset(
-                                amenity.iconPath,
-                                colorFilter: ColorFilter.mode(
-                                  AppColors.grey,
-                                  BlendMode.srcIn,
+                    if (room.tags != null && room.tags.isNotEmpty)
+                      Row(
+                        spacing: 16,
+                        children: [
+                          for (final tag in room.uniqueTags)
+                            Row(
+                              spacing: 4,
+                              children: [
+                                SvgPicture.string(
+                                  tag.icon,
+                                  colorFilter: ColorFilter.mode(
+                                    AppColors.grey,
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
-                              ),
-                              MyText(
-                                amenity.name,
-                                fontSize: 12,
-                                color: AppColors.grey,
-                              ),
-                            ],
-                          )
-                      ],
-                    )
+                                MyText(
+                                  tag.nameEn,
+                                  fontSize: 12,
+                                  color: AppColors.grey,
+                                ),
+                              ],
+                            )
+                        ],
+                      )
                   ],
                 ),
               )

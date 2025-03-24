@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/widgets/date_pickers/expanded_date_picker.dart';
 import 'package:soluxe/widgets/drag_handle.dart';
-import 'package:soluxe/widgets/hotel/hotels_filter_amenities.dart';
+import 'package:soluxe/widgets/hotel/hotels_filter_tags.dart';
 import 'package:soluxe/widgets/hotel/hotels_filter_buttons.dart';
 import 'package:soluxe/widgets/hotel/hotels_filter_rating.dart';
 import 'package:soluxe/widgets/hotel/hotels_filter_type.dart';
@@ -19,7 +19,7 @@ class HotelsFilterSheet extends StatefulWidget {
 
 class _HotelsFilterSheetState extends State<HotelsFilterSheet> {
   // UI update managed in children separately
-  var _selectedAmenityName = 'All';
+  var _selectedTagId = 0;
   var _selectedType = 'Hotel';
   var _selectedRating = 5;
 
@@ -29,7 +29,7 @@ class _HotelsFilterSheetState extends State<HotelsFilterSheet> {
 
   void applyFilters() {
     print('applying filters');
-    print('Selected Amenity: $_selectedAmenityName');
+    print('Selected Amenity: $_selectedTagId');
     print('Selected Type: $_selectedType');
     print('Selected Rating: $_selectedRating');
     print('Selected Date: ${selectedDate.value}');
@@ -67,8 +67,8 @@ class _HotelsFilterSheetState extends State<HotelsFilterSheet> {
                 ),
               ],
             ),
-            HotelsFilterAmenities(
-              onAmenitySelected: (value) => _selectedAmenityName = value,
+            HotelsFilterTags(
+              onAmenitySelected: (value) => _selectedTagId = value,
             ),
             HotelsFilterType(onTypeChanged: (value) => _selectedType = value),
             HotelsFilterRating(
@@ -85,7 +85,8 @@ class _HotelsFilterSheetState extends State<HotelsFilterSheet> {
               valueListenable: selectedDate,
               builder: (context, value, child) => ExpandedDatePicker(
                 darkBlueBgColor: true,
-                onDateChange: (value) => selectedDate.value = value,
+                onDateChange: (value) =>
+                    selectedDate.value = DateTime.parse(value),
                 date: selectedDate.value,
               ),
             ),

@@ -13,9 +13,11 @@ import 'package:soluxe/widgets/typography/my_text.dart';
 class FilterSheet extends StatefulWidget {
   final List<String> mainCategories;
   final List<String> secondaryCategories;
+  final void Function(Map<String, dynamic>) onApplyFilters;
 
   const FilterSheet({
     super.key,
+    required this.onApplyFilters,
     required this.mainCategories,
     this.secondaryCategories = const [],
   });
@@ -25,29 +27,18 @@ class FilterSheet extends StatefulWidget {
 }
 
 class _FilterSheetState extends State<FilterSheet> {
-  late ValueNotifier<DateTime> selectedDate;
-  late final ValueNotifier<String> selectedMainCategory;
-  late final ValueNotifier<String> selectedSecondaryCategory;
-  late final ValueNotifier<RangeValues> selectedPrice;
+  late String selectedCategory;
+  late String selectedCity;
+  late DateTime selectedDate;
+  late RangeValues selectedPrice;
 
   @override
   void initState() {
-    selectedMainCategory = ValueNotifier<String>(widget.mainCategories[0]);
-    selectedPrice = ValueNotifier<RangeValues>(RangeValues(50, 400));
-    selectedDate = ValueNotifier<DateTime>(DateTime.now());
-    if (widget.secondaryCategories.isNotEmpty) {
-      selectedSecondaryCategory =
-          ValueNotifier<String>(widget.secondaryCategories[0]);
-    }
-
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    selectedMainCategory.dispose();
-    selectedPrice.dispose();
-    super.dispose();
+    selectedCategory = widget.mainCategories[0];
+    selectedCity = 'Tashkent';
+    selectedDate = DateTime.now();
+    selectedPrice = const RangeValues(0, 2000);
   }
 
   @override
@@ -81,15 +72,16 @@ class _FilterSheetState extends State<FilterSheet> {
                   ),
                 ],
               ),
-              ValueListenableBuilder<String>(
-                valueListenable: selectedMainCategory,
-                builder: (context, value, child) => CategoryTabs(
-                  selectedCategory: value,
-                  categories: widget.mainCategories,
-                  iconPath: 'assets/icons/date.svg',
-                  bgColor: AppColors.adaptiveDarkBlueOrLightGrey(isDark),
-                  onCategorySelected: (val) => selectedMainCategory.value = val,
-                ),
+              CategoryTabs(
+                selectedCategory: selectedCategory,
+                categories: widget.mainCategories,
+                iconPath: 'assets/icons/date.svg',
+                bgColor: AppColors.adaptiveDarkBlueOrLightGrey(isDark),
+                onCategorySelected: (val) {
+                  setState(() {
+                    selectedCategory = val;
+                  });
+                },
               ),
               if (widget.secondaryCategories.isNotEmpty)
                 Column(
@@ -101,15 +93,15 @@ class _FilterSheetState extends State<FilterSheet> {
                       color: AppColors.adaptiveGreyOrDarkBrown(isDark),
                       fontWeight: FontWeight.w700,
                     ),
-                    ValueListenableBuilder<String>(
-                      valueListenable: selectedSecondaryCategory,
-                      builder: (context, value, child) => CategoryTabs(
-                        selectedCategory: value,
-                        categories: widget.secondaryCategories,
-                        bgColor: AppColors.adaptiveDarkBlueOrLightGrey(isDark),
-                        onCategorySelected: (val) =>
-                            selectedSecondaryCategory.value = val,
-                      ),
+                    CategoryTabs(
+                      selectedCategory: selectedCity,
+                      categories: widget.secondaryCategories,
+                      bgColor: AppColors.adaptiveDarkBlueOrLightGrey(isDark),
+                      onCategorySelected: (val) {
+                        setState(() {
+                          selectedCity = val;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -121,24 +113,22 @@ class _FilterSheetState extends State<FilterSheet> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              ValueListenableBuilder<RangeValues>(
-                valueListenable: selectedPrice,
-                builder: (context, value, child) => PriceRangeSlider(
-                  selectedPrice: value,
-                  onSelectPrice: (val) => selectedPrice.value = val,
-                ),
+              PriceRangeSlider(
+                selectedPrice: selectedPrice,
+                onSelectPrice: (val) {
+                  setState(() {
+                    selectedPrice = val;
+                  });
+                },
               ),
-              ValueListenableBuilder<DateTime>(
-                valueListenable: selectedDate,
-                builder: (context, value, child) => ExpandedDatePicker(
-                  date: selectedDate.value,
+              ExpandedDatePicker(
+                  date: selectedDate,
                   darkBlueBgColor: true,
                   onDateChange: (val) {
-                    selectedDate.value = val;
-                    print(DateFormat('yyyy-MM-dd').format(selectedDate.value));
-                  },
-                ),
-              ),
+                    setState(() {
+                      selectedDate = DateTime.parse(val);
+                    });
+                  }),
               Row(
                 spacing: 16,
                 children: [
@@ -151,7 +141,17 @@ class _FilterSheetState extends State<FilterSheet> {
                   Expanded(
                     child: YellowButton(
                       'Apply',
-                      onTap: () {},
+                      onTap: () {
+                        final params = {
+                          'date': DateFormat('yyyy-MM-dd').format(selectedDate),
+                          'category': selectedCategory,
+                          'min_price': selectedPrice.start.toInt().toString(),
+                          'max_price': selectedPrice.end.toInt().toString(),
+                          // 'sub_category': selectedCity,
+                        };
+                        widget.onApplyFilters(params);
+                        Navigator.of(context).pop();
+                      },
                     ),
                   ),
                 ],

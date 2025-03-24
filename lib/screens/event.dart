@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
-import 'package:soluxe/models/event/event.dart';
+import 'package:soluxe/models/event.dart';
 import 'package:soluxe/widgets/buttons/circular_back_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/content_row.dart';
 import 'package:soluxe/widgets/event/event_date_item.dart';
+import 'package:soluxe/widgets/location_map.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -64,7 +65,7 @@ class EventScreen extends StatelessWidget {
                       child: FadeInImage.memoryNetwork(
                         placeholder: kTransparentImage,
                         image:
-                            '${Constants.baseUrl}/${event.place?.images![0]}',
+                            '${Constants.baseUrl}/${event.place?.images!.first}',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -207,28 +208,35 @@ class EventScreen extends StatelessWidget {
                         ),
                       ContentRow(
                         title: 'Opening Hours',
-                        text: 'N/A',
+                        texts: event.place?.workingHours?.map((entry) {
+                          String dayName = Constants.weekdays[entry.day!];
+                          String opening = entry.openingTime!.substring(0, 5);
+                          String closing = entry.closingTime!.substring(0, 5);
+                          return '$dayName: $opening - $closing';
+                        }).toList(),
                         iconPath: 'assets/icons/bold-clock.svg',
                       ),
                     ],
                   ),
-                  Column(
-                    spacing: 10,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      MyText.deepBlue('Location', fontSize: 16),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.asset(
-                          // placeholder: kTransparentImage,
-                          'assets/images/map.png',
-                          fit: BoxFit.cover,
+                  if (event.latitude != null && event.longitude != null)
+                    Column(
+                      spacing: 10,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MyText.deepBlue('Location', fontSize: 16),
+                        Container(
                           height: 160,
-                          width: double.infinity,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: LocationMap(
+                            latitude: event.lat,
+                            longitude: event.lng,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                   Row(
                     spacing: 16,
                     children: [
@@ -237,7 +245,13 @@ class EventScreen extends StatelessWidget {
                           'Destination',
                           borderRadius: 12,
                           padding: 15,
-                          onTap: () {},
+                          onTap: () {
+                            if (event.longitude != null &&
+                                event.latitude != null) {
+                              launchUrlString(
+                                  "https://yandex.com/maps/?pt=${event.longitude},${event.latitude}&z=12&l=map");
+                            }
+                          },
                         ),
                       ),
                       Expanded(

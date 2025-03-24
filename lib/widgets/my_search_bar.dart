@@ -62,7 +62,7 @@ class _MySearchBarState extends State<MySearchBar> {
         style: GoogleFonts.instrumentSans(
           fontSize: 14,
           fontWeight: FontWeight.w700,
-          color: AppColors.deepBlue,
+          color: AppColors.adaptiveWhiteOrDeepBlue(isDark),
         ),
         decoration: InputDecoration(
           prefixIcon: Padding(

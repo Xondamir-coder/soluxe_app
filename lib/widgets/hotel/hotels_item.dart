@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/hotel/hotel.dart';
+import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/models/place/place.dart';
 import 'package:soluxe/screens/hotel.dart';
 import 'package:soluxe/widgets/animations/scale_up_widget.dart';
 import 'package:soluxe/widgets/star_rating.dart';
@@ -9,7 +10,7 @@ import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HotelsItem extends StatelessWidget {
-  final Hotel hotel;
+  final Place hotel;
   final int? delay;
 
   const HotelsItem({required this.hotel, this.delay, super.key});
@@ -28,7 +29,7 @@ class HotelsItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (ctx) => HotelScreen(hotel: hotel),
+              builder: (ctx) => HotelScreen(hotelId: hotel.id!),
             ),
           ),
           child: Padding(
@@ -45,7 +46,7 @@ class HotelsItem extends StatelessWidget {
                   ),
                   child: FadeInImage.memoryNetwork(
                     placeholder: kTransparentImage,
-                    image: hotel.imgSrc,
+                    image: '${Constants.baseUrl}/${hotel.images!.first}',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -54,7 +55,7 @@ class HotelsItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyText(
-                        hotel.title,
+                        hotel.nameEn ?? 'Unknown',
                         fontSize: 13,
                         color: AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
                         fontWeight: FontWeight.w700,
@@ -63,12 +64,12 @@ class HotelsItem extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          StarRating(star: hotel.star),
+                          StarRating(star: hotel.reviewsAvgRating ?? 0),
                           Row(
                             spacing: 2,
                             children: [
                               MyText(
-                                hotel.price,
+                                hotel.priceRate.toString(),
                                 fontSize: 12,
                                 color:
                                     AppColors.adaptiveLightBlueOrBlue(isDark),
@@ -91,26 +92,31 @@ class HotelsItem extends StatelessWidget {
                               : 'assets/icons/pin.svg'),
                           const SizedBox(width: 4),
                           MyText(
-                            hotel.location,
+                            hotel.address ?? 'Unknown',
                             fontSize: 10,
+                            softWrap: true,
                             color: AppColors.grey,
                           ),
-                          const Spacer(),
-                          Row(
-                            spacing: 4,
-                            children: [
-                              for (final amenity in hotel.amenities)
-                                SvgPicture.asset(
-                                  amenity.iconPath,
-                                  width: 12,
-                                  height: 12,
-                                  colorFilter: ColorFilter.mode(
-                                    AppColors.grey,
-                                    BlendMode.srcIn,
-                                  ),
-                                ),
-                            ],
-                          ),
+                          if (hotel.tags != null && hotel.tags!.isNotEmpty)
+                            Expanded(
+                              child: Wrap(
+                                alignment: WrapAlignment.end,
+                                spacing: 4,
+                                runSpacing: 4,
+                                children: [
+                                  for (final tag in hotel.uniqueTags)
+                                    SvgPicture.string(
+                                      tag.icon,
+                                      width: 12,
+                                      height: 12,
+                                      colorFilter: ColorFilter.mode(
+                                        AppColors.grey,
+                                        BlendMode.srcIn,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
                         ],
                       )
                     ],

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/hotel/hotel_comment.dart';
+import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/models/place/review.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class HotelCommentsItem extends StatelessWidget {
-  final HotelComment comment;
+class HotelComment extends StatelessWidget {
+  final Review comment;
 
-  const HotelCommentsItem({required this.comment, super.key});
+  const HotelComment({required this.comment, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class HotelCommentsItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           MyText(
-            comment.text,
+            comment.reviewText.toString(),
             fontSize: 12,
             color: AppColors.adaptiveAccentWhiteOrGrey(isDark),
           ),
@@ -33,25 +36,32 @@ class HotelCommentsItem extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(100),
-                child: FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage,
-                  image: comment.user.profilePic!,
-                  fit: BoxFit.cover,
-                  width: 32,
-                  height: 32,
-                ),
+                child: comment.user?.profilePic != null
+                    ? FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image:
+                            '${Constants.baseUrl}/${comment.user!.profilePic}',
+                        fit: BoxFit.cover,
+                        width: 32,
+                        height: 32,
+                      )
+                    : SvgPicture.asset('assets/icons/profile.svg'),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 2,
                 children: [
                   MyText(
-                    comment.user.fullName!,
+                    comment.user?.fullName ?? 'Unknown User',
                     fontSize: 11,
                     color: AppColors.adaptiveAlmostWhiteOrDarkBlue(isDark),
                   ),
                   MyText(
-                    comment.formattedDate,
+                    comment.user?.updatedAt != null
+                        ? DateFormat('dd MMM yyyy').format(
+                            DateTime.parse(comment.user!.updatedAt!),
+                          )
+                        : 'Unknown',
                     fontSize: 11,
                     color: AppColors.adaptiveAccentWhiteOrGrey(isDark),
                   ),

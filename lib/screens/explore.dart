@@ -1,22 +1,30 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/data/hotels.dart';
+import 'package:soluxe/helpers/fetch_helper.dart';
+import 'package:soluxe/helpers/local_storage_helper.dart';
+import 'package:soluxe/models/event.dart';
+import 'package:soluxe/models/place/place.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/filter_sheet.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/tile/my_tile.dart';
+import 'package:soluxe/widgets/tile/my_tile_event.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
-class ExploreScreen extends StatefulWidget {
+class ExploreScreen extends ConsumerStatefulWidget {
   const ExploreScreen({super.key});
 
   @override
-  State<ExploreScreen> createState() => _ExploreScreenState();
+  ConsumerState<ExploreScreen> createState() => _ExploreScreenState();
 }
 
-class _ExploreScreenState extends State<ExploreScreen> {
+class _ExploreScreenState extends ConsumerState<ExploreScreen> {
   final categories = [
     'All',
     'Hotels',
@@ -24,13 +32,91 @@ class _ExploreScreenState extends State<ExploreScreen> {
     'Historical Places',
     'Events'
   ];
-  var selectedCategory = '';
-  var query = '';
+  var _selectedCategory = '';
+  var _query = '';
+  var items = [];
+
+  late DateTime _selectedDate;
+  late String _selectedMainCategory;
+  late RangeValues _selectedPrice;
+  late String _selectedCity;
 
   @override
   void initState() {
-    selectedCategory = categories[0];
+    _selectedCategory = categories[0];
+    _selectedMainCategory = 'All';
+    _selectedDate = DateTime.now();
+    _selectedPrice = const RangeValues(0, 2000);
+    _selectedCity = 'Tashkent';
+
     super.initState();
+  }
+
+  void applyFilters(Map<String, dynamic> params) {
+    setState(() {
+      _selectedDate = DateTime.parse(params['date']);
+      // _selectedCategory = params['category'];
+      // selectedCity = params['city'];
+      _selectedPrice = RangeValues(
+        double.parse(params['min_price'] as String),
+        double.parse(params['max_price'] as String),
+      );
+
+      _fetchPlaces();
+    });
+  }
+
+  Future<void> _fetchPlaces() async {
+    final token = (await LocalStorageHelper.getAccountData()).token;
+
+    final url = _selectedCategory == 'Events' ? 'events' : 'places';
+    final data = (await FetchHelper.fetch(
+      url: url,
+      token: token,
+      queryParams: {
+        'category': _selectedCategory,
+        'search': _query,
+        'date': DateFormat('yyyy-MM-dd').format(_selectedDate),
+        'min_price': _selectedPrice.start.toInt().toString(),
+        'max_price': _selectedPrice.end.toInt().toString(),
+      },
+    ) as Map)['data'];
+
+    // Clear array
+    items = [];
+
+    setState(() {
+      for (final item in data) {
+        if (_selectedCategory == 'Events') {
+          items.add(Event.fromMap(item));
+        } else {
+          items.add(Place.fromMap(item));
+        }
+      }
+    });
+  }
+
+  void selectInput({required String name, required String val}) {
+    setState(() {
+      switch (name) {
+        case 'date':
+          _selectedDate = DateTime.parse(val);
+          break;
+        case 'mainCategory':
+          _selectedMainCategory = val;
+          break;
+        case 'city':
+          _selectedCity = val;
+          break;
+        case 'price':
+          _selectedPrice = RangeValues(
+            double.parse(val.split('-')[0]),
+            double.parse(val.split('-')[1]),
+          );
+          break;
+        default:
+      }
+    });
   }
 
   void _openFilters(BuildContext context, bool isDark) {
@@ -38,8 +124,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
       backgroundColor: AppColors.adaptiveDeepBlueOrWhite(isDark),
       context: context,
       isScrollControlled: true,
-      builder: (ctx) => const FilterSheet(
-        mainCategories: ['All', 'Concerts', "Exhibitions", 'Hotels'],
+      builder: (ctx) => FilterSheet(
+        mainCategories: const ['All', 'Concerts', "Exhibitions", 'Hotels'],
+        onApplyFilters: applyFilters,
       ),
     );
   }
@@ -47,6 +134,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -68,14 +156,16 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     MySearchBar(
                       label: 'Search...',
                       onSearch: (val) {
-                        query = val;
+                        _query = val;
+                        _fetchPlaces();
                       },
                     ),
                     CategoryTabs(
-                      selectedCategory: selectedCategory,
+                      selectedCategory: _selectedCategory,
                       categories: categories,
                       onCategorySelected: (val) {
-                        setState(() => selectedCategory = val);
+                        setState(() => _selectedCategory = val);
+                        _fetchPlaces();
                       },
                     )
                   ],
@@ -84,12 +174,21 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 16,
                   children: [
-                    MyText.deepBlue(
-                      'Popular Searches',
-                      fontSize: 16,
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: MyText.deepBlue(
+                        'Popular Searches',
+                        fontSize: 16,
+                      ),
                     ),
-                    for (final hotel in hotels)
-                      MyTile(places: hotel, dateOnImage: true, isStars: false),
+                    if (items.isEmpty)
+                      const MyText.deepBlue('No results found'),
+                    if (_selectedCategory == 'Events') ...[
+                      for (final event in items) MyTileEvent(event: event),
+                    ],
+                    if (_selectedCategory != 'Events') ...[
+                      for (final place in items) MyTile(place: place),
+                    ]
                   ],
                 ),
               ],

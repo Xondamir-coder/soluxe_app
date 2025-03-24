@@ -5,6 +5,8 @@ import 'package:soluxe/providers/events_provider.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/event/events_date.dart';
+import 'package:soluxe/widgets/tile/my_tile_event.dart';
+import 'package:soluxe/widgets/typography/my_text.dart';
 
 class EventsScreen extends ConsumerWidget {
   const EventsScreen({super.key});
@@ -23,15 +25,22 @@ class EventsScreen extends ConsumerWidget {
       body: Column(
         children: [
           const EventsDate(),
-          // TODO:
-          // Expanded(
-          //   child: ListView.separated(
-          //     separatorBuilder: (context, index) => SizedBox(height: 10),
-          //     padding: EdgeInsets.all(16),
-          //     itemBuilder: (context, index) => MyTile(places: events[index]),
-          //     itemCount: events.length,
-          //   ),
-          // ),
+          if (events.isEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: MyText.deepBlue('No events found', fontSize: 18),
+            ),
+          if (events.isNotEmpty)
+            Expanded(
+              child: ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(height: 10),
+                padding: EdgeInsets.all(16),
+                itemBuilder: (context, index) => MyTileEvent(
+                  event: events[index],
+                ),
+                itemCount: events.length,
+              ),
+            ),
         ],
       ),
     );

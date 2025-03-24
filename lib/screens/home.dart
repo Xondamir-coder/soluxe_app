@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/data/hotels.dart';
 import 'package:soluxe/providers/events_provider.dart';
+import 'package:soluxe/providers/hotels_provider.dart';
 import 'package:soluxe/screens/events.dart';
 import 'package:soluxe/screens/hotels.dart';
 import 'package:soluxe/screens/notifications.dart';
@@ -53,6 +53,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final events = ref.watch(eventsProvider);
+    final hotels = ref.watch(hotelsProvider);
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -179,13 +180,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     Column(
                       spacing: 10,
                       children: [
-                        for (var i = 0; i < hotels.length; i++)
+                        for (var i = 0;
+                            i < (hotels.length < 4 ? hotels.length : 4);
+                            i++)
                           HotelsItem(
                             hotel: hotels[i],
                             delay: i * 150 + 500,
                           ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ],

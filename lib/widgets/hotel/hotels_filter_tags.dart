@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/models/hotel/hotel_amenity.dart';
+import 'package:soluxe/providers/tags_provider.dart';
 
-final amenities = [
-  HotelAmenity(iconPath: 'assets/icons/flash.svg', name: 'All'),
-  HotelAmenity(iconPath: 'assets/icons/park.svg', name: 'Parking Slot'),
-  HotelAmenity(iconPath: 'assets/icons/breakfast.svg', name: 'Breakfast'),
-  HotelAmenity(iconPath: 'assets/icons/wifi.svg', name: 'Free Wifi'),
-  HotelAmenity(iconPath: 'assets/icons/pool.svg', name: 'Pool'),
-];
+class HotelsFilterTags extends ConsumerStatefulWidget {
+  final ValueChanged<int> onAmenitySelected;
 
-class HotelsFilterAmenities extends StatefulWidget {
-  final ValueChanged<String> onAmenitySelected;
-
-  const HotelsFilterAmenities({super.key, required this.onAmenitySelected});
+  const HotelsFilterTags({super.key, required this.onAmenitySelected});
 
   @override
-  State<HotelsFilterAmenities> createState() => _HotelsFilterAmenitiesState();
+  ConsumerState<HotelsFilterTags> createState() => _HotelsFilterTagsState();
 }
 
-class _HotelsFilterAmenitiesState extends State<HotelsFilterAmenities> {
-  var _selectedAmenityName = amenities[0].name;
+class _HotelsFilterTagsState extends ConsumerState<HotelsFilterTags> {
+  int _selectedTagId = 0;
+
+  @override
+  void initState() {
+    _selectedTagId = ref.read(tagsProvider).first.id;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final tags = ref.watch(tagsProvider);
 
     return SizedBox(
       height: 40,
@@ -34,8 +34,8 @@ class _HotelsFilterAmenitiesState extends State<HotelsFilterAmenities> {
         scrollDirection: Axis.horizontal,
         separatorBuilder: (ctx, index) => const SizedBox(width: 10),
         itemBuilder: (ctx, index) {
-          final amenity = amenities[index];
-          final isSelected = _selectedAmenityName == amenity.name;
+          final tag = tags[index];
+          final isSelected = _selectedTagId == tag.id;
           final color = isSelected
               ? Colors.white
               : AppColors.adaptiveAccentWhiteOrVeryDarkBrown(isDark);
@@ -43,10 +43,10 @@ class _HotelsFilterAmenitiesState extends State<HotelsFilterAmenities> {
           return GestureDetector(
             onTap: () {
               // Update UI
-              setState(() => _selectedAmenityName = amenity.name);
+              setState(() => _selectedTagId = tag.id);
 
               // Pass to the parent
-              widget.onAmenitySelected(_selectedAmenityName);
+              widget.onAmenitySelected(_selectedTagId);
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
@@ -67,8 +67,8 @@ class _HotelsFilterAmenitiesState extends State<HotelsFilterAmenities> {
                     ),
                     duration: const Duration(milliseconds: 300),
                     builder: (context, color, child) {
-                      return SvgPicture.asset(
-                        amenity.iconPath,
+                      return SvgPicture.string(
+                        tag.icon,
                         width: 15,
                         height: 15,
                         colorFilter: ColorFilter.mode(
@@ -85,14 +85,14 @@ class _HotelsFilterAmenitiesState extends State<HotelsFilterAmenities> {
                       color: color,
                     ),
                     duration: const Duration(milliseconds: 300),
-                    child: Text(amenity.name),
+                    child: Text(tag.nameEn),
                   ),
                 ],
               ),
             ),
           );
         },
-        itemCount: amenities.length,
+        itemCount: tags.length,
       ),
     );
   }

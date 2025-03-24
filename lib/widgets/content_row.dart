@@ -5,7 +5,8 @@ import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ContentRow extends StatelessWidget {
-  final String text;
+  final List<String>? texts;
+  final String? text;
   final String iconPath;
   final String title;
   final String phone;
@@ -15,7 +16,8 @@ class ContentRow extends StatelessWidget {
   const ContentRow({
     super.key,
     required this.title,
-    required this.text,
+    this.texts,
+    this.text,
     required this.iconPath,
   })  : isInteractive = false,
         phone = '',
@@ -27,8 +29,9 @@ class ContentRow extends StatelessWidget {
     required this.phone,
     required this.website,
     required this.iconPath,
-  })  : isInteractive = true,
-        text = '';
+    this.texts,
+    this.text,
+  }) : isInteractive = true;
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +52,21 @@ class ContentRow extends StatelessWidget {
             MyText.grey(title, fontSize: 16),
           ],
         ),
-        MyText(
-          text,
-          color: AppColors.adaptiveAlmostWhiteOrDarkBlue(isDark),
-          fontWeight: FontWeight.w600,
-          fontSize: 12,
-        ),
+        if (text != null)
+          MyText(
+            text!,
+            color: AppColors.adaptiveAlmostWhiteOrDarkBlue(isDark),
+            fontWeight: FontWeight.w600,
+            fontSize: 12,
+          ),
+        if (texts != null)
+          for (final text in texts!)
+            MyText(
+              text,
+              color: AppColors.adaptiveAlmostWhiteOrDarkBlue(isDark),
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+            ),
       ],
     );
 
@@ -89,7 +101,8 @@ class ContentRow extends StatelessWidget {
           InkWell(
             onTap: () {
               if (website.isEmpty) return;
-              launchUrlString(website);
+              final cleanedWebsite = website.replaceAll('https://', '');
+              launchUrlString('https://$cleanedWebsite');
             },
             child: MyText(
               website,

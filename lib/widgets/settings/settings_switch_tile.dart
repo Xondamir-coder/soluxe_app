@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:soluxe/helpers/preference_helper.dart';
 import 'package:soluxe/providers/theme_provider.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 

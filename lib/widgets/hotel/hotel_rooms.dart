@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:soluxe/models/hotel/hotel_room.dart';
+import 'package:soluxe/models/place/inside.dart';
 import 'package:soluxe/widgets/hotel/hotel_rooms_item.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class HotelRooms extends StatelessWidget {
-  final List<HotelRoom> rooms;
+  final List<Inside> rooms;
 
   const HotelRooms({required this.rooms, super.key});
 
