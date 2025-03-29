@@ -11,7 +11,7 @@ final categories = [
     name: 'Restaurants',
     iconPath: 'assets/icons/kitchen.svg',
     color: Color.fromRGBO(136, 126, 249, 1),
-    categories: ['All', 'Banquet hall', 'Bar', 'Fast Food', 'Cafe'],
+    subCategories: ['All', 'Banquet hall', 'Bar', 'Fast Food', 'Cafe'],
   ),
   Category(
     name: 'Historical Places',
@@ -27,10 +27,5 @@ final categories = [
     name: 'Entertainment Places',
     iconPath: 'assets/icons/joystick.svg',
     color: Color.fromRGBO(45, 212, 191, 1),
-  ),
-  Category(
-    name: 'Events',
-    iconPath: 'assets/icons/date.svg',
-    color: Color.fromRGBO(59, 130, 246, 1),
   ),
 ];

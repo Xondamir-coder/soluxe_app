@@ -67,6 +67,7 @@ class InputField extends StatelessWidget {
         keyboardType: type,
         obscureText: hidePassword,
         initialValue: initialVal,
+        maxLength: type == TextInputType.phone ? 17 : null,
         decoration: InputDecoration(
           floatingLabelBehavior: floatingLabelBehavior,
           labelText: label,

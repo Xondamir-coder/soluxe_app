@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/models/filters.dart';
+import 'package:soluxe/models/place/tag.dart';
 import 'package:soluxe/widgets/buttons/grey_outlined_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/date_pickers/expanded_date_picker.dart';
 import 'package:soluxe/widgets/drag_handle.dart';
 import 'package:soluxe/widgets/price_range_slider.dart';
+import 'package:soluxe/widgets/tags_buttons.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class FilterSheet extends StatefulWidget {
-  final List<String> mainCategories;
-  final List<String> secondaryCategories;
+  final Filters filters;
   final void Function(Map<String, dynamic>) onApplyFilters;
 
   const FilterSheet({
     super.key,
+    required this.filters,
     required this.onApplyFilters,
-    required this.mainCategories,
-    this.secondaryCategories = const [],
   });
 
   @override
@@ -27,18 +28,18 @@ class FilterSheet extends StatefulWidget {
 }
 
 class _FilterSheetState extends State<FilterSheet> {
-  late String selectedCategory;
-  late String selectedCity;
-  late DateTime selectedDate;
-  late RangeValues selectedPrice;
+  Tag? selectedTag;
+  String? selectedCity;
+  var selectedPrice = const RangeValues(0, 2000);
+  var selectedDate = DateTime.now();
 
   @override
   void initState() {
     super.initState();
-    selectedCategory = widget.mainCategories[0];
-    selectedCity = 'Tashkent';
-    selectedDate = DateTime.now();
-    selectedPrice = const RangeValues(0, 2000);
+    selectedTag =
+        widget.filters.tags.isNotEmpty ? widget.filters.tags.first : null;
+    selectedCity =
+        widget.filters.cities.isNotEmpty ? widget.filters.cities.first : null;
   }
 
   @override
@@ -72,18 +73,18 @@ class _FilterSheetState extends State<FilterSheet> {
                   ),
                 ],
               ),
-              CategoryTabs(
-                selectedCategory: selectedCategory,
-                categories: widget.mainCategories,
-                iconPath: 'assets/icons/date.svg',
-                bgColor: AppColors.adaptiveDarkBlueOrLightGrey(isDark),
-                onCategorySelected: (val) {
-                  setState(() {
-                    selectedCategory = val;
-                  });
-                },
-              ),
-              if (widget.secondaryCategories.isNotEmpty)
+              if (widget.filters.tags.isNotEmpty)
+                TagsButtons(
+                  selectedTag: selectedTag!,
+                  tags: widget.filters.tags,
+                  bgColor: AppColors.adaptiveDarkBlueOrLightGrey(isDark),
+                  onTagSelected: (val) {
+                    setState(() {
+                      selectedTag = val;
+                    });
+                  },
+                ),
+              if (widget.filters.cities.isNotEmpty)
                 Column(
                   spacing: 10,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,8 +95,8 @@ class _FilterSheetState extends State<FilterSheet> {
                       fontWeight: FontWeight.w700,
                     ),
                     CategoryTabs(
-                      selectedCategory: selectedCity,
-                      categories: widget.secondaryCategories,
+                      selectedCategory: selectedCity!,
+                      categories: widget.filters.cities,
                       bgColor: AppColors.adaptiveDarkBlueOrLightGrey(isDark),
                       onCategorySelected: (val) {
                         setState(() {
@@ -143,11 +144,13 @@ class _FilterSheetState extends State<FilterSheet> {
                       'Apply',
                       onTap: () {
                         final params = {
-                          'date': DateFormat('yyyy-MM-dd').format(selectedDate),
-                          'category': selectedCategory,
+                          'working_date':
+                              DateFormat('yyyy-MM-dd').format(selectedDate),
+                          if (selectedTag != null)
+                            'tag': selectedTag!.id.toString(),
                           'min_price': selectedPrice.start.toInt().toString(),
                           'max_price': selectedPrice.end.toInt().toString(),
-                          // 'sub_category': selectedCity,
+                          if (selectedCity != null) 'city': selectedCity!,
                         };
                         widget.onApplyFilters(params);
                         Navigator.of(context).pop();

@@ -106,7 +106,7 @@ class HotelsItem extends StatelessWidget {
                                 children: [
                                   for (final tag in hotel.uniqueTags)
                                     SvgPicture.string(
-                                      tag.icon,
+                                      tag.icon!,
                                       width: 12,
                                       height: 12,
                                       colorFilter: ColorFilter.mode(

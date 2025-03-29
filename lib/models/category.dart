@@ -4,12 +4,12 @@ class Category {
   final String name;
   final String iconPath;
   final Color color;
-  final List<String> categories;
+  final List<String> subCategories;
 
   const Category({
     required this.name,
     required this.iconPath,
     required this.color,
-    this.categories = const [],
+    this.subCategories = const [],
   });
 }

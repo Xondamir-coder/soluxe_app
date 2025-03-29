@@ -10,4 +10,12 @@ class Constants {
     'Saturday',
     'Sunday'
   ];
+  static const categories = [
+    'All',
+    'Hotels',
+    'Restaurants',
+    'Historical_place',
+    'Museums',
+    'Entertainment',
+  ];
 }

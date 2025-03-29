@@ -76,7 +76,7 @@ class HotelHeader extends StatelessWidget {
                 children: [
                   for (final iconPath in tags!.map((e) => e.icon))
                     SvgPicture.string(
-                      iconPath,
+                      iconPath!,
                       width: 20,
                       height: 20,
                       colorFilter: ColorFilter.mode(

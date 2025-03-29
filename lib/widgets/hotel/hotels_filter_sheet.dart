@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:soluxe/widgets/date_pickers/expanded_date_picker.dart';
 import 'package:soluxe/widgets/drag_handle.dart';
 import 'package:soluxe/widgets/hotel/hotels_filter_tags.dart';
@@ -10,31 +12,37 @@ import 'package:soluxe/widgets/price_range_slider.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/constants/colors.dart';
 
-class HotelsFilterSheet extends StatefulWidget {
-  const HotelsFilterSheet({super.key});
+class HotelsFilterSheet extends ConsumerStatefulWidget {
+  final ValueChanged onApplyFilters;
+
+  const HotelsFilterSheet({super.key, required this.onApplyFilters});
 
   @override
-  State<HotelsFilterSheet> createState() => _HotelsFilterSheetState();
+  ConsumerState<HotelsFilterSheet> createState() => _HotelsFilterSheetState();
 }
 
-class _HotelsFilterSheetState extends State<HotelsFilterSheet> {
+class _HotelsFilterSheetState extends ConsumerState<HotelsFilterSheet> {
   // UI update managed in children separately
   var _selectedTagId = 0;
   var _selectedType = 'Hotel';
   var _selectedRating = 5;
 
   // UI update managed in parent
-  var selectedDate = ValueNotifier<DateTime>(DateTime.now());
+  var selectedDate =
+      ValueNotifier<String>(DateFormat('yyyy-MM-dd').format(DateTime.now()));
   var selectedPrice = ValueNotifier<RangeValues>(RangeValues(50, 400));
 
   void applyFilters() {
-    print('applying filters');
-    print('Selected Amenity: $_selectedTagId');
-    print('Selected Type: $_selectedType');
-    print('Selected Rating: $_selectedRating');
-    print('Selected Date: ${selectedDate.value}');
-    print(
-        'Selected Price Range: ${selectedPrice.value.start} - ${selectedPrice.value.end}');
+    final params = {
+      'tag': _selectedTagId.toString(),
+      'working_date': selectedDate.value,
+      'sub_category': _selectedType,
+      'rate': _selectedRating.toString(),
+      'min_price': selectedPrice.value.start.toInt().toString(),
+      'max_price': selectedPrice.value.end.toInt().toString(),
+    };
+    widget.onApplyFilters(params);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -68,7 +76,7 @@ class _HotelsFilterSheetState extends State<HotelsFilterSheet> {
               ],
             ),
             HotelsFilterTags(
-              onAmenitySelected: (value) => _selectedTagId = value,
+              onTagSelected: (value) => _selectedTagId = value,
             ),
             HotelsFilterType(onTypeChanged: (value) => _selectedType = value),
             HotelsFilterRating(
@@ -85,9 +93,8 @@ class _HotelsFilterSheetState extends State<HotelsFilterSheet> {
               valueListenable: selectedDate,
               builder: (context, value, child) => ExpandedDatePicker(
                 darkBlueBgColor: true,
-                onDateChange: (value) =>
-                    selectedDate.value = DateTime.parse(value),
-                date: selectedDate.value,
+                onDateChange: (value) => selectedDate.value = value,
+                date: DateTime.parse(selectedDate.value),
               ),
             ),
             HotelsFilterButtons(onApplyFilters: applyFilters),

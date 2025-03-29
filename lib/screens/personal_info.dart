@@ -49,14 +49,19 @@ class PersonalInfoScreen extends ConsumerWidget {
             left: 0,
             right: 0,
             bottom: 0,
-            child: ClipRect(
-              child: Container(
-                height: 30,
-                padding: EdgeInsets.all(6),
-                color: AppColors.deepBlue.withValues(alpha: .1),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                  child: SvgPicture.asset('assets/icons/camera.svg'),
+            child: GestureDetector(
+              onTap: () {
+                print('tap');
+              },
+              child: ClipRect(
+                child: Container(
+                  height: 30,
+                  padding: EdgeInsets.all(6),
+                  color: AppColors.deepBlue.withValues(alpha: .1),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                    child: SvgPicture.asset('assets/icons/camera.svg'),
+                  ),
                 ),
               ),
             ),

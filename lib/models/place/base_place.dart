@@ -47,7 +47,7 @@ abstract class BasePlace {
     final Map<String, Tag> uniqueMap = {};
 
     for (var tag in tags!) {
-      uniqueMap[tag.category] = tag;
+      uniqueMap[tag.category!] = tag;
     }
 
     return uniqueMap.values.toList();

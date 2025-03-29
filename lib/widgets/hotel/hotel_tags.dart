@@ -25,14 +25,14 @@ class HotelTags extends StatelessWidget {
             spacing: 6,
             children: [
               SvgPicture.string(
-                tags[index].icon,
+                tags[index].icon!,
                 colorFilter: ColorFilter.mode(
                   Colors.white,
                   BlendMode.srcIn,
                 ),
               ),
               MyText(
-                tags[index].nameEn,
+                tags[index].nameEn!,
                 fontSize: 12,
                 color: Colors.white,
                 fontWeight: FontWeight.w700,

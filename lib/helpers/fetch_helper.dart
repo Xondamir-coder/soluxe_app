@@ -29,7 +29,8 @@ class FetchHelper {
           uri,
           headers: {
             'Content-Type': 'application/$contentType',
-            'Accept': 'application/$accept'
+            'Accept': 'application/$accept',
+            if (token != null) 'Authorization': 'Bearer $token',
           },
           body: reqBody,
         );

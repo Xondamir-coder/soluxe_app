@@ -1,10 +1,8 @@
-// ignore_for_file: unused_field
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
+import 'package:soluxe/helpers/filters_helper.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/event.dart';
 import 'package:soluxe/models/place/place.dart';
@@ -14,76 +12,41 @@ import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/filter_sheet.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/tile/my_tile.dart';
-import 'package:soluxe/widgets/tile/my_tile_event.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
-class ExploreScreen extends ConsumerStatefulWidget {
+class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
 
   @override
-  ConsumerState<ExploreScreen> createState() => _ExploreScreenState();
+  State<ExploreScreen> createState() => _ExploreScreenState();
 }
 
-class _ExploreScreenState extends ConsumerState<ExploreScreen> {
-  final categories = [
-    'All',
-    'Hotels',
-    'Restaurants',
-    'Historical Places',
-    'Events'
-  ];
-  var _selectedCategory = '';
+class _ExploreScreenState extends State<ExploreScreen> {
+  var _selectedCategory = Constants.categories[0];
   var _query = '';
   var items = [];
-
-  late DateTime _selectedDate;
-  late String _selectedMainCategory;
-  late RangeValues _selectedPrice;
-  late String _selectedCity;
-
-  @override
-  void initState() {
-    _selectedCategory = categories[0];
-    _selectedMainCategory = 'All';
-    _selectedDate = DateTime.now();
-    _selectedPrice = const RangeValues(0, 2000);
-    _selectedCity = 'Tashkent';
-
-    super.initState();
-  }
-
-  void applyFilters(Map<String, dynamic> params) {
-    setState(() {
-      _selectedDate = DateTime.parse(params['date']);
-      // _selectedCategory = params['category'];
-      // selectedCity = params['city'];
-      _selectedPrice = RangeValues(
-        double.parse(params['min_price'] as String),
-        double.parse(params['max_price'] as String),
-      );
-
-      _fetchPlaces();
-    });
-  }
+  var params = {};
+  var _isLoading = false;
 
   Future<void> _fetchPlaces() async {
-    final token = (await LocalStorageHelper.getAccountData()).token;
-
-    final url = _selectedCategory == 'Events' ? 'events' : 'places';
-    final data = (await FetchHelper.fetch(
-      url: url,
-      token: token,
-      queryParams: {
-        'category': _selectedCategory,
-        'search': _query,
-        'date': DateFormat('yyyy-MM-dd').format(_selectedDate),
-        'min_price': _selectedPrice.start.toInt().toString(),
-        'max_price': _selectedPrice.end.toInt().toString(),
-      },
-    ) as Map)['data'];
+    setState(() {
+      _isLoading = true;
+    });
 
     // Clear array
     items = [];
+
+    final token = (await LocalStorageHelper.getAccountData()).token;
+
+    final data = (await FetchHelper.fetch(
+      url: 'places',
+      token: token,
+      queryParams: {
+        ...params,
+        'category': _selectedCategory,
+        if (_query.isNotEmpty) 'search': _query,
+      },
+    ) as Map)['data'];
 
     setState(() {
       for (final item in data) {
@@ -94,41 +57,35 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
         }
       }
     });
-  }
 
-  void selectInput({required String name, required String val}) {
     setState(() {
-      switch (name) {
-        case 'date':
-          _selectedDate = DateTime.parse(val);
-          break;
-        case 'mainCategory':
-          _selectedMainCategory = val;
-          break;
-        case 'city':
-          _selectedCity = val;
-          break;
-        case 'price':
-          _selectedPrice = RangeValues(
-            double.parse(val.split('-')[0]),
-            double.parse(val.split('-')[1]),
-          );
-          break;
-        default:
-      }
+      _isLoading = false;
     });
   }
 
-  void _openFilters(BuildContext context, bool isDark) {
+  void _openFilters(BuildContext context, bool isDark) async {
+    final filters = await fetchFilters(_selectedCategory);
+
+    if (!context.mounted) return;
+
     showModalBottomSheet(
       backgroundColor: AppColors.adaptiveDeepBlueOrWhite(isDark),
       context: context,
       isScrollControlled: true,
       builder: (ctx) => FilterSheet(
-        mainCategories: const ['All', 'Concerts', "Exhibitions", 'Hotels'],
-        onApplyFilters: applyFilters,
+        onApplyFilters: (val) {
+          params = val;
+          _fetchPlaces();
+        },
+        filters: filters,
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchPlaces();
   }
 
   @override
@@ -162,9 +119,11 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                     ),
                     CategoryTabs(
                       selectedCategory: _selectedCategory,
-                      categories: categories,
+                      categories: Constants.categories,
                       onCategorySelected: (val) {
-                        setState(() => _selectedCategory = val);
+                        setState(() {
+                          _selectedCategory = val;
+                        });
                         _fetchPlaces();
                       },
                     )
@@ -181,14 +140,12 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                         fontSize: 16,
                       ),
                     ),
-                    if (items.isEmpty)
-                      const MyText.deepBlue('No results found'),
-                    if (_selectedCategory == 'Events') ...[
-                      for (final event in items) MyTileEvent(event: event),
-                    ],
-                    if (_selectedCategory != 'Events') ...[
+                    if (_isLoading && items.isEmpty)
+                      Center(child: CircularProgressIndicator.adaptive()),
+                    if (!_isLoading && items.isEmpty)
+                      const MyText.warmBrown('No results found'),
+                    if (items.isNotEmpty)
                       for (final place in items) MyTile(place: place),
-                    ]
                   ],
                 ),
               ],
