@@ -14,10 +14,14 @@ class AccountNotifier extends StateNotifier<Account> {
   }
 
   void updateAccount({String? token, User? user}) async {
-    state = Account(token: token, user: user);
+    print(token);
+    state = Account(
+      token: token ?? state.token,
+      user: user ?? state.user,
+    );
     await LocalStorageHelper.saveAccountData(
-      token: token ?? '',
-      user: user ?? User(),
+      token: state.token ?? '',
+      user: state.user ?? User(),
     );
   }
 }

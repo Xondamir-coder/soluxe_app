@@ -3,11 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/providers/theme_provider.dart';
-import 'package:soluxe/screens/explore.dart';
-import 'package:soluxe/screens/home.dart';
-import 'package:soluxe/screens/hotels.dart';
-import 'package:soluxe/screens/personal_info.dart';
-import 'package:soluxe/screens/settings.dart';
+import 'package:soluxe/screens/login.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +32,7 @@ class MyApp extends ConsumerWidget {
       themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
       // home: HomeScreen(),
-      home: SettingsScreen(),
+      home: LoginScreen(isEmail: true),
     );
   }
 }

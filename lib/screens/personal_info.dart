@@ -8,13 +8,15 @@ import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/account.dart';
 import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
+import 'package:soluxe/widgets/image_dialog.dart';
 import 'package:soluxe/widgets/settings/settings_form.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class PersonalInfoScreen extends ConsumerWidget {
   const PersonalInfoScreen({super.key});
 
-  Widget _buildProfile(bool isDark, Account account) {
+  Widget _buildProfile(bool isDark, Account account, BuildContext ctx) {
+    print(account.user!.profilePic);
     return Container(
       width: 100,
       height: 100,
@@ -51,7 +53,10 @@ class PersonalInfoScreen extends ConsumerWidget {
             bottom: 0,
             child: GestureDetector(
               onTap: () {
-                print('tap');
+                showDialog(
+                  context: ctx,
+                  builder: (_) => ImageDialog(),
+                );
               },
               child: ClipRect(
                 child: Container(
@@ -82,7 +87,7 @@ class PersonalInfoScreen extends ConsumerWidget {
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
-            _buildProfile(isDark, account),
+            _buildProfile(isDark, account, context),
             const SettingsForm(),
           ],
         ),

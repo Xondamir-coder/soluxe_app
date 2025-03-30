@@ -28,36 +28,6 @@ class User {
     this.updatedAt,
   });
 
-  User copyWith({
-    int? id,
-    String? fullName,
-    String? email,
-    int? emailVerifiedCode,
-    bool? emailVerified,
-    String? authProvider,
-    String? profilePic,
-    String? phone,
-    String? phoneVerifyCode,
-    bool? phoneVerified,
-    String? createdAt,
-    String? updatedAt,
-  }) {
-    return User(
-      id: id ?? this.id,
-      fullName: fullName ?? this.fullName,
-      email: email ?? this.email,
-      emailVerifiedCode: emailVerifiedCode ?? this.emailVerifiedCode,
-      emailVerified: emailVerified ?? this.emailVerified,
-      authProvider: authProvider ?? this.authProvider,
-      profilePic: profilePic ?? this.profilePic,
-      phone: phone ?? this.phone,
-      phoneVerifyCode: phoneVerifyCode ?? this.phoneVerifyCode,
-      phoneVerified: phoneVerified ?? this.phoneVerified,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -77,18 +47,18 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['id'] as int,
+      id: map['id'] as int?,
       fullName: map['full_name'] as String?,
       email: map['email'] as String?,
       emailVerifiedCode: map['email_verified_code'] as int?,
-      emailVerified: map['email_verified'] as bool,
-      authProvider: map['auth_provider'] as String,
+      emailVerified: map['email_verified'] as bool?,
+      authProvider: map['auth_provider'] as String?,
       profilePic: map['profile_pic'] as String?,
       phone: map['phone'] as String?,
       phoneVerifyCode: map['phone_verify_code'] as String?,
-      phoneVerified: map['phone_verified'] as bool,
-      createdAt: map['created_at'] as String,
-      updatedAt: map['updated_at'] as String,
+      phoneVerified: map['phone_verified'] as bool?,
+      createdAt: map['created_at'] as String?,
+      updatedAt: map['updated_at'] as String?,
     );
   }
 

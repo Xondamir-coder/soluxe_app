@@ -6,6 +6,7 @@ import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/user.dart';
 import 'package:soluxe/providers/account_provider.dart';
+import 'package:soluxe/screens/verification.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
@@ -40,14 +41,25 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
         token: token,
         reqBody: {
           'full_name': _name,
-          'email': _email,
-          'phone': _phoneNumber.replaceAll('+', '').replaceAll(' ', '').trim(),
+          if (_email.isNotEmpty) 'email': _email,
+          if (_phoneNumber.isNotEmpty)
+            'phone':
+                _phoneNumber.replaceAll('+', '').replaceAll(' ', '').trim(),
         },
         method: HttpMethod.post,
       );
-      ref.read(accountProvider.notifier).updateAccount(
-            user: User.fromMap(body['user'] as Map<String, dynamic>),
-          );
+      final isEmail = body['email_must_verify'] as bool;
+      final msg = isEmail ? 'Email updated' : 'Phone updated';
+
+      if (!mounted) return;
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => VerificationScreen(
+            isEmail: isEmail,
+            successMessage: msg,
+          ),
+        ),
+      );
     } catch (e) {
       rethrow;
     }
@@ -69,46 +81,57 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
     return Form(
       key: _formKey,
       child: Column(
+        spacing: 16,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Row
-          _buildLabel('Full name', isDark),
-          const SizedBox(height: 8),
-          InputField(
-            type: TextInputType.name,
-            onSave: (val) => _name = val,
-            label: 'Full Name',
-            initialVal: _name,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            icon: SvgPicture.asset('assets/icons/profile.svg'),
+          Column(
+            spacing: 8,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildLabel('Full name', isDark),
+              InputField(
+                type: TextInputType.name,
+                onSave: (val) => _name = val,
+                label: 'Full Name',
+                initialVal: _name,
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                icon: SvgPicture.asset('assets/icons/profile.svg'),
+              ),
+            ],
           ),
-          const SizedBox(height: 16),
-
-          // Row
-          _buildLabel('Email', isDark),
-          const SizedBox(height: 8),
-          InputField(
-            type: TextInputType.emailAddress,
-            onSave: (val) => _email = val,
-            label: 'Email',
-            initialVal: _email,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            icon: SvgPicture.asset('assets/icons/email.svg'),
-          ),
-          const SizedBox(height: 16),
-
-          // Row
-          _buildLabel('Phone', isDark),
-          const SizedBox(height: 8),
-          InputField(
-            type: TextInputType.phone,
-            onSave: (val) => _phoneNumber = val,
-            label: 'Phone',
-            initialVal: _phoneNumber,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            icon: SvgPicture.asset('assets/icons/phone.svg'),
-          ),
-          const SizedBox(height: 16),
+          if (_email.isNotEmpty)
+            Column(
+              spacing: 8,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildLabel('Email', isDark),
+                InputField(
+                  type: TextInputType.emailAddress,
+                  onSave: (val) => _email = val,
+                  label: 'Email',
+                  initialVal: _email,
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  icon: SvgPicture.asset('assets/icons/email.svg'),
+                ),
+              ],
+            ),
+          if (_phoneNumber.isNotEmpty)
+            Column(
+              spacing: 8,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildLabel('Phone', isDark),
+                InputField(
+                  type: TextInputType.phone,
+                  onSave: (val) => _phoneNumber = val,
+                  label: 'Phone',
+                  initialVal: _phoneNumber,
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  icon: SvgPicture.asset('assets/icons/phone.svg'),
+                ),
+              ],
+            ),
           YellowButton(
             'Submit',
             onTap: _changeData,

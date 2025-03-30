@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/screens/home.dart';
+import 'package:soluxe/screens/login.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class SuccessScreen extends StatelessWidget {
   final String text;
+  final bool? goLogin;
 
-  const SuccessScreen({required this.text, super.key});
+  const SuccessScreen({required this.text, this.goLogin, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,11 @@ class SuccessScreen extends StatelessWidget {
               YellowButton(
                 'Home',
                 onTap: () => Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (ctx) => const HomeScreen()),
+                  MaterialPageRoute(
+                    builder: (ctx) => goLogin != null
+                        ? const LoginScreen(isEmail: true)
+                        : const HomeScreen(),
+                  ),
                   (route) => false,
                 ),
               ),

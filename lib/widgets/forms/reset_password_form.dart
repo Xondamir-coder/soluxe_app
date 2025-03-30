@@ -24,7 +24,7 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
 
   void _serverResetPassword() async {
     try {
-      await FetchHelper.fetch(
+      final body = await FetchHelper.fetch(
         url: 'confirm-forget-password',
         method: HttpMethod.post,
         reqBody: {
@@ -37,7 +37,10 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
       if (!mounted) return;
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (ctx) => SuccessScreen(text: 'Password reset successfully'),
+          builder: (ctx) => SuccessScreen(
+            text: body['en'] as String,
+            goLogin: true,
+          ),
         ),
       );
     } catch (e) {

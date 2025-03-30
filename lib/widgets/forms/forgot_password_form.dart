@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
+import 'package:soluxe/models/user.dart';
+import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/reset_password.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/my_dialog.dart';
 
-class ForgotPasswordForm extends StatefulWidget {
+class ForgotPasswordForm extends ConsumerStatefulWidget {
   const ForgotPasswordForm({super.key});
 
   @override
-  State<ForgotPasswordForm> createState() => _ForgotPasswordFormState();
+  ConsumerState<ForgotPasswordForm> createState() => _ForgotPasswordFormState();
 }
 
-class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
+class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
   final _formKey = GlobalKey<FormState>();
   String? _email;
 
   void _sendCode() async {
     try {
       await FetchHelper.sendCode(true, _email!);
+
+      ref.read(accountProvider.notifier).updateAccount(
+            user: User(email: _email),
+          );
 
       if (!mounted) return;
       Navigator.of(context).push(
