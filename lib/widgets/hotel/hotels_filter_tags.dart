@@ -6,6 +6,7 @@ import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/place/tag.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HotelsFilterTags extends StatefulWidget {
   final ValueChanged<int> onTagSelected;
@@ -113,7 +114,11 @@ class _HotelsFilterTagsState extends State<HotelsFilterTags> {
                         color: color,
                       ),
                       duration: const Duration(milliseconds: 300),
-                      child: Text(tag.nameEn!),
+                      child: Text(
+                          (AppLocalizations.of(context)!.localeName == 'en'
+                                  ? tag.nameEn
+                                  : tag.nameZh) ??
+                              'N/A'),
                     ),
                   ],
                 ),

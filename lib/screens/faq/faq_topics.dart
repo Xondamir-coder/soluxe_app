@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/faq/faq_topics.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FaqTopicsScreen extends StatelessWidget {
   const FaqTopicsScreen({super.key});
@@ -9,14 +10,14 @@ class FaqTopicsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppbar(title: 'Browse by topic'),
+      appBar: DefaultAppbar(title: AppLocalizations.of(context)!.browseByTopic),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           spacing: 16,
           children: [
             MySearchBar(
-              label: 'Search',
+              label: AppLocalizations.of(context)!.search,
               onSearch: (query) => print(query),
             ),
             FaqTopics.grid(),

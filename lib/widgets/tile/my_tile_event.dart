@@ -8,6 +8,7 @@ import 'package:soluxe/screens/event.dart';
 import 'package:soluxe/widgets/tile/my_tile_bottom.dart';
 import 'package:soluxe/widgets/tile/my_tile_image.dart';
 import 'package:soluxe/widgets/tile/my_tile_title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyTileEvent extends StatelessWidget {
   final Event event;
@@ -23,6 +24,10 @@ class MyTileEvent extends StatelessWidget {
     Color titleColor = AppColors.deepBlue;
     double titleFontSize = 14;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final localeName = AppLocalizations.of(context)!.localeName;
+    final eventMonth = localeName == 'zh'
+        ? event.eventFormatted?.monthZh
+        : event.eventFormatted?.monthEn;
 
     return Material(
       color: AppColors.adaptiveDarkBlueOrWhite(isDark),
@@ -44,7 +49,7 @@ class MyTileEvent extends StatelessWidget {
               MyTileImage(
                 imgSrc: '${Constants.baseUrl}/${event.place?.images?.first}',
                 day: event.eventFormatted?.day ?? 'Unknown',
-                month: event.eventFormatted?.month ?? 'Unknown',
+                month: eventMonth ?? 'Unknown',
               ),
               Expanded(
                 child: Column(
@@ -52,7 +57,10 @@ class MyTileEvent extends StatelessWidget {
                   spacing: spacing,
                   children: [
                     MyTileTitle(
-                      title: event.titleEn ?? 'Unknown',
+                      title: (localeName == 'en'
+                              ? event.titleEn
+                              : event.titleZh) ??
+                          'Unknown',
                       color: isDark ? Colors.white : titleColor,
                       fontSize: titleFontSize,
                     ),
@@ -71,7 +79,8 @@ class MyTileEvent extends StatelessWidget {
                               ConnectionState.waiting) {
                             return MyTileBottom(
                               location: event.city ?? 'Unknown',
-                              distance: 'Loading ...',
+                              distance:
+                                  '${AppLocalizations.of(context)!.loading} ...',
                             );
                           } else if (snapshot.connectionState ==
                                   ConnectionState.done &&

@@ -1,38 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/models/place/place.dart';
 import 'package:soluxe/widgets/content_row.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoriesAboutTab extends StatelessWidget {
-  const CategoriesAboutTab({super.key});
+  final Place place;
+
+  const CategoriesAboutTab({super.key, required this.place});
 
   @override
   Widget build(BuildContext context) {
+    final List<String> openingHours = [];
+
+    for (var i = 0; i < place.workingHours!.length; i++) {
+      final workingHour = place.workingHours![i];
+      final weekdays = AppLocalizations.of(context)!.localeName == 'zh'
+          ? Constants.weekdaysZh
+          : Constants.weekdaysEn;
+      final weekday = weekdays[i];
+      final text =
+          '$weekday: ${workingHour.openingTime!.substring(0, 5)} - ${workingHour.closingTime!.substring(0, 5)}';
+      openingHours.add(text);
+    }
+
     return Column(
       spacing: 16,
       children: [
         ContentRow(
-          text: 'European, Uzbek',
-          title: 'Kitchen',
+          text:
+              '${AppLocalizations.of(context)!.european}, ${AppLocalizations.of(context)!.uzbek}',
+          title: AppLocalizations.of(context)!.kitchen,
           iconPath: 'assets/icons/grey-kitchen.svg',
         ),
         ContentRow(
-          text: '2 400 000 Sum',
-          title: 'Average price',
+          text:
+              '${place.priceRate?.toString() ?? 0} ${AppLocalizations.of(context)!.sum}',
+          title: AppLocalizations.of(context)!.averagePrice,
           iconPath: 'assets/icons/wallet.svg',
         ),
         ContentRow(
-          text: 'Parturient lectus luctus magnis maximus lacus commodo',
-          title: 'Address',
+          text: place.address,
+          title: AppLocalizations.of(context)!.address,
           iconPath: 'assets/icons/pin.svg',
         ),
         ContentRow.interactive(
-          title: 'Contacts',
-          phone: '+998 90 900 90 99',
-          website: 'www.nihol.uz',
+          title: AppLocalizations.of(context)!.contacts,
+          phone: place.contactInfo ?? '',
+          website: place.contactUrl ?? '',
           iconPath: 'assets/icons/contacts-phone.svg',
         ),
         ContentRow(
-          text: 'Daily 10:00 - 23:00',
-          title: 'Opening hours',
+          texts: openingHours,
+          title: AppLocalizations.of(context)!.openingHours,
           iconPath: 'assets/icons/bold-clock.svg',
         ),
       ],

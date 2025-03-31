@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/helpers/preference_helper.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/notifications/notification_switch_tile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PushNotificationsScreen extends StatefulWidget {
   const PushNotificationsScreen({super.key});
@@ -32,7 +33,9 @@ class _PushNotificationsScreenState extends State<PushNotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppbar(title: 'Push Notifications'),
+      appBar: DefaultAppbar(
+        title: AppLocalizations.of(context)!.pushNotifications,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -40,8 +43,8 @@ class _PushNotificationsScreenState extends State<PushNotificationsScreen> {
           children: [
             NotificationSwitchTile(
               iconPath: 'assets/icons/notification.svg',
-              title: 'Get alert in your phone',
-              subtitle: 'Get alert in your notifications',
+              title: AppLocalizations.of(context)!.getAlertPhone,
+              subtitle: AppLocalizations.of(context)!.getAlertNotifications,
               value: _alertPhone ?? false, // Handle null values
               onChanged: (val) {
                 setState(() {
@@ -52,8 +55,8 @@ class _PushNotificationsScreenState extends State<PushNotificationsScreen> {
             ),
             NotificationSwitchTile(
               iconPath: 'assets/icons/email.svg',
-              title: 'Get alert in your email',
-              subtitle: 'Get alert in your notifications',
+              title: AppLocalizations.of(context)!.getAlertEmail,
+              subtitle: AppLocalizations.of(context)!.getAlertNotifications,
               value: _alertEmail ?? false, // Handle null values
               onChanged: (val) {
                 setState(() {
@@ -64,8 +67,8 @@ class _PushNotificationsScreenState extends State<PushNotificationsScreen> {
             ),
             NotificationSwitchTile(
               iconPath: 'assets/icons/clipboard.svg',
-              title: 'Newsletters',
-              subtitle: 'Receive emails with events ',
+              title: AppLocalizations.of(context)!.newsletters,
+              subtitle: AppLocalizations.of(context)!.receieveEmailsEvents,
               value: _newsletter ?? false, // Handle null values
               onChanged: (val) {
                 setState(() {

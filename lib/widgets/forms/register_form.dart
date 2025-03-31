@@ -8,6 +8,7 @@ import 'package:soluxe/screens/verification.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/my_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterForm extends ConsumerStatefulWidget {
   const RegisterForm({super.key});
@@ -38,15 +39,18 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
         MaterialPageRoute(
           builder: (ctx) => VerificationScreen(
             isEmail: true,
-            successMessage: 'You have successfully confirmed your email',
+            successMessage:
+                AppLocalizations.of(context)!.successfullyConfirmedEmail,
           ),
         ),
       );
     } catch (e) {
+      final localeName = AppLocalizations.of(context)!.localeName;
       showDialog(
         context: context,
         builder: (ctx) => MyDialog(
-          message: '${(e as Map)['body']['en'] ?? (e)['body']['message']}',
+          message:
+              '${(e as Map)['body'][localeName] ?? (e)['body']['message']}',
         ),
       );
     }
@@ -54,7 +58,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   void _registerWithEmail() async {
     try {
-      final body = await FetchHelper.fetch(
+      await FetchHelper.fetch(
         url: 'register',
         method: HttpMethod.post,
         reqBody: {
@@ -64,7 +68,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           'auth_provider': 'email',
         },
       );
-      print('Register: $body');
     } catch (e) {
       if ((e as Map)['code'] == 401) {
         _sendVerificationCode();
@@ -72,10 +75,11 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
       }
 
       if (!mounted) return;
+      final localeName = AppLocalizations.of(context)!.localeName;
       showDialog(
         context: context,
-        builder: (ctx) =>
-            MyDialog(message: '${(e)['body']['en'] ?? (e)['body']['message']}'),
+        builder: (ctx) => MyDialog(
+            message: '${(e)['body'][localeName] ?? (e)['body']['message']}'),
       );
     }
   }
@@ -102,26 +106,26 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
         children: [
           InputField(
             type: TextInputType.name,
-            label: 'Name',
+            label: AppLocalizations.of(context)!.fullName,
             icon: SvgPicture.asset('assets/icons/profile.svg'),
             onSave: (val) => (_name = val),
           ),
           InputField(
             type: TextInputType.emailAddress,
-            label: 'Email',
+            label: AppLocalizations.of(context)!.email,
             icon: SvgPicture.asset('assets/icons/email.svg'),
             onSave: (val) => (_email = val),
           ),
           InputField.password(
             type: TextInputType.visiblePassword,
-            label: 'Password',
+            label: AppLocalizations.of(context)!.password,
             icon: SvgPicture.asset('assets/icons/lock.svg'),
             hidePassword: hidePassword,
             onSave: (val) => (_password = val),
             onTogglePasswordVisibility: () =>
                 setState(() => hidePassword = !hidePassword),
           ),
-          YellowButton('Next', onTap: _submitForm),
+          YellowButton(AppLocalizations.of(context)!.next, onTap: _submitForm),
         ],
       ),
     );

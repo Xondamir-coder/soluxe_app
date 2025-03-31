@@ -58,7 +58,7 @@ class GridCategoriesItem extends StatelessWidget {
                 ),
               ),
               MyText(
-                category.name,
+                category.name!,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: AppColors.adaptiveGreyOrDeepBlue(isDark),

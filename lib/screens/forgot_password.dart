@@ -5,6 +5,7 @@ import 'package:soluxe/widgets/appbars/arrow_appbar.dart';
 import 'package:soluxe/widgets/forms/forgot_password_form.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
@@ -48,13 +49,13 @@ class ForgotPasswordScreen extends StatelessWidget {
                     Column(
                       spacing: 8,
                       children: [
-                        MyTitle('Forgot Password'),
+                        MyTitle(AppLocalizations.of(context)!.forgotPassword),
                         SizedBox(
                           width: MediaQuery.of(context).size.width > 400
                               ? MediaQuery.of(context).size.width * 0.7
                               : double.infinity,
                           child: MyText.warmBrown(
-                            'Please enter the email address associated with your account.',
+                            AppLocalizations.of(context)!.forgotPasswordText,
                             textAlign: TextAlign.center,
                           ),
                         ),

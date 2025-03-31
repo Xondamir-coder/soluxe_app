@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/faq/faq_question.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FaqAccordionsItem extends StatelessWidget {
   final FaqQuestion faqQuestion;
@@ -50,7 +51,7 @@ class FaqAccordionsItem extends StatelessWidget {
                 overlayColor: AppColors.darkBrown,
               ),
               label: MyText(
-                'Show more',
+                AppLocalizations.of(context)!.showMore,
                 color: AppColors.accentYellow,
               ),
               iconAlignment: IconAlignment.end,

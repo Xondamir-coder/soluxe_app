@@ -7,6 +7,7 @@ import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/hotel/hotels_filter_sheet.dart';
 import 'package:soluxe/widgets/hotel/hotels_item.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HotelsScreen extends StatefulWidget {
   const HotelsScreen({super.key});
@@ -44,7 +45,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
 
     return Scaffold(
       appBar: DefaultAppbar(
-        title: 'Hotels',
+        title: AppLocalizations.of(context)!.hotels,
         onTap: () => showModalBottomSheet(
           context: context,
           backgroundColor: AppColors.adaptiveDeepBlueOrWhite(isDark),

@@ -1,0 +1,555 @@
+{
+	"@@locale": "en",
+	"findEventsNear": "Find events near",
+	"@findEventsNear": {
+		"description": "Label or placeholder text for a button/feature that finds events near the user"
+	},
+	"uzbekistan": "Uzbekistan",
+	"@uzbekistan": {
+		"description": "Country name used to filter or display events and venues located in Uzbekistan"
+	},
+	"searchEvents": "Search events",
+	"@searchEvents": {
+		"description": "Call-to-action text for initiating a search for events based on user input"
+	},
+	"concerts": "Concerts",
+	"@concerts": {
+		"description": "Category label for music events and live performances"
+	},
+	"hotels": "Hotels",
+	"@hotels": {
+		"description": "Category label for hotel listings and accommodations"
+	},
+	"restaurants": "Restaurants",
+	"@restaurants": {
+		"description": "Category label for dining options and food establishments"
+	},
+	"events": "Events",
+	"@events": {
+		"description": "Category label for event options and event establishments"
+	},
+	"all": "All",
+	"@all": {
+		"description": "Filter option to display all types of events or venues without any specific category"
+	},
+	"historicalPlace": "Historical place",
+	"@historicalPlace": {
+		"description": "Category label for historical landmarks and culturally significant sites"
+	},
+	"museums": "Museums",
+	"@museums": {
+		"description": "Category label for museums, exhibitions, and art galleries"
+	},
+	"entertainment": "Entertainment",
+	"@entertainment": {
+		"description": "General category label for various types of entertainment options"
+	},
+	"upcomingEvents": "Upcoming events",
+	"@upcomingEvents": {
+		"description": "Section title for events scheduled to occur in the near future"
+	},
+	"seeAll": "See all",
+	"@seeAll": {
+		"description": "Link or button text used to expand a list and view all available items"
+	},
+	"explore": "Explore",
+	"@explore": {
+		"description": "Call-to-action text encouraging users to discover or browse events and places"
+	},
+	"categories": "Categories",
+	"@categories": {
+		"description": "Label for the list or menu that groups content into different types or classifications"
+	},
+	"profile": "Profile",
+	"@profile": {
+		"description": "Label for the user profile section where personal information and settings can be viewed or edited"
+	},
+	"night": "Night",
+	"@night": {
+		"description": "Label used to denote events or venues operating during the nighttime"
+	},
+	"popularSearches": "Popular searches",
+	"@popularSearches": {
+		"description": "Section header displaying search terms that are trending or frequently used by users"
+	},
+	"noResultsFound": "No results found",
+	"@noResultsFound": {
+		"description": "Message displayed when a search returns no matching results"
+	},
+	"priceRange": "Price range",
+	"@priceRange": {
+		"description": "Filter label allowing users to narrow down results based on cost or budget"
+	},
+	"january": "January",
+	"@january": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"february": "February",
+	"@february": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"march": "March",
+	"@march": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"april": "April",
+	"@april": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"may": "May",
+	"@may": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"june": "June",
+	"@june": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"july": "July",
+	"@july": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"august": "August",
+	"@august": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"september": "September",
+	"@september": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"october": "October",
+	"@october": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"november": "November",
+	"@november": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"december": "December",
+	"@december": {
+		"description": "Name of the month used for date selections or event scheduling"
+	},
+	"cancel": "Cancel",
+	"@cancel": {
+		"description": "Button label for aborting or closing the current action without applying changes"
+	},
+	"apply": "Apply",
+	"@apply": {
+		"description": "Button label for confirming selections or applying filters/settings"
+	},
+	"filter": "Filter",
+	"@filter": {
+		"description": "Label for the option that allows users to refine search results or content based on various criteria"
+	},
+	"monday": "Monday",
+	"@monday": {
+		"description": "Name of the day of the week used for scheduling or date filters"
+	},
+	"tuesday": "Tuesday",
+	"@tuesday": {
+		"description": "Name of the day of the week used for scheduling or date filters"
+	},
+	"wednesday": "Wednesday",
+	"@wednesday": {
+		"description": "Name of the day of the week used for scheduling or date filters"
+	},
+	"thursday": "Thursday",
+	"@thursday": {
+		"description": "Name of the day of the week used for scheduling or date filters"
+	},
+	"friday": "Friday",
+	"@friday": {
+		"description": "Name of the day of the week used for scheduling or date filters"
+	},
+	"saturday": "Saturday",
+	"@saturday": {
+		"description": "Name of the day of the week used for scheduling or date filters"
+	},
+	"sunday": "Sunday",
+	"@sunday": {
+		"description": "Name of the day of the week used for scheduling or date filters"
+	},
+	"averagePrice": "Average price",
+	"@averagePrice": {
+		"description": "Label that indicates the average cost or typical pricing for an event or venue"
+	},
+	"contacts": "Contacts",
+	"@contacts": {
+		"description": "Section header or label for displaying contact information"
+	},
+	"openingHours": "Opening hours",
+	"@openingHours": {
+		"description": "Label indicating the operating hours of a venue or event"
+	},
+	"destination": "Destination",
+	"@destination": {
+		"description": "Label for a field where users can specify or view the intended location or endpoint of a journey"
+	},
+	"call": "Call",
+	"@call": {
+		"description": "Button or link label used to initiate a phone call to a provided contact number"
+	},
+	"topPicksHotel": "Top picks hotel",
+	"@topPicksHotel": {
+		"description": "Label for a featured hotel section highlighting recommended or top-rated accommodations"
+	},
+	"hostel": "Hostel",
+	"@hostel": {
+		"description": "Category label for budget-friendly lodging options"
+	},
+	"filterByType": "Filter by type",
+	"@filterByType": {
+		"description": "Option for refining search results based on a specific type of venue or event"
+	},
+	"filterByRating": "Filter by rating",
+	"@filterByRating": {
+		"description": "Option for refining search results based on user or expert ratings"
+	},
+	"noPlacesFound": "No places found",
+	"@noPlacesFound": {
+		"description": "Message displayed when no venues or locations match the search criteria"
+	},
+	"km": "km",
+	"@km": {
+		"description": "Unit abbreviation for kilometers, typically used to indicate distance"
+	},
+	"accountSetting": "Account setting",
+	"@accountSetting": {
+		"description": "Section label where users can manage and update their account preferences and information"
+	},
+	"preference": "Preference",
+	"@preference": {
+		"description": "General label for user choices or customizable settings within the app"
+	},
+	"personalInformation": "Personal information",
+	"@personalInformation": {
+		"description": "Section header where users can view or edit their personal data, such as name, email, etc"
+	},
+	"pushNotifications": "Push notifications",
+	"@pushNotifications": {
+		"description": "Setting option to enable or disable push notifications from the app"
+	},
+	"emailUpdates": "Email updates",
+	"@emailUpdates": {
+		"description": "Setting option to enable or disable receiving event or promotional updates via email"
+	},
+	"language": "Language",
+	"@language": {
+		"description": "Label for the option that allows users to select the language for the app interface"
+	},
+	"darkMode": "Dark mode",
+	"@darkMode": {
+		"description": "Setting option that toggles the app’s color scheme between light and dark themes"
+	},
+	"faq": "FAQ",
+	"@faq": {
+		"description": "Section header for frequently asked questions and help topics"
+	},
+	"privacyPolicy": "Privacy Policy",
+	"@privacyPolicy": {
+		"description": "Label or link to the document detailing how user data is collected, used, and protected"
+	},
+	"support": "Support",
+	"@support": {
+		"description": "Section label where users can get help or contact customer service for assistance"
+	},
+	"submit": "Submit",
+	"@submit": {
+		"description": "Button label used to confirm and send data from a form or input"
+	},
+	"fullName": "Full name",
+	"@fullName": {
+		"description": "Field label for entering or displaying the user’s complete name"
+	},
+	"getAlertPhone": "Get alert in your phone",
+	"@getAlertPhone": {
+		"description": "Option for users to receive alerts directly to their mobile phone"
+	},
+	"getAlertEmail": "Get alert in your email",
+	"@getAlertEmail": {
+		"description": "Option for users to receive alerts via email"
+	},
+	"getAlertNotifications": "Get alert in your notifications",
+	"@getAlertNotifications": {
+		"description": "Option for users to receive push notifications for updates and alerts"
+	},
+	"newsletters": "Newsletters",
+	"@newsletters": {
+		"description": "Label for subscription options to periodic email newsletters"
+	},
+	"receieveEmailsEvents": "Receieve emails with events",
+	"@receieveEmailsEvents": {
+		"description": "Option for subscribing to emails that highlight upcoming events and promotions"
+	},
+	"email": "Email",
+	"@email": {
+		"description": "Field label for entering or displaying an email address"
+	},
+	"phone": "Phone",
+	"@phone": {
+		"description": "Field label for entering or displaying a phone number"
+	},
+	"english": "English",
+	"@english": {
+		"description": "Option for selecting English as the language for the app interface"
+	},
+	"chinese": "Chinese",
+	"@chinese": {
+		"description": "Option for selecting Chinese as the language for the app interface"
+	},
+	"selectLanguage": "Select language",
+	"@selectLanguage": {
+		"description": "Prompt for users to choose their preferred language from a list of options"
+	},
+	"browseByTopic": "Browse by topic",
+	"@browseByTopic": {
+		"description": "Section header encouraging users to explore content based on various topics"
+	},
+	"questionAbout": "Question about",
+	"@questionAbout": {
+		"description": "Label introducing a frequently asked question or a topic of inquiry"
+	},
+	"showMore": "Show more",
+	"@showMore": {
+		"description": "Button text used to expand a section and reveal additional content"
+	},
+	"search": "Search",
+	"@search": {
+		"description": "Generic label for initiating a search within the app"
+	},
+	"location": "Location",
+	"@location": {
+		"description": "Field label for specifying or displaying a geographic location"
+	},
+	"about": "About",
+	"@about": {
+		"description": "Section label providing information about the app, company, or service"
+	},
+	"photo": "Photo",
+	"@photo": {
+		"description": "Label for a photo or image section, often used for profile pictures or galleries"
+	},
+	"kitchen": "Kitchen",
+	"@kitchen": {
+		"description": "Label representing the culinary aspect of a venue, typically used in restaurant contexts"
+	},
+	"hour": "hour",
+	"@hour": {
+		"description": "Unit of time representing one hour, used in scheduling and duration displays"
+	},
+	"minute": "minute",
+	"@minute": {
+		"description": "Unit of time representing one minute, used in scheduling and duration displays"
+	},
+	"notifications": "Notifications",
+	"@notifications": {
+		"description": "Section label for displaying alerts and notifications from the app"
+	},
+	"accept": "Accept",
+	"@accept": {
+		"description": "Button label for agreeing to terms, conditions, or prompts"
+	},
+	"decline": "Decline",
+	"@decline": {
+		"description": "Button label for rejecting terms, conditions, or prompts"
+	},
+	"home": "home",
+	"@home": {
+		"description": "Label for the home or main page of an app or website"
+	},
+	"sum": "sum",
+	"@sum": {
+		"description": "Uzbek currency"
+	},
+	"emailUpdated": "Email y updated",
+	"@emailUpdated": {
+		"description": "Message indicating that the email has been y updated"
+	},
+	"phoneUpdated": "Phone y updated",
+	"@phoneUpdated": {
+		"description": "Message indicating that the phone number has been y updated"
+	},
+	"passwordUpdated": "Password y updated",
+	"@passwordUpdated": {
+		"description": "Message indicating that the password has been y updated"
+	},
+	"fullNameUpdated": "Full name y updated",
+	"@fullNameUpdated": {
+		"description": "Message indicating that the full name has been y updated"
+	},
+	"address": "Address",
+	"@address": {
+		"description": "The address of given"
+	},
+	"european": "European",
+	"@european": {
+		"description": "European style"
+	},
+	"uzbek": "Uzbek",
+	"@uzbek": {
+		"description": "Uzbek style"
+	},
+	"loading": "Loading",
+	"@loading": {
+		"description": "Generic label for indicating that content is being loaded or processed"
+	},
+	"skip": "Skip",
+	"@skip": {
+		"description": "Button label for skipping or advancing to the next step or section"
+	},
+	"welcomeTitle1": "Explore Uzbekistan like a local!",
+	"@welcomeTitle1": {
+		"description": "Title for the first section of the welcome page"
+	},
+	"welcomeTitle2": "Welcome to Your Pocket Guide to Uzbekistan!",
+	"@welcomeTitle2": {
+		"description": "Title for the second section of the welcome page"
+	},
+	"welcomeTitle3": "Pick a language, start exploring!",
+	"@welcomeTitle3": {
+		"description": "Title for the third section of the welcome page"
+	},
+	"welcomeTitle4": "Let’s Get Started",
+	"@welcomeTitle4": {
+		"description": "Title for the fourth section of the welcome page"
+	},
+	"welcomeSubTitle1": "Your ultimate travel companion with insider tips, must-visit places, and essential travel info.",
+	"@welcomeSubTitle1": {
+		"description": "Subtitle for the first section of the welcome page"
+	},
+	"welcomeSubTitle2": "Discover the beauty, history, and culture of Uzbekistan with ease. From ancient Silk Road cities to hidden local gems—everything you need is right at your fingertips. Let’s start exploring!",
+	"@welcomeSubTitle2": {
+		"description": "Subtitle for the second section of the welcome page"
+	},
+	"welcomeSubTitle3": "Set your preferred language for the best experience",
+	"@welcomeSubTitle3": {
+		"description": "Subtitle for the third section of the welcome page"
+	},
+	"welcomeSubTitle4": "Your journey begins here",
+	"@welcomeSubTitle4": {
+		"description": "Subtitle for the fourth section of the welcome page"
+	},
+	"letsGo": "Let's go",
+	"@letsGo": {
+		"description": "Button label for initiating or starting a journey or action"
+	},
+	"dontHaveAnAccount": "Don't have an account?",
+	"@dontHaveAnAccount": {
+		"description": "Message indicating that the user does not have an account"
+	},
+	"signup": "Signup",
+	"@signup": {
+		"description": "Button label for creating or registering a new account"
+	},
+	"continueWithPhone": "Continue with phone",
+	"@continueWithPhone": {
+		"description": "Button label for continuing with a phone number"
+	},
+	"continueWithEmail": "Continue with email",
+	"@continueWithEmail": {
+		"description": "Button label for continuing with a email number"
+	},
+	"continueWithGoogle": "Continue with Google",
+	"@continueWithGoogle": {
+		"description": "Button label for continuing with Google"
+	},
+	"continueWithApple": "Continue with aapple",
+	"@continueWithApple": {
+		"description": "Button label for continuing with aapple"
+	},
+	"signInWithApple": "Sign in with Apple",
+	"@signInWithApple": {
+		"description": "Button label for signing in with Apple"
+	},
+	"signInWithGoogle": "Sign in with Google",
+	"@signInWithGoogle": {
+		"description": "Button label for signing in with Google"
+	},
+	"signUpWtihApple": "Sign up with Apple",
+	"@signUpWtihApple": {
+		"description": "Button label for signing up with Apple"
+	},
+	"signUpWithGoogle": "Sign up with Google",
+	"@signUpWithGoogle": {
+		"description": "Button label for signing up with Google"
+	},
+	"assalomuAleykum": "Assalomu Aleykum",
+	"@assalomuAleykum": {
+		"description": "Arabic greeting"
+	},
+	"loginSubtitle": "Let’s continue your journey through Uzbekistan—there’s so much more to explore!",
+	"@loginSubtitle": {
+		"description": "Subtitle for the login page"
+	},
+	"next": "Next",
+	"@next": {
+		"description": "Button label for advancing to the next step or section"
+	},
+	"forgotPassword": "Forgot Password",
+	"@forgotPassword": {
+		"description": "Button label for requesting a password reset"
+	},
+	"password": "Password",
+	"@password": {
+		"description": "Label for a password or PIN code"
+	},
+	"pleaseEnterValid": "Please enter a valid",
+	"@pleaseEnterValid": {
+		"description": "Prompt for providing valid input"
+	},
+	"forgotPasswordText": "Please enter the email address associated with your account",
+	"@forgotPasswordText": {
+		"description": "Prompt for entering an email address for password reset"
+	},
+	"emailCode": "Email code",
+	"@emailCode": {
+		"description": "Label for an email verification code"
+	},
+	"newPassword": "New Password",
+	"@newPassword": {
+		"description": "Label for a new password or PIN code"
+	},
+	"resetYourPassword": "Reset your password",
+	"@resetYourPassword": {
+		"description": "Title for resetting your password"
+	},
+	"reset": "Reset",
+	"@reset": {
+		"description": "Button label for resetting your password"
+	},
+	"resendOTPCode": "Resend OTP code",
+	"@resendOTPCode": {
+		"description": "Button label for resending OTP code"
+	},
+	"codeHasBeenSent": "Code has been sent",
+	"@codeHasBeenSent": {
+		"description": "Message that process was successful"
+	},
+	"enterAllCodes": "Enter all codes",
+	"@enterAllCodes": {
+		"description": "Message indicating that all codes must be entered"
+	},
+	"verificationCode": "Verification Code",
+	"@verificationCode": {
+		"description": "Label for Verification Code"
+	},
+	"weAreSendingVerificationCodeTo": "We are sending verification code to",
+	"@weAreSendingVerificationCodeTo": {
+		"description": "Message indicating that verification code is being sent"
+	},
+	"successfullyLoggedIn": "Successfully logged in",
+	"@successfullyLoggedIn": {
+		"description": "Message indicating successful login"
+	},
+	"successfullyConfirmedEmail": "Successfully confirmed your email",
+	"@successfullyConfirmedEmail": {
+		"description": "Message indicating successful email confirmation"
+	},
+	"errorOccurred": "Error occurred",
+	"@errorOccurred": {
+		"description": "Message indicating an error has occurred"
+	},
+	"ok": "ok",
+	"@ok": {
+		"description": "Button label for confirming or accepting an action"
+	}
+}

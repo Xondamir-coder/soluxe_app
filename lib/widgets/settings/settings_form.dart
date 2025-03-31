@@ -4,12 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
-import 'package:soluxe/models/user.dart';
 import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/verification.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsForm extends ConsumerStatefulWidget {
   const SettingsForm({super.key});
@@ -49,7 +49,10 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
         method: HttpMethod.post,
       );
       final isEmail = body['email_must_verify'] as bool;
-      final msg = isEmail ? 'Email updated' : 'Phone updated';
+      if (!mounted) return;
+      final msg = isEmail
+          ? AppLocalizations.of(context)!.emailUpdated
+          : AppLocalizations.of(context)!.phoneUpdated;
 
       if (!mounted) return;
       Navigator.of(context).push(
@@ -89,11 +92,11 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
             spacing: 8,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildLabel('Full name', isDark),
+              _buildLabel(AppLocalizations.of(context)!.fullName, isDark),
               InputField(
                 type: TextInputType.name,
                 onSave: (val) => _name = val,
-                label: 'Full Name',
+                label: AppLocalizations.of(context)!.fullName,
                 initialVal: _name,
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 icon: SvgPicture.asset('assets/icons/profile.svg'),
@@ -105,11 +108,11 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
               spacing: 8,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildLabel('Email', isDark),
+                _buildLabel(AppLocalizations.of(context)!.email, isDark),
                 InputField(
                   type: TextInputType.emailAddress,
                   onSave: (val) => _email = val,
-                  label: 'Email',
+                  label: AppLocalizations.of(context)!.email,
                   initialVal: _email,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   icon: SvgPicture.asset('assets/icons/email.svg'),
@@ -121,11 +124,11 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
               spacing: 8,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildLabel('Phone', isDark),
+                _buildLabel(AppLocalizations.of(context)!.phone, isDark),
                 InputField(
                   type: TextInputType.phone,
                   onSave: (val) => _phoneNumber = val,
-                  label: 'Phone',
+                  label: AppLocalizations.of(context)!.phone,
                   initialVal: _phoneNumber,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   icon: SvgPicture.asset('assets/icons/phone.svg'),
@@ -133,7 +136,7 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
               ],
             ),
           YellowButton(
-            'Submit',
+            AppLocalizations.of(context)!.submit,
             onTap: _changeData,
           ),
         ],

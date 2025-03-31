@@ -11,6 +11,7 @@ import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/my_dialog.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginForm extends ConsumerStatefulWidget {
   final bool isEmail;
@@ -63,12 +64,13 @@ class _LoginFormState extends ConsumerState<LoginForm> {
         MaterialPageRoute(
           builder: (ctx) => VerificationScreen(
             isEmail: widget.isEmail,
-            successMessage: 'Successfully logged in',
+            successMessage: AppLocalizations.of(context)!.successfullyLoggedIn,
           ),
         ),
       );
     } catch (e) {
-      _showMsg((e as Map)['body']['en'] ?? (e)['body']['message']);
+      final localeName = AppLocalizations.of(context)!.localeName;
+      _showMsg((e as Map)['body'][localeName] ?? (e)['body']['message']);
     }
   }
 
@@ -105,7 +107,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       if ((e as Map)['code'] == 401) {
         _sendVerificationCode();
       } else {
-        _showMsg((e)['body']['en'] ?? (e)['body']['message']);
+        final localeName = AppLocalizations.of(context)!.localeName;
+        _showMsg((e)['body'][localeName] ?? (e)['body']['message']);
       }
     }
   }
@@ -130,7 +133,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 type: widget.isEmail
                     ? TextInputType.emailAddress
                     : TextInputType.phone,
-                label: widget.isEmail ? 'Email' : 'Number',
+                label: widget.isEmail
+                    ? AppLocalizations.of(context)!.email
+                    : AppLocalizations.of(context)!.phone,
                 icon: SvgPicture.asset(widget.isEmail
                     ? 'assets/icons/email.svg'
                     : 'assets/icons/phone.svg'),
@@ -138,7 +143,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
               ),
               InputField.password(
                 type: TextInputType.visiblePassword,
-                label: 'Password',
+                label: AppLocalizations.of(context)!.password,
                 icon: SvgPicture.asset('assets/icons/lock.svg'),
                 hidePassword: hidePassword,
                 onSave: (val) => (_password = val),
@@ -151,10 +156,11 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             alignment: Alignment.centerRight,
             child: GestureDetector(
               onTap: _forgotPassword,
-              child: MyText.deepBlue('Forgot Password?'),
+              child: MyText.deepBlue(
+                  '${AppLocalizations.of(context)!.forgotPassword}?'),
             ),
           ),
-          YellowButton('Next', onTap: _submitForm),
+          YellowButton(AppLocalizations.of(context)!.next, onTap: _submitForm),
         ],
       ),
     );

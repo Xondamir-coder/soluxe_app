@@ -1,44 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/languages.dart';
-import 'package:soluxe/helpers/preference_helper.dart';
+import 'package:soluxe/providers/locale_provider.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class LanguagesScreen extends StatefulWidget {
+class LanguagesScreen extends ConsumerWidget {
   const LanguagesScreen({super.key});
 
   @override
-  State<LanguagesScreen> createState() => _LanguagesScreenState();
-}
-
-class _LanguagesScreenState extends State<LanguagesScreen> {
-  String? _langCode;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadLanguage(); // Call async function
-  }
-
-  Future<void> _loadLanguage() async {
-    _langCode = await PreferenceHelper.getLanguage();
-    setState(() {}); // Update UI after fetching language
-  }
-
-  void _setLang(String code) async {
-    setState(() {
-      _langCode = code;
-    });
-    await PreferenceHelper.saveLanguage(code);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final locale = ref.watch(localeProvider);
+    final code = locale.languageCode;
+
     return Scaffold(
-      appBar: const DefaultAppbar(title: 'Select Language'),
+      appBar:
+          DefaultAppbar(title: AppLocalizations.of(context)!.selectLanguage),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
         child: Column(
@@ -49,7 +30,9 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
                 color: AppColors.adaptiveDarkBlueOrWhite(isDark),
                 borderRadius: BorderRadius.circular(16),
                 child: InkWell(
-                  onTap: () => _setLang(language.code),
+                  onTap: () => ref
+                      .read(localeProvider.notifier)
+                      .setLocale(language.code),
                   borderRadius: BorderRadius.circular(16),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -64,13 +47,15 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
                           children: [
                             language.icon,
                             MyText(
-                              language.name,
+                              AppLocalizations.of(context)!.localeName == 'zh'
+                                  ? language.nameZh
+                                  : language.nameEn,
                               color: AppColors.adaptiveAlmostWhiteOrDeepBlue(
                                   isDark),
                             ),
                           ],
                         ),
-                        if (_langCode == language.code)
+                        if (code == language.code)
                           TweenAnimationBuilder<double>(
                             duration: const Duration(
                               milliseconds: 300,

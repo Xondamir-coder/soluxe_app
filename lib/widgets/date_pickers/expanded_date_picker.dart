@@ -3,7 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExpandedDatePicker extends StatefulWidget {
   final DateTime date;
@@ -189,7 +191,8 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
               ),
             ),
             MyText.deepBlue(
-              DateFormat('MMMM yyyy').format(widget.date),
+              DateFormat('MMMM yyyy', AppLocalizations.of(context)!.localeName)
+                  .format(widget.date),
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
@@ -221,7 +224,9 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
         // Weekday Headers
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+          children: (AppLocalizations.of(context)!.localeName == 'zh'
+                  ? Constants.weekdaysLettersZh
+                  : Constants.weekdaysLettersEn)
               .map(
                 (day) => Padding(
                   padding: EdgeInsets.all(8.0),

@@ -8,6 +8,7 @@ import 'package:soluxe/screens/reset_password.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/my_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForgotPasswordForm extends ConsumerStatefulWidget {
   const ForgotPasswordForm({super.key});
@@ -35,10 +36,12 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
         ),
       );
     } catch (e) {
+      final localeName = AppLocalizations.of(context)!.localeName;
       showDialog(
         context: context,
         builder: (ctx) => MyDialog(
-            message: '${(e as Map)['body']['en'] ?? (e)['body']['message']}'),
+            message:
+                '${(e as Map)['body'][localeName] ?? (e)['body']['message']}'),
       );
     }
   }
@@ -58,11 +61,11 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
           InputField(
             type: TextInputType.emailAddress,
             onSave: (val) => _email = val,
-            label: 'Email',
+            label: AppLocalizations.of(context)!.email,
             icon: SvgPicture.asset('assets/icons/email.svg'),
           ),
           Spacer(),
-          YellowButton('Next', onTap: _submitForm)
+          YellowButton(AppLocalizations.of(context)!.next, onTap: _submitForm)
         ],
       ),
     );

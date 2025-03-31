@@ -4,6 +4,7 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/place/tag.dart';
 import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HotelHeader extends StatelessWidget {
   final List<Tag>? tags;
@@ -46,7 +47,8 @@ class HotelHeader extends StatelessWidget {
                   color: AppColors.adaptiveLightBlueOrBlue(isDark),
                 ),
                 const SizedBox(width: 2),
-                MyText('/night', color: AppColors.darkGrey, fontSize: 12),
+                MyText('/${AppLocalizations.of(context)!.night}',
+                    color: AppColors.darkGrey, fontSize: 12),
               ],
             )
           ],

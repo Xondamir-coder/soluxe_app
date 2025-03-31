@@ -11,6 +11,7 @@ import 'package:soluxe/widgets/location_map.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventScreen extends StatelessWidget {
   final Event event;
@@ -20,35 +21,40 @@ class EventScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final List<String> openingHours = [];
+    final localeName = AppLocalizations.of(context)!.localeName;
+
+    for (var i = 0; i < event.place!.workingHours!.length; i++) {
+      final workingHour = event.place!.workingHours![i];
+      final weekdays =
+          localeName == 'zh' ? Constants.weekdaysZh : Constants.weekdaysEn;
+      final weekday = weekdays[i];
+
+      final text =
+          '$weekday: ${workingHour.openingTime!.substring(0, 5)} - ${workingHour.closingTime!.substring(0, 5)}';
+      openingHours.add(text);
+    }
+
+    final eventTime = localeName == 'zh'
+        ? event.eventFormatted?.timeZh
+        : event.eventFormatted?.timeEn;
+    final eventTillTime = localeName == 'zh'
+        ? event.eventTillFormatted?.timeZh
+        : event.eventTillFormatted?.timeEn;
+    final eventMonth = localeName == 'zh'
+        ? event.eventFormatted?.monthZh
+        : event.eventFormatted?.monthEn;
+    final eventTillMonth = localeName == 'zh'
+        ? event.eventTillFormatted?.monthZh
+        : event.eventTillFormatted?.monthEn;
+    final weekday = localeName == 'zh'
+        ? event.eventFormatted?.weekdayZh
+        : event.eventFormatted?.weekdayEn;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: const CircularBackButton(),
-        actions: [
-          Center(
-            child: Container(
-              width: 32,
-              height: 32,
-              margin: EdgeInsets.only(right: 10),
-              decoration: BoxDecoration(
-                color: AppColors.adaptiveDarkBlueOrWhite(isDark),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  'assets/icons/dots-vertical.svg',
-                  colorFilter: ColorFilter.mode(
-                    AppColors.adaptiveLightWhiteOrRichBrown(isDark),
-                    BlendMode.srcIn,
-                  ),
-                ),
-                padding: EdgeInsets.zero,
-                onPressed: () {},
-              ),
-            ),
-          )
-        ],
       ),
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
@@ -132,7 +138,8 @@ class EventScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyText(
-                        event.titleEn ?? 'N/A',
+                        (localeName == 'en' ? event.titleEn : event.titleZh) ??
+                            'N/A',
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                         color: AppColors.adaptiveWhiteOrVeryDarkBrown(
@@ -140,7 +147,10 @@ class EventScreen extends StatelessWidget {
                         ),
                       ),
                       MyText(
-                        event.descriptionEn ?? 'N/A',
+                        (localeName == 'en'
+                                ? event.descriptionEn
+                                : event.descriptionZh) ??
+                            'N/A',
                         fontSize: 16,
                         color: AppColors.adaptiveAlmostWhiteOrWarmBrown(isDark),
                       ),
@@ -151,20 +161,19 @@ class EventScreen extends StatelessWidget {
                     children: [
                       EventDateItem(
                         day: event.eventFormatted?.day ?? 'N/A',
-                        month: event.eventFormatted?.month ?? 'N/A',
+                        month: eventMonth ?? 'N/A',
                       ),
                       EventDateItem(
                         day: event.eventTillFormatted?.day ?? 'N/A',
-                        month: event.eventTillFormatted?.month ?? 'N/A',
+                        month: eventTillMonth ?? 'N/A',
                       ),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          MyText.deepBlue(
-                              event.eventFormatted?.weekday ?? 'N/A'),
+                          MyText.deepBlue(weekday ?? 'N/A'),
                           MyText.grey(
-                            '${event.eventFormatted?.time ?? 'N/A'} - ${event.eventTillFormatted?.time ?? 'N/A'}',
+                            '${eventTime ?? 'N/A'} - ${eventTillTime ?? 'N/A'}',
                           ),
                         ],
                       ),
@@ -194,26 +203,22 @@ class EventScreen extends StatelessWidget {
                     spacing: 16,
                     children: [
                       ContentRow(
-                        title: 'Average price',
-                        text: event.place?.priceRate.toString() ?? 'N/A',
+                        title: AppLocalizations.of(context)!.averagePrice,
+                        text:
+                            '${event.place?.priceRate.toString() ?? 0} ${AppLocalizations.of(context)!.sum}',
                         iconPath: 'assets/icons/wallet.svg',
                       ),
                       if (event.place?.contactInfo != null &&
                           event.place?.contactUrl != null)
                         ContentRow.interactive(
-                          title: 'Contacts',
+                          title: AppLocalizations.of(context)!.contacts,
                           phone: event.place!.contactInfo!,
                           website: event.place!.contactUrl!,
                           iconPath: 'assets/icons/contacts-phone.svg',
                         ),
                       ContentRow(
-                        title: 'Opening Hours',
-                        texts: event.place?.workingHours?.map((entry) {
-                          String dayName = Constants.weekdays[entry.day!];
-                          String opening = entry.openingTime!.substring(0, 5);
-                          String closing = entry.closingTime!.substring(0, 5);
-                          return '$dayName: $opening - $closing';
-                        }).toList(),
+                        title: AppLocalizations.of(context)!.openingHours,
+                        texts: openingHours,
                         iconPath: 'assets/icons/bold-clock.svg',
                       ),
                     ],
@@ -242,7 +247,7 @@ class EventScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: YellowButton(
-                          'Destination',
+                          AppLocalizations.of(context)!.destination,
                           borderRadius: 12,
                           padding: 15,
                           onTap: () {
@@ -272,7 +277,7 @@ class EventScreen extends StatelessWidget {
                             padding: EdgeInsets.all(15),
                           ),
                           child: MyText(
-                            'Call',
+                            AppLocalizations.of(context)!.call,
                             color: AppColors.accentYellow,
                             fontWeight: FontWeight.w700,
                           ),

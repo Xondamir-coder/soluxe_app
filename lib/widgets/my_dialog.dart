@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyDialog extends StatelessWidget {
   final String message;
@@ -15,7 +16,7 @@ class MyDialog extends StatelessWidget {
     return Platform.isIOS
         ? CupertinoAlertDialog(
             title: MyText.warmBrown(
-              title ?? 'Error',
+              title ?? AppLocalizations.of(context)!.errorOccurred,
               fontSize: 22,
             ),
             content: Padding(
@@ -28,13 +29,13 @@ class MyDialog extends StatelessWidget {
             actions: [
               CupertinoButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const MyText.deepBlue('OK'),
+                child: MyText.deepBlue(AppLocalizations.of(context)!.ok),
               ),
             ],
           )
         : AlertDialog(
             title: MyText.warmBrown(
-              'Error',
+              AppLocalizations.of(context)!.errorOccurred,
               fontSize: 22,
             ),
             content: MyText.deepBlue(
@@ -44,7 +45,7 @@ class MyDialog extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const MyText.deepBlue('OK'),
+                child: MyText.deepBlue(AppLocalizations.of(context)!.ok),
               ),
             ],
           );

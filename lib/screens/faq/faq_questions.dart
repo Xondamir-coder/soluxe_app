@@ -4,6 +4,7 @@ import 'package:soluxe/models/faq/faq_topic.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/faq/faq_accordions.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FaqQuestionsScreen extends StatelessWidget {
   final FaqTopic faqTopic;
@@ -26,7 +27,7 @@ class FaqQuestionsScreen extends StatelessWidget {
           spacing: 16,
           children: [
             MySearchBar(
-              label: 'Search',
+              label: AppLocalizations.of(context)!.search,
               onSearch: (query) => print(query),
             ),
             Expanded(

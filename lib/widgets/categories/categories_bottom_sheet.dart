@@ -10,16 +10,18 @@ class CategoriesBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        CategoriesImagePart(
-            images: place.images!.length > 4
-                ? place.images!.sublist(0, 4)
-                : place.images!),
-        CategoriesContent(place: place),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          CategoriesImagePart(
+              images: place.images!.length > 4
+                  ? place.images!.sublist(0, 4)
+                  : place.images!),
+          CategoriesContent(place: place),
+        ],
+      ),
     );
   }
 }

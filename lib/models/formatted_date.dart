@@ -5,7 +5,10 @@ class FormattedDate {
   FormattedDate(this.date);
 
   String get day => date.day.toString();
-  String get month => DateFormat('MMM').format(date);
-  String get time => DateFormat('h:mm a').format(date);
-  String get weekday => DateFormat('EEEE').format(date);
+  String get monthEn => DateFormat('MMM', 'en').format(date);
+  String get timeEn => DateFormat('h:mm a', 'en').format(date);
+  String get weekdayEn => DateFormat('EEEE', 'en').format(date);
+  String get monthZh => DateFormat('MMM', 'zh').format(date);
+  String get timeZh => DateFormat('h:mm a', 'zh').format(date);
+  String get weekdayZh => DateFormat('EEEE', 'zh').format(date);
 }

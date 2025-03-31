@@ -1,0 +1,555 @@
+{
+	"@@locale": "zh",
+	"findEventsNear": "查找附近的活动",
+	"@findEventsNear": {
+		"description": "用于查找用户附近事件的按钮/功能的标签或占位符文本"
+	},
+	"uzbekistan": "乌兹别克斯坦",
+	"@uzbekistan": {
+		"description": "用于筛选或显示位于乌兹别克斯坦的活动和场所的国家名称"
+	},
+	"searchEvents": "搜索活动",
+	"@searchEvents": {
+		"description": "用于根据用户输入查找活动的呼吁操作文本"
+	},
+	"concerts": "音乐会",
+	"@concerts": {
+		"description": "音乐活动和现场表演的类别标签"
+	},
+	"hotels": "酒店",
+	"@hotels": {
+		"description": "酒店列表和住宿选项的类别标签"
+	},
+	"restaurants": "餐馆",
+	"@restaurants": {
+		"description": "餐饮选项和餐厅的类别标签"
+	},
+	"events": "活动",
+	"@events": {
+		"description": "用于表示活动选项和活动场所的类别标签"
+	},
+	"all": "全部",
+	"@all": {
+		"description": "用于显示所有类型活动或场所的筛选选项，不做特定类别区分"
+	},
+	"historicalPlace": "历史遗址",
+	"@historicalPlace": {
+		"description": "用于标识历史遗迹和具有文化意义地点的类别标签"
+	},
+	"museums": "博物馆",
+	"@museums": {
+		"description": "用于筛选或显示博物馆、展览和艺术馆的类别标签"
+	},
+	"entertainment": "娱乐",
+	"@entertainment": {
+		"description": "各种类型娱乐选项的通用类别标签"
+	},
+	"upcomingEvents": "即将举行的活动",
+	"@upcomingEvents": {
+		"description": "显示近期即将举行活动的部分标题或筛选条件"
+	},
+	"seeAll": "查看全部",
+	"@seeAll": {
+		"description": "用于展开列表并查看所有可用项目的链接或按钮文本"
+	},
+	"explore": "探索",
+	"@explore": {
+		"description": "鼓励用户发现或浏览活动和地点的呼吁操作文本"
+	},
+	"categories": "分类",
+	"@categories": {
+		"description": "将内容按不同类型或兴趣进行分组的菜单或列表的标签"
+	},
+	"profile": "个人资料",
+	"@profile": {
+		"description": "用户查看或编辑个人信息和账户设置的部分标签"
+	},
+	"night": "夜晚",
+	"@night": {
+		"description": "用于标识夜间活动或夜间营业场所的标签"
+	},
+	"popularSearches": "热门搜索",
+	"@popularSearches": {
+		"description": "显示用户常用或趋势搜索词的部分标题"
+	},
+	"noResultsFound": "未找到结果",
+	"@noResultsFound": {
+		"description": "当搜索没有匹配结果时显示的提示信息"
+	},
+	"priceRange": "价格范围",
+	"@priceRange": {
+		"description": "允许用户根据费用或预算缩小搜索结果范围的筛选标签"
+	},
+	"january": "一月",
+	"@january": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"february": "二月",
+	"@february": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"march": "三月",
+	"@march": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"april": "四月",
+	"@april": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"may": "五月",
+	"@may": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"june": "六月",
+	"@june": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"july": "七月",
+	"@july": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"august": "八月",
+	"@august": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"september": "九月",
+	"@september": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"october": "十月",
+	"@october": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"november": "十一月",
+	"@november": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"december": "十二月",
+	"@december": {
+		"description": "用于日期选择或活动安排中的月份名称"
+	},
+	"cancel": "取消",
+	"@cancel": {
+		"description": "用于中止或关闭当前操作而不应用更改的按钮标签"
+	},
+	"apply": "应用",
+	"@apply": {
+		"description": "用于确认选择或应用筛选/设置的按钮标签"
+	},
+	"filter": "筛选",
+	"@filter": {
+		"description": "允许用户根据各种条件精细调整搜索结果的选项标签"
+	},
+	"monday": "星期一",
+	"@monday": {
+		"description": "用于日期过滤或安排中的星期一"
+	},
+	"tuesday": "星期二",
+	"@tuesday": {
+		"description": "用于日期过滤或安排中的星期二"
+	},
+	"wednesday": "星期三",
+	"@wednesday": {
+		"description": "用于日期过滤或安排中的星期三"
+	},
+	"thursday": "星期四",
+	"@thursday": {
+		"description": "用于日期过滤或安排中的星期四"
+	},
+	"friday": "星期五",
+	"@friday": {
+		"description": "用于日期过滤或安排中的星期五"
+	},
+	"saturday": "星期六",
+	"@saturday": {
+		"description": "用于日期过滤或安排中的星期六"
+	},
+	"sunday": "星期日",
+	"@sunday": {
+		"description": "用于日期过滤或安排中的星期日"
+	},
+	"averagePrice": "平均价格",
+	"@averagePrice": {
+		"description": "指示活动或场所的平均费用或典型价格的标签"
+	},
+	"contacts": "联系方式",
+	"@contacts": {
+		"description": "用于显示联系信息的部分标题或标签"
+	},
+	"openingHours": "营业时间",
+	"@openingHours": {
+		"description": "指示场所或活动开放时间的标签"
+	},
+	"destination": "目的地",
+	"@destination": {
+		"description": "供用户指定或查看行程目的地的字段标签"
+	},
+	"call": "拨打电话",
+	"@call": {
+		"description": "用于发起电话联系的按钮或链接文本"
+	},
+	"topPicksHotel": "精选酒店",
+	"@topPicksHotel": {
+		"description": "突出显示推荐或高评分酒店的部分标签"
+	},
+	"hostel": "旅舍",
+	"@hostel": {
+		"description": "经济型住宿选项的类别标签"
+	},
+	"filterByType": "按类型筛选",
+	"@filterByType": {
+		"description": "用于根据场所或活动的具体类型来精细筛选结果的选项"
+	},
+	"filterByRating": "按评分筛选",
+	"@filterByRating": {
+		"description": "用于根据用户或专家评分来精细筛选结果的选项"
+	},
+	"noPlacesFound": "未找到地点",
+	"@noPlacesFound": {
+		"description": "当没有匹配搜索条件的地点时显示的提示信息"
+	},
+	"km": "公里",
+	"@km": {
+		"description": "表示距离的单位缩写，常用于显示公里数"
+	},
+	"accountSetting": "账户设置",
+	"@accountSetting": {
+		"description": "用户管理和更新账户偏好及信息的部分标签"
+	},
+	"preference": "偏好",
+	"@preference": {
+		"description": "用户可定制的选项或设置的一般标签"
+	},
+	"personalInformation": "个人信息",
+	"@personalInformation": {
+		"description": "用户查看或编辑个人数据（如姓名、电子邮件等）的部分标题"
+	},
+	"pushNotifications": "推送通知",
+	"@pushNotifications": {
+		"description": "设置选项，允许用户启用或禁用应用的推送通知"
+	},
+	"emailUpdates": "邮件更新",
+	"@emailUpdates": {
+		"description": "设置选项，允许用户启用或禁用接收活动或促销邮件更新"
+	},
+	"language": "语言",
+	"@language": {
+		"description": "允许用户选择应用界面语言的选项标签"
+	},
+	"darkMode": "深色模式",
+	"@darkMode": {
+		"description": "切换应用界面在浅色和深色主题之间的设置选项"
+	},
+	"faq": "常见问题",
+	"@faq": {
+		"description": "包含常见问题和帮助主题的部分标题"
+	},
+	"privacyPolicy": "隐私政策",
+	"@privacyPolicy": {
+		"description": "关于如何收集、使用和保护用户数据的政策文档链接或标签"
+	},
+	"support": "支持",
+	"@support": {
+		"description": "用户获取帮助或联系客户服务的部分标签"
+	},
+	"submit": "提交",
+	"@submit": {
+		"description": "用于确认并发送表单或输入数据的按钮标签"
+	},
+	"fullName": "全名",
+	"@fullName": {
+		"description": "用于输入或显示用户完整姓名的字段标签"
+	},
+	"getAlertPhone": "在手机上接收提醒",
+	"@getAlertPhone": {
+		"description": "允许用户在手机上接收提醒的选项"
+	},
+	"getAlertEmail": "在邮箱中接收提醒",
+	"@getAlertEmail": {
+		"description": "允许用户通过电子邮件接收提醒的选项"
+	},
+	"getAlertNotifications": "通过通知接收提醒",
+	"@getAlertNotifications": {
+		"description": "允许用户通过推送通知接收更新和提醒的选项"
+	},
+	"newsletters": "新闻通讯",
+	"@newsletters": {
+		"description": "用于订阅定期邮件新闻通讯的标签"
+	},
+	"receieveEmailsEvents": "接收活动邮件",
+	"@receieveEmailsEvents": {
+		"description": "允许用户订阅关于即将举行活动和促销的电子邮件的选项"
+	},
+	"email": "电子邮件",
+	"@email": {
+		"description": "用于输入或显示电子邮件地址的字段标签"
+	},
+	"phone": "电话",
+	"@phone": {
+		"description": "用于输入或显示电话号码的字段标签"
+	},
+	"english": "英语",
+	"@english": {
+		"description": "选择将英语设为应用界面语言的选项"
+	},
+	"chinese": "中文",
+	"@chinese": {
+		"description": "选择将中文设为应用界面语言的选项"
+	},
+	"selectLanguage": "选择语言",
+	"@selectLanguage": {
+		"description": "提示用户从选项列表中选择首选语言"
+	},
+	"browseByTopic": "按主题浏览",
+	"@browseByTopic": {
+		"description": "鼓励用户根据不同主题探索内容的部分标题"
+	},
+	"questionAbout": "关于……的问题",
+	"@questionAbout": {
+		"description": "用于引出常见问题或查询主题的标签"
+	},
+	"showMore": "显示更多",
+	"@showMore": {
+		"description": "用于展开部分内容以显示更多信息的按钮文本"
+	},
+	"search": "搜索",
+	"@search": {
+		"description": "在应用内发起搜索的通用标签"
+	},
+	"location": "位置",
+	"@location": {
+		"description": "用于指定或显示地理位置的字段标签"
+	},
+	"about": "关于",
+	"@about": {
+		"description": "提供关于应用、公司或服务信息的部分标签"
+	},
+	"photo": "照片",
+	"@photo": {
+		"description": "用于显示个人头像或画廊中的图片的标签"
+	},
+	"kitchen": "厨房",
+	"@kitchen": {
+		"description": "代表餐厅场所中的厨房区域或与烹饪相关的部分标签"
+	},
+	"hour": "小时",
+	"@hour": {
+		"description": "表示一小时的时间单位，常用于日程安排和时长显示"
+	},
+	"minute": "分钟",
+	"@minute": {
+		"description": "表示一分钟的时间单位，常用于日程安排和时长显示"
+	},
+	"notifications": "通知",
+	"@notifications": {
+		"description": "用于显示应用内提醒和消息的部分标签"
+	},
+	"accept": "接受",
+	"@accept": {
+		"description": "用于同意条款、条件或提示的按钮标签"
+	},
+	"decline": "拒绝",
+	"@decline": {
+		"description": "用于拒绝条款、条件或提示的按钮标签"
+	},
+	"home": "首页",
+	"@home": {
+		"description": "应用或网站主页的标签"
+	},
+	"sum": "苏姆",
+	"@sum": {
+		"description": "乌兹别克斯坦货币"
+	},
+	"emailUpdated": "电子邮件更新成功",
+	"@emailUpdated": {
+		"description": "表示电子邮件已成功更新的消息"
+	},
+	"phoneUpdated": "电话号码更新成功",
+	"@phoneUpdated": {
+		"description": "表示电话号码已成功更新的消息"
+	},
+	"passwordUpdated": "密码更新成功",
+	"@passwordUpdated": {
+		"description": "表示密码已成功更新的消息"
+	},
+	"fullNameUpdated": "全名更新成功",
+	"@fullNameUpdated": {
+		"description": "表示全名已成功更新的消息"
+	},
+	"address": "地址",
+	"@address": {
+		"description": "用于输入或显示地址的字段标签"
+	},
+	"european": "欧洲",
+	"@european": {
+		"description": "欧洲风格"
+	},
+	"uzbek": "乌兹别克",
+	"@uzbek": {
+		"description": "乌兹别克风格"
+	},
+	"loading": "加载中",
+	"@loading": {
+		"description": "表示内容正在加载或处理的通用标签"
+	},
+	"skip": "跳过",
+	"@skip": {
+		"description": "用于跳过或进入下一步/下一部分的按钮标签"
+	},
+	"welcomeTitle1": "像当地人一样探索乌兹别克斯坦！",
+	"@welcomeTitle1": {
+		"description": "欢迎页面第一部分的标题"
+	},
+	"welcomeTitle2": "欢迎来到您的乌兹别克斯坦口袋指南！",
+	"@welcomeTitle2": {
+		"description": "欢迎页面第二部分的标题"
+	},
+	"welcomeTitle3": "选择语言，开始探索！",
+	"@welcomeTitle3": {
+		"description": "欢迎页面第三部分的标题"
+	},
+	"welcomeTitle4": "让我们开始吧",
+	"@welcomeTitle4": {
+		"description": "欢迎页面第四部分的标题"
+	},
+	"welcomeSubTitle1": "您的终极旅行伴侣，提供内部贴士、必去景点和重要旅行信息。",
+	"@welcomeSubTitle1": {
+		"description": "欢迎页面第一部分的副标题"
+	},
+	"welcomeSubTitle2": "轻松探索乌兹别克斯坦的美丽、历史和文化。从古老的丝绸之路城市到隐藏的本地瑰宝，一切尽在掌握。让我们开始探索吧！",
+	"@welcomeSubTitle2": {
+		"description": "欢迎页面第二部分的副标题"
+	},
+	"welcomeSubTitle3": "设置您的首选语言，以获得最佳体验",
+	"@welcomeSubTitle3": {
+		"description": "欢迎页面第三部分的副标题"
+	},
+	"welcomeSubTitle4": "您的旅程从这里开始",
+	"@welcomeSubTitle4": {
+		"description": "欢迎页面第四部分的副标题"
+	},
+	"letsGo": "让我们开始",
+	"@letsGo": {
+		"description": "用于发起或开始旅程或行动的按钮标签"
+	},
+	"dontHaveAnAccount": "还没有账户？",
+	"@dontHaveAnAccount": {
+		"description": "提示用户还没有账户的消息"
+	},
+	"signup": "注册",
+	"@signup": {
+		"description": "用于创建或注册新账户的按钮标签"
+	},
+	"continueWithPhone": "使用手机号继续",
+	"@continueWithPhone": {
+		"description": "用于使用手机号继续操作的按钮标签"
+	},
+	"continueWithEmail": "使用邮箱继续",
+	"@continueWithEmail": {
+		"description": "用于使用邮箱继续操作的按钮标签"
+	},
+	"continueWithGoogle": "使用 Google 继续",
+	"@continueWithGoogle": {
+		"description": "用于使用 Google 账号继续操作的按钮标签"
+	},
+	"continueWithApple": "使用苹果继续",
+	"@continueWithApple": {
+		"description": "用于使用苹果账号继续操作的按钮标签"
+	},
+	"signInWithApple": "使用苹果登录",
+	"@signInWithApple": {
+		"description": "用于使用苹果账号登录的按钮标签"
+	},
+	"signInWithGoogle": "使用 Google 登录",
+	"@signInWithGoogle": {
+		"description": "用于使用 Google 账号登录的按钮标签"
+	},
+	"signUpWtihApple": "使用苹果注册",
+	"@signUpWtihApple": {
+		"description": "用于使用苹果账号注册的按钮标签"
+	},
+	"signUpWithGoogle": "使用 Google 注册",
+	"@signUpWithGoogle": {
+		"description": "用于使用 Google 账号注册的按钮标签"
+	},
+	"assalomuAleykum": "阿萨拉穆阿莱库姆",
+	"@assalomuAleykum": {
+		"description": "阿拉伯问候语"
+	},
+	"loginSubtitle": "让我们继续您的乌兹别克斯坦之旅——还有更多精彩等待探索！",
+	"@loginSubtitle": {
+		"description": "登录页面的副标题"
+	},
+	"next": "下一步",
+	"@next": {
+		"description": "用于进入下一步或下一部分的按钮标签"
+	},
+	"forgotPassword": "忘记密码",
+	"@forgotPassword": {
+		"description": "用于请求重置密码的按钮标签"
+	},
+	"password": "密码",
+	"@password": {
+		"description": "用于表示密码或 PIN 码的标签"
+	},
+	"pleaseEnterValid": "请输入有效的",
+	"@pleaseEnterValid": {
+		"description": "提示用户输入有效信息的消息"
+	},
+	"forgotPasswordText": "请输入与您账户关联的电子邮件地址",
+	"@forgotPasswordText": {
+		"description": "用于密码重置时提示用户输入电子邮件地址的消息"
+	},
+	"emailCode": "邮箱验证码",
+	"@emailCode": {
+		"description": "用于电子邮件验证码的标签"
+	},
+	"newPassword": "新密码",
+	"@newPassword": {
+		"description": "用于输入新密码或 PIN 码的标签"
+	},
+	"resetYourPassword": "重置您的密码",
+	"@resetYourPassword": {
+		"description": "重置密码页面的标题"
+	},
+	"reset": "重置",
+	"@reset": {
+		"description": "用于重置密码的按钮标签"
+	},
+	"resendOTPCode": "重新发送 OTP 验证码",
+	"@resendOTPCode": {
+		"description": "用于重新发送 OTP 验证码的按钮标签"
+	},
+	"codeHasBeenSent": "验证码已发送",
+	"@codeHasBeenSent": {
+		"description": "表示验证码已成功发送的消息"
+	},
+	"enterAllCodes": "请输入所有验证码",
+	"@enterAllCodes": {
+		"description": "提示用户必须输入所有验证码的消息"
+	},
+	"verificationCode": "验证码",
+	"@verificationCode": {
+		"description": "用于显示验证码的标签"
+	},
+	"weAreSendingVerificationCodeTo": "我们正在向以下地址发送验证码",
+	"@weAreSendingVerificationCodeTo": {
+		"description": "表示验证码正在发送的消息"
+	},
+	"successfullyLoggedIn": "登录成功",
+	"@successfullyLoggedIn": {
+		"description": "表示登录成功的消息"
+	},
+	"successfullyConfirmedEmail": "邮箱确认成功",
+	"@successfullyConfirmedEmail": {
+		"description": "表示邮箱已成功确认的消息"
+	},
+	"errorOccurred": "发生错误",
+	"@errorOccurred": {
+		"description": "表示发生错误的消息"
+	},
+	"ok": "确定",
+	"@ok": {
+		"description": "用于确认或接受操作的按钮标签"
+	}
+}

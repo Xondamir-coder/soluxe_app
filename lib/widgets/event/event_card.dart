@@ -6,6 +6,7 @@ import 'package:soluxe/models/event.dart';
 import 'package:soluxe/screens/event.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventCard extends StatelessWidget {
   final Event event;
@@ -15,6 +16,13 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final localeName = AppLocalizations.of(context)!.localeName;
+    final eventMonth = localeName == 'zh'
+        ? event.eventFormatted?.monthZh
+        : event.eventFormatted?.monthEn;
+    final eventTime = localeName == 'zh'
+        ? event.eventFormatted?.timeZh
+        : event.eventFormatted?.timeEn;
 
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
@@ -71,7 +79,7 @@ class EventCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            event.eventFormatted?.month ?? 'N/A',
+                            eventMonth ?? 'N/A',
                             style: GoogleFonts.instrumentSans(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -95,7 +103,10 @@ class EventCard extends StatelessWidget {
                       spacing: 8,
                       children: [
                         MyText(
-                          event.titleEn ?? 'N/A',
+                          (localeName == 'en'
+                                  ? event.titleEn
+                                  : event.titleZh) ??
+                              'N/A',
                           color:
                               AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
                           fontWeight: FontWeight.w700,
@@ -117,7 +128,7 @@ class EventCard extends StatelessWidget {
                               ),
                             ),
                             MyText(
-                              event.eventFormatted?.time ?? 'N/A',
+                              eventTime ?? 'N/A',
                               fontSize: 12,
                               color: AppColors.grey,
                             ),

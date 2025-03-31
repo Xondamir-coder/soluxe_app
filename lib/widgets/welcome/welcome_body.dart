@@ -10,6 +10,7 @@ import 'package:soluxe/widgets/typography/my_title.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/welcome/welcome_last.dart';
 import 'package:soluxe/widgets/welcome/welcome_second.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeBody extends StatelessWidget {
   final int currentIndex;
@@ -24,6 +25,8 @@ class WelcomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final localization = AppLocalizations.of(context)!;
+
     String? title;
     String? subtitle;
     double gap = 8;
@@ -31,28 +34,33 @@ class WelcomeBody extends StatelessWidget {
     double titleHeight = 1.5;
     Widget content;
 
-    if (currentIndex == 0) {
-      title = 'Explore Uzbekistan like a local!';
-      subtitle =
-          'Your ultimate travel companion with insider tips, must-visit places, and essential travel info.';
-      fontSize = 32;
-      gap = 12;
-      titleHeight = 1.4;
-      content = const WelcomeFirst();
-    } else if (currentIndex == 1) {
-      title = 'Welcome to Your Pocket Guide to Uzbekistan!';
-      subtitle =
-          'Discover the beauty, history, and culture of Uzbekistan with ease. From ancient Silk Road cities to hidden local gems—everything you need is right at your fingertips. Let’s start exploring!';
-      content = const WelcomeSecond();
-    } else if (currentIndex == 2) {
-      title = 'Pick a language, start exploring!';
-      subtitle = 'Set your preferred language for the best experience.';
-      content = WelcomeLanguages(onTap: onTap);
-    } else {
-      title = 'Let’s Get Started';
-      subtitle = 'Class conubia dui lectus eget porta primis platea nisl risus';
-      fontSize = 20;
-      content = const WelcomeLast();
+    switch (currentIndex) {
+      case 0:
+        title = localization.welcomeTitle1;
+        subtitle = localization.welcomeSubTitle1;
+        fontSize = 32;
+        gap = 12;
+        titleHeight = 1.4;
+        content = const WelcomeFirst();
+        break;
+      case 1:
+        title = localization.welcomeTitle2;
+        subtitle = localization.welcomeSubTitle2;
+        content = const WelcomeSecond();
+        break;
+      case 2:
+        title = localization.welcomeTitle3;
+        subtitle = localization.welcomeSubTitle3;
+        content = WelcomeLanguages(onTap: onTap);
+        break;
+      case 3:
+        title = localization.welcomeTitle4;
+        subtitle = localization.welcomeSubTitle4;
+        fontSize = 20;
+        content = const WelcomeLast();
+        break;
+      default:
+        throw Exception('currentIndex is out of range');
     }
 
     return Stack(
@@ -151,7 +159,8 @@ class WelcomeBody extends StatelessWidget {
                   ScaleUpWidget.fade(
                     beginScale: 1.3,
                     delay: 600,
-                    child: YellowButton('Kettu', onTap: onTap),
+                    child: YellowButton(AppLocalizations.of(context)!.letsGo,
+                        onTap: onTap),
                   ),
               ],
             ),

@@ -11,10 +11,19 @@ import 'package:soluxe/widgets/categories/categories_photo_tab.dart';
 import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum Tabs {
   about,
   photo,
+}
+
+String chineseTabName(String enName) {
+  final names = <String, String>{
+    'about': '关于',
+    'photo': '照片',
+  };
+  return names[enName]!;
 }
 
 String capitalize(String text) =>
@@ -54,7 +63,12 @@ class _CategoriesContentState extends State<CategoriesContent> {
             Row(
               spacing: 4,
               children: [
-                MyText.deepBlue(widget.place.nameEn!, fontSize: 20),
+                MyText.deepBlue(
+                    (AppLocalizations.of(context)!.localeName == 'en'
+                            ? widget.place.nameEn
+                            : widget.place.nameZh) ??
+                        'N/A',
+                    fontSize: 20),
                 SvgPicture.asset('assets/icons/blue-check.svg'),
               ],
             ),
@@ -76,7 +90,9 @@ class _CategoriesContentState extends State<CategoriesContent> {
               future: determinePosition(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return MyText.grey('Loading ...', fontSize: 12);
+                  return MyText.grey(
+                      '${AppLocalizations.of(context)!.loading} ...',
+                      fontSize: 12);
                 }
                 if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.hasData) {
@@ -96,10 +112,10 @@ class _CategoriesContentState extends State<CategoriesContent> {
                   String displayTime;
                   if (estimatedTimeInMinutes >= 60) {
                     displayTime =
-                        '${estimatedTimeInHours.toStringAsFixed(1)} hour(s)';
+                        '${estimatedTimeInHours.toStringAsFixed(1)} ${AppLocalizations.of(context)!.hour}';
                   } else {
                     displayTime =
-                        '${estimatedTimeInMinutes.toStringAsFixed(0)} minutes';
+                        '${estimatedTimeInMinutes.toStringAsFixed(0)} ${AppLocalizations.of(context)!.minute}';
                   }
                   return MyText.grey(
                     displayTime,
@@ -114,7 +130,9 @@ class _CategoriesContentState extends State<CategoriesContent> {
               future: determinePosition(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return MyText.grey('Loading ...', fontSize: 12);
+                  return MyText.grey(
+                      '${AppLocalizations.of(context)!.loading} ...',
+                      fontSize: 12);
                 }
                 if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.hasData) {
@@ -128,7 +146,9 @@ class _CategoriesContentState extends State<CategoriesContent> {
                           1000)
                       .floor();
 
-                  return MyText.grey('$text km', fontSize: 12);
+                  return MyText.grey(
+                      '$text ${AppLocalizations.of(context)!.km}',
+                      fontSize: 12);
                 }
                 return MyText.grey('N/A', fontSize: 12);
               },
@@ -147,7 +167,7 @@ class _CategoriesContentState extends State<CategoriesContent> {
                       spacing: 13.5,
                       children: [
                         MyText(
-                          capitalize(tab.name),
+                          capitalize(chineseTabName(tab.name)),
                           fontWeight: FontWeight.w700,
                           color: _selectedTab == tab
                               ? AppColors.accentYellow
@@ -180,7 +200,7 @@ class _CategoriesContentState extends State<CategoriesContent> {
         children: [
           Expanded(
             child: YellowButton(
-              'Destination',
+              AppLocalizations.of(context)!.destination,
               onTap: () {
                 if (widget.place.longitude != null &&
                     widget.place.latitude != null) {
@@ -192,7 +212,7 @@ class _CategoriesContentState extends State<CategoriesContent> {
           ),
           Expanded(
             child: GreyOutlinedButton(
-              'Call',
+              AppLocalizations.of(context)!.call,
               onTap: () {
                 if (widget.place.contactInfo == null) return;
                 launchUrlString('tel:${widget.place.contactInfo}');
@@ -242,7 +262,10 @@ class _CategoriesContentState extends State<CategoriesContent> {
                 );
               },
               child: _selectedTab == Tabs.about
-                  ? CategoriesAboutTab(key: ValueKey('about tab'))
+                  ? CategoriesAboutTab(
+                      key: ValueKey('about tab'),
+                      place: widget.place,
+                    )
                   : CategoriesPhotoTab(
                       key: ValueKey('photo tab'),
                       images: widget.place.images!,

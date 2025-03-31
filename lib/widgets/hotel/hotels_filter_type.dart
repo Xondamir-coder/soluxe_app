@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/providers/locale_provider.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-final types = ['Hostel', 'Hotel'];
+final typesEn = ['Hostel', 'Hotel'];
+final typesZh = ['旅館', '酒店'];
 
-class HotelsFilterType extends StatefulWidget {
+class HotelsFilterType extends ConsumerStatefulWidget {
   final ValueChanged<String> onTypeChanged;
 
   const HotelsFilterType({required this.onTypeChanged, super.key});
 
   @override
-  State<HotelsFilterType> createState() => _HotelsFilterTypeState();
+  ConsumerState<HotelsFilterType> createState() => _HotelsFilterTypeState();
 }
 
-class _HotelsFilterTypeState extends State<HotelsFilterType> {
-  final _selectedTypeNotifier = ValueNotifier('Hotel');
+class _HotelsFilterTypeState extends ConsumerState<HotelsFilterType> {
+  final _selectedTypeNotifier = ValueNotifier('');
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedTypeNotifier.value =
+        (ref.read(localeProvider).languageCode == 'zh' ? typesZh : typesEn)
+            .first;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +38,7 @@ class _HotelsFilterTypeState extends State<HotelsFilterType> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyText(
-          'Filter by hotel',
+          AppLocalizations.of(context)!.filterByType,
           color: AppColors.adaptiveGreyOrDarkBrown(isDark),
           fontWeight: FontWeight.w700,
         ),
@@ -35,7 +47,10 @@ class _HotelsFilterTypeState extends State<HotelsFilterType> {
           builder: (context, value, child) => Row(
             spacing: 10,
             children: [
-              for (final type in types)
+              for (final type
+                  in AppLocalizations.of(context)!.localeName == 'zh'
+                      ? typesZh
+                      : typesEn)
                 Expanded(
                   child: Material(
                     borderRadius: BorderRadius.circular(12),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
@@ -6,6 +7,7 @@ import 'package:soluxe/helpers/filters_helper.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/event.dart';
 import 'package:soluxe/models/place/place.dart';
+import 'package:soluxe/providers/locale_provider.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
@@ -13,16 +15,18 @@ import 'package:soluxe/widgets/filter_sheet.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/tile/my_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ExploreScreen extends StatefulWidget {
+class ExploreScreen extends ConsumerStatefulWidget {
   const ExploreScreen({super.key});
 
   @override
-  State<ExploreScreen> createState() => _ExploreScreenState();
+  ConsumerState<ExploreScreen> createState() => _ExploreScreenState();
 }
 
-class _ExploreScreenState extends State<ExploreScreen> {
-  var _selectedCategory = Constants.categories[0];
+class _ExploreScreenState extends ConsumerState<ExploreScreen> {
+  var _selectedCategory = '';
+  List<String> _categories = [];
   var _query = '';
   var items = [];
   var params = {};
@@ -86,6 +90,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
   void initState() {
     super.initState();
     _fetchPlaces();
+    _categories = ref.read(localeProvider).languageCode == 'zh'
+        ? Constants.categoriesZh
+        : Constants.categoriesEn;
+    _selectedCategory = _categories.first;
   }
 
   @override
@@ -97,7 +105,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       child: Scaffold(
         bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 1),
         appBar: DefaultAppbar(
-          title: 'Explore',
+          title: AppLocalizations.of(context)!.explore,
           iconPath: 'assets/icons/filter.svg',
           onTap: () => _openFilters(context, isDark),
         ),
@@ -111,7 +119,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   spacing: 16,
                   children: [
                     MySearchBar(
-                      label: 'Search...',
+                      label: '${AppLocalizations.of(context)!.search}...',
                       onSearch: (val) {
                         _query = val;
                         _fetchPlaces();
@@ -119,7 +127,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ),
                     CategoryTabs(
                       selectedCategory: _selectedCategory,
-                      categories: Constants.categories,
+                      categories: _categories,
                       onCategorySelected: (val) {
                         setState(() {
                           _selectedCategory = val;
@@ -136,14 +144,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: MyText.deepBlue(
-                        'Popular Searches',
+                        AppLocalizations.of(context)!.popularSearches,
                         fontSize: 16,
                       ),
                     ),
                     if (_isLoading && items.isEmpty)
                       Center(child: CircularProgressIndicator.adaptive()),
                     if (!_isLoading && items.isEmpty)
-                      const MyText.warmBrown('No results found'),
+                      MyText.warmBrown(
+                          AppLocalizations.of(context)!.noResultsFound),
                     if (items.isNotEmpty)
                       for (final place in items) MyTile(place: place),
                   ],

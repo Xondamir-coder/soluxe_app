@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/providers/locale_provider.dart';
 import 'package:soluxe/providers/theme_provider.dart';
-import 'package:soluxe/screens/login.dart';
+import 'package:soluxe/screens/home.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/screens/welcome.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,14 +28,17 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = ref.watch(themeProvider);
+    final locale = ref.watch(localeProvider);
 
     return MaterialApp(
       theme: kTheme,
+      locale: locale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       darkTheme: kDarkTheme,
       themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
-      // home: HomeScreen(),
-      home: LoginScreen(isEmail: true),
+      home: HomeScreen(),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/providers/events_provider.dart';
 import 'package:soluxe/providers/hotels_provider.dart';
 import 'package:soluxe/screens/events.dart';
@@ -16,6 +17,7 @@ import 'package:soluxe/widgets/hotel/hotels_item.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/section_header.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -27,19 +29,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   var query = '';
   var selectedCategory = '';
-  final categories = [
-    'Concerts',
-    'Hotels',
-    'Restaurants',
-    'Theater',
-    'Example'
-  ];
-
-  @override
-  void initState() {
-    selectedCategory = categories[0];
-    super.initState();
-  }
 
   void _navigateToNotifications(BuildContext context) {
     Navigator.of(context).push(
@@ -95,11 +84,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyText(
-                  'Find events near',
+                  AppLocalizations.of(context)!.findEventsNear,
                   color: AppColors.adaptiveDarkGreyOrAccentYellow(isDark),
                 ),
                 MyText(
-                  'Uzbekistan',
+                  AppLocalizations.of(context)!.uzbekistan,
                   fontSize: 18,
                   color: AppColors.adaptiveGreyOrWarmBrown(isDark),
                 ),
@@ -122,14 +111,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   spacing: 10,
                   children: [
                     MySearchBar(
-                      label: 'Search events',
+                      label: AppLocalizations.of(context)!.searchEvents,
                       onSearch: (val) {
                         query = val;
                       },
                     ),
                     CategoryTabs(
                       selectedCategory: selectedCategory,
-                      categories: categories,
+                      categories:
+                          AppLocalizations.of(context)!.localeName == 'en'
+                              ? Constants.categoriesEn
+                              : Constants.categoriesZh,
                       onCategorySelected: (val) {
                         setState(() => selectedCategory = val);
                       },
@@ -140,7 +132,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   spacing: 10,
                   children: [
                     SectionHeader(
-                      title: 'Upcoming events',
+                      title: AppLocalizations.of(context)!.upcomingEvents,
                       totalDelay: 300,
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -169,7 +161,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   spacing: 10,
                   children: [
                     SectionHeader(
-                      title: 'Hotels',
+                      title: AppLocalizations.of(context)!.hotels,
                       totalDelay: 500,
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(

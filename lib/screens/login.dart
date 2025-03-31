@@ -10,6 +10,7 @@ import 'package:soluxe/widgets/buttons/provider_button.dart';
 import 'package:soluxe/widgets/forms/login_form.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends ConsumerWidget {
   final bool isEmail;
@@ -39,13 +40,13 @@ class LoginScreen extends ConsumerWidget {
                 child: Column(
                   spacing: 8,
                   children: [
-                    MyTitle('Assalomu Aleykum'),
+                    MyTitle(AppLocalizations.of(context)!.assalomuAleykum),
                     SizedBox(
                       width: MediaQuery.of(context).size.width > 500
                           ? double.infinity
                           : 300,
                       child: MyText.warmBrown(
-                        'Let’s continue your journey through Uzbekistan—there’s so much more to explore!',
+                        AppLocalizations.of(context)!.loginSubtitle,
                         textAlign: TextAlign.center,
                       ),
                     )
@@ -89,13 +90,13 @@ class LoginScreen extends ConsumerWidget {
                 spacing: 12,
                 children: [
                   ProviderButton(
-                    'Sign In with Google',
+                    AppLocalizations.of(context)!.signInWithGoogle,
                     onTap: () => _signInWithProvider('google', ref),
                     icon: SvgPicture.asset('assets/icons/google.svg'),
                   ),
                   if (Platform.isIOS)
                     ProviderButton(
-                      'Sign In with Apple',
+                      AppLocalizations.of(context)!.signInWithApple,
                       onTap: () => _signInWithProvider('apple', ref),
                       icon: SvgPicture.asset('assets/icons/apple.svg'),
                     ),

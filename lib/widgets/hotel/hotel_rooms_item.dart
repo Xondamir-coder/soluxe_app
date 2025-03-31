@@ -8,6 +8,7 @@ import 'package:soluxe/screens/hotel.dart';
 import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HotelRoomsItem extends StatelessWidget {
   final dynamic room; // room can be either an Inside or a Place
@@ -31,7 +32,8 @@ class HotelRoomsItem extends StatelessWidget {
   }
 
   // You can similarly provide getters for common properties if needed.
-  String get roomName => room.nameEn ?? 'Unknown';
+  String get roomNameEn => room.nameEn ?? 'Unknown';
+  String get roomNameZh => room.nameZh ?? 'Unknown';
 
   num get priceRate => room.priceRate ?? 0;
 
@@ -50,6 +52,7 @@ class HotelRoomsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final localeName = AppLocalizations.of(context)!.localeName;
 
     return Material(
       borderRadius: BorderRadius.circular(16),
@@ -90,7 +93,9 @@ class HotelRoomsItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MyText(
-                      roomName,
+                      AppLocalizations.of(context)!.localeName == 'zh'
+                          ? roomNameZh
+                          : roomNameEn,
                       fontSize: 13,
                       color: AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
                       fontWeight: FontWeight.w700,
@@ -110,7 +115,7 @@ class HotelRoomsItem extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                             ),
                             MyText(
-                              '/night',
+                              '/${AppLocalizations.of(context)!.night}',
                               fontSize: 10,
                               color: AppColors.darkGrey,
                             )
@@ -135,7 +140,7 @@ class HotelRoomsItem extends StatelessWidget {
                                   ),
                                 ),
                                 MyText(
-                                  tag.nameEn,
+                                  localeName == 'en' ? tag.nameEn : tag.nameZh,
                                   fontSize: 12,
                                   color: AppColors.grey,
                                 ),

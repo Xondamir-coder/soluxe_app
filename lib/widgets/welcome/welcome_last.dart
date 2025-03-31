@@ -10,6 +10,7 @@ import 'package:soluxe/screens/login.dart';
 import 'package:soluxe/screens/register.dart';
 import 'package:soluxe/widgets/buttons/provider_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeLast extends ConsumerWidget {
   const WelcomeLast({super.key});
@@ -55,21 +56,21 @@ class WelcomeLast extends ConsumerWidget {
             spacing: 12,
             children: [
               YellowButton(
-                'Continue with phone',
+                AppLocalizations.of(context)!.continueWithPhone,
                 onTap: () => _goLoginForm(context),
               ),
               YellowButton(
-                'Continue with email',
+                AppLocalizations.of(context)!.continueWithEmail,
                 onTap: () => _goLoginForm(context, isEmail: true),
               ),
               ProviderButton(
-                'Continue with Google',
+                AppLocalizations.of(context)!.continueWithGoogle,
                 icon: SvgPicture.asset('assets/icons/google.svg'),
                 onTap: () => _continueWithProvider('google', ref),
               ),
               if (Platform.isIOS)
                 ProviderButton(
-                  'Continue with Apple',
+                  AppLocalizations.of(context)!.continueWithApple,
                   icon: SvgPicture.asset('assets/icons/apple.svg'),
                   onTap: () => _continueWithProvider('apple', ref),
                 ),
@@ -80,7 +81,7 @@ class WelcomeLast extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Don’t have an account?',
+              AppLocalizations.of(context)!.dontHaveAnAccount,
               style: GoogleFonts.instrumentSans(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -96,7 +97,7 @@ class WelcomeLast extends ConsumerWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              child: Text('Signup'),
+              child: Text(AppLocalizations.of(context)!.signup),
             ),
           ],
         )

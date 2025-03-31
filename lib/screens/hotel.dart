@@ -16,6 +16,7 @@ import 'package:soluxe/widgets/hotel/hotel_reviews.dart';
 import 'package:soluxe/widgets/hotel/hotel_rooms.dart';
 import 'package:soluxe/widgets/section_header.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HotelScreen extends ConsumerWidget {
   final int hotelId;
@@ -30,6 +31,8 @@ class HotelScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final localeName = AppLocalizations.of(context)!.localeName;
+
     return Scaffold(
       appBar: const DefaultAppbar(backgroundColor: Colors.transparent),
       extendBodyBehindAppBar: true,
@@ -57,7 +60,9 @@ class HotelScreen extends ConsumerWidget {
                         spacing: 16,
                         children: [
                           HotelHeader(
-                            name: hotel.place?.nameEn,
+                            name: localeName == 'en'
+                                ? hotel.place?.nameEn
+                                : hotel.place?.nameZh,
                             tags: hotel.place?.uniqueTags,
                             address: hotel.place?.address,
                             priceRate: hotel.place?.priceRate,
@@ -66,7 +71,10 @@ class HotelScreen extends ConsumerWidget {
                           Align(
                             alignment: Alignment.topLeft,
                             child: MyText(
-                              hotel.place?.descriptionEn ?? 'Unknown',
+                              (localeName == 'en'
+                                      ? hotel.place?.descriptionEn
+                                      : hotel.place?.descriptionZh) ??
+                                  'Unknown',
                               fontSize: 12,
                               color: AppColors.adaptiveGreyOrDarkerGrey(isDark),
                             ),
@@ -120,7 +128,8 @@ class HotelScreen extends ConsumerWidget {
                               spacing: 10,
                               children: [
                                 SectionHeader(
-                                  title: 'Top picks hotel',
+                                  title: AppLocalizations.of(context)!
+                                      .topPicksHotel,
                                   onTap: () {
                                     ref
                                         .read(hotelsProvider.notifier)

@@ -17,6 +17,7 @@ import 'package:soluxe/widgets/settings/settings_label.dart';
 import 'package:soluxe/widgets/settings/settings_switch_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -104,7 +105,7 @@ class SettingsScreen extends ConsumerWidget {
 
     return Scaffold(
       bottomNavigationBar: const MyBottomNavbar(currentPageIndex: 4),
-      appBar: const DefaultAppbar(title: 'Profile'),
+      appBar: DefaultAppbar(title: AppLocalizations.of(context)!.profile),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -119,9 +120,11 @@ class SettingsScreen extends ConsumerWidget {
                     spacing: 16,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SettingsLabel(text: 'Account Setting'),
+                      SettingsLabel(
+                        text: AppLocalizations.of(context)!.accountSetting,
+                      ),
                       SettingsTile(
-                        text: 'Personal Information',
+                        text: AppLocalizations.of(context)!.personalInformation,
                         iconSrc: 'assets/icons/profile.svg',
                         onTap: () => _navigateTo(context, 'personal'),
                       ),
@@ -136,17 +139,18 @@ class SettingsScreen extends ConsumerWidget {
                         spacing: 12,
                         children: [
                           SettingsTile(
-                            text: 'Push notifications',
+                            text:
+                                AppLocalizations.of(context)!.pushNotifications,
                             iconSrc: 'assets/icons/notification.svg',
                             onTap: () => _navigateTo(context, 'notifications'),
                           ),
                           SettingsTile(
-                            text: 'Email updates',
+                            text: AppLocalizations.of(context)!.emailUpdates,
                             iconSrc: 'assets/icons/email.svg',
                             onTap: () => _navigateTo(context, 'email'),
                           ),
                           SettingsTile(
-                            text: 'Language',
+                            text: AppLocalizations.of(context)!.language,
                             iconSrc: 'assets/icons/global.svg',
                             onTap: () => _navigateTo(context, 'languages'),
                           ),
@@ -159,17 +163,19 @@ class SettingsScreen extends ConsumerWidget {
                     spacing: 16,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SettingsLabel(text: 'Support'),
+                      SettingsLabel(
+                        text: AppLocalizations.of(context)!.support,
+                      ),
                       Column(
                         spacing: 12,
                         children: [
                           SettingsTile(
-                            text: 'FAQ',
+                            text: AppLocalizations.of(context)!.faq,
                             iconSrc: 'assets/icons/question.svg',
                             onTap: () => _navigateTo(context, 'faq'),
                           ),
                           SettingsTile(
-                            text: 'Privacy Policy',
+                            text: AppLocalizations.of(context)!.privacyPolicy,
                             iconSrc: 'assets/icons/lock.svg',
                             onTap: () => _navigateTo(context, 'policy'),
                           ),

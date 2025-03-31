@@ -6,6 +6,7 @@ import 'package:soluxe/screens/login.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SuccessScreen extends StatelessWidget {
   final String text;
@@ -40,7 +41,7 @@ class SuccessScreen extends StatelessWidget {
               ),
               const Spacer(),
               YellowButton(
-                'Home',
+                AppLocalizations.of(context)!.home,
                 onTap: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (ctx) => goLogin != null

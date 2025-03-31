@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CollapsedDatePicker extends StatelessWidget {
   final DateTime date;
@@ -112,7 +113,10 @@ class CollapsedDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final monthYearLabel = DateFormat('MMMM yyyy').format(date);
+    final monthYearLabel = DateFormat(
+      'MMMM yyyy',
+      AppLocalizations.of(context)!.localeName,
+    ).format(date);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Column(

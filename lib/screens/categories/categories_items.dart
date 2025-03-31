@@ -4,6 +4,7 @@ import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/place/place.dart';
 import 'package:soluxe/widgets/tile/my_tile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class CategoriesItems extends StatelessWidget {
@@ -18,7 +19,7 @@ class CategoriesItems extends StatelessWidget {
     this.subCategory,
   });
 
-  Future<List<Place>> _fetchPlaces() async {
+  Future<List<Place>> _fetchPlaces(BuildContext ctx) async {
     final token = (await LocalStorageHelper.getAccountData()).token;
     final List<Place> arr = [];
 
@@ -34,8 +35,13 @@ class CategoriesItems extends StatelessWidget {
         token: token,
         queryParams: newParams,
       );
+      final emptyBody = (body['data'] as List).isEmpty;
 
-      if ((body['data'] as List).isEmpty) throw 'No places found';
+      if (emptyBody && ctx.mounted) {
+        throw AppLocalizations.of(ctx)!.noResultsFound;
+      } else if (emptyBody && !ctx.mounted) {
+        throw 'Error';
+      }
 
       for (final item in body['data']) {
         arr.add(Place.fromMap(item));
@@ -49,7 +55,7 @@ class CategoriesItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Place>>(
-      future: _fetchPlaces(),
+      future: _fetchPlaces(context),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator.adaptive());

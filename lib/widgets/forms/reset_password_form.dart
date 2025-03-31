@@ -7,6 +7,7 @@ import 'package:soluxe/screens/success.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
 import 'package:soluxe/widgets/my_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResetPasswordForm extends ConsumerStatefulWidget {
   const ResetPasswordForm({super.key});
@@ -23,6 +24,8 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
   var _hideNewPassword = true;
 
   void _serverResetPassword() async {
+    final localeName = AppLocalizations.of(context)!.localeName;
+
     try {
       final body = await FetchHelper.fetch(
         url: 'confirm-forget-password',
@@ -38,7 +41,7 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => SuccessScreen(
-            text: body['en'] as String,
+            text: body[localeName] as String,
             goLogin: true,
           ),
         ),
@@ -47,7 +50,8 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
       showDialog(
         context: context,
         builder: (ctx) => MyDialog(
-            message: '${(e as Map)['body']['en'] ?? (e)['body']['message']}'),
+            message:
+                '${(e as Map)['body'][localeName] ?? (e)['body']['message']}'),
       );
     }
   }
@@ -68,20 +72,21 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
           InputField(
             type: TextInputType.text,
             onSave: (val) => _emailCode = val,
-            label: 'Email code',
+            label: AppLocalizations.of(context)!.emailCode,
             icon: SvgPicture.asset('assets/icons/email.svg'),
           ),
           InputField.password(
             type: TextInputType.visiblePassword,
             onSave: (val) => _newPassword = val,
-            label: 'New Password',
+            label: AppLocalizations.of(context)!.newPassword,
             icon: SvgPicture.asset('assets/icons/lock.svg'),
             hidePassword: _hideNewPassword,
             onTogglePasswordVisibility: () =>
                 setState(() => _hideNewPassword = !_hideNewPassword),
           ),
           Spacer(),
-          YellowButton('Reset', onTap: _resetPassword),
+          YellowButton(AppLocalizations.of(context)!.reset,
+              onTap: _resetPassword),
         ],
       ),
     );

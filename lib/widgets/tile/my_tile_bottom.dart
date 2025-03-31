@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyTileBottom extends StatelessWidget {
   final String location;
@@ -43,7 +44,7 @@ class MyTileBottom extends StatelessWidget {
             borderRadius: BorderRadius.circular(6),
           ),
           child: MyText(
-            '$distance Km',
+            '$distance ${AppLocalizations.of(context)!.km}',
             fontSize: 10,
             fontWeight: FontWeight.w600,
             color: AppColors.accentYellow,

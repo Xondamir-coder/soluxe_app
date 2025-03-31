@@ -11,6 +11,7 @@ import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/image_dialog.dart';
 import 'package:soluxe/widgets/settings/settings_form.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PersonalInfoScreen extends ConsumerWidget {
   const PersonalInfoScreen({super.key});
@@ -82,7 +83,8 @@ class PersonalInfoScreen extends ConsumerWidget {
     final account = ref.watch(accountProvider);
 
     return Scaffold(
-      appBar: const DefaultAppbar(title: 'Personal Information'),
+      appBar: DefaultAppbar(
+          title: AppLocalizations.of(context)!.personalInformation),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(

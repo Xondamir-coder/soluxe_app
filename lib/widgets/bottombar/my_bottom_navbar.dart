@@ -6,6 +6,7 @@ import 'package:soluxe/screens/home.dart';
 import 'package:soluxe/screens/explore.dart';
 import 'package:soluxe/screens/settings.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar_item.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyBottomNavbar extends StatelessWidget {
   final int currentPageIndex;
@@ -18,87 +19,65 @@ class MyBottomNavbar extends StatelessWidget {
   void _onItemTapped(BuildContext context, int index) {
     if (index == currentPageIndex) return;
 
-    Widget screen;
-    switch (index) {
-      case 0:
-        //  Home screen should reset navigation stack
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (ctx) => const HomeScreen()),
-          (route) => false, // Removes all previous routes
-        );
-        return;
-      case 1:
-        screen = const ExploreScreen();
-        break;
-      case 2:
-        screen = const CategoriesScreen();
-        break;
-      case 3:
-        screen = const EventsScreen();
-        break;
-      case 4:
-        screen = const SettingsScreen();
-        break;
-      default:
-        return;
-    }
+    final screens = [
+      const HomeScreen(),
+      const ExploreScreen(),
+      const CategoriesScreen(),
+      const EventsScreen(),
+      const SettingsScreen(),
+    ];
 
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (ctx) => screen),
-    );
+    if (index == 0) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (ctx) => screens[index]),
+        (route) => false,
+      );
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (ctx) => screens[index]),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final items = [
+      {'icon': 'home.svg', 'text': AppLocalizations.of(context)!.home},
+      {'icon': 'search.svg', 'text': AppLocalizations.of(context)!.explore},
+      {
+        'icon': 'categories.svg',
+        'text': AppLocalizations.of(context)!.categories
+      },
+      {'icon': 'calendar.svg', 'text': AppLocalizations.of(context)!.events},
+      {'icon': 'profile.svg', 'text': AppLocalizations.of(context)!.profile},
+    ];
+
     return Container(
       height: 82,
-      padding: EdgeInsets.symmetric(vertical: 12.5, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 12.5, horizontal: 16),
       decoration: BoxDecoration(
         color: AppColors.adaptiveDarkBlueOrWhite(isDark),
         boxShadow: [
           BoxShadow(
-            color: AppColors.deepBlue.withValues(alpha: 0.03),
+            color: AppColors.deepBlue.withAlpha(8),
             spreadRadius: 0,
             blurRadius: 32,
-            offset: Offset(0, -8), // changes position of shadow
+            offset: const Offset(0, -8),
           ),
         ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          MyBottomNavbarItem(
-            iconPath: 'assets/icons/home.svg',
-            text: 'Home',
-            isActive: currentPageIndex == 0,
-            onTap: () => _onItemTapped(context, 0),
-          ),
-          MyBottomNavbarItem(
-            iconPath: 'assets/icons/search.svg',
-            text: 'Explore',
-            isActive: currentPageIndex == 1,
-            onTap: () => _onItemTapped(context, 1),
-          ),
-          MyBottomNavbarItem(
-            iconPath: 'assets/icons/categories.svg',
-            text: 'Categories',
-            isActive: currentPageIndex == 2,
-            onTap: () => _onItemTapped(context, 2),
-          ),
-          MyBottomNavbarItem(
-            iconPath: 'assets/icons/calendar.svg',
-            text: 'Events',
-            isActive: currentPageIndex == 3,
-            onTap: () => _onItemTapped(context, 3),
-          ),
-          MyBottomNavbarItem(
-            iconPath: 'assets/icons/profile.svg',
-            text: 'Profile',
-            isActive: currentPageIndex == 4,
-            onTap: () => _onItemTapped(context, 4),
-          ),
-        ],
+        children: List.generate(items.length, (index) {
+          final item = items[index];
+          return MyBottomNavbarItem(
+            iconPath: 'assets/icons/${item['icon']}',
+            text: item['text'] as String,
+            isActive: currentPageIndex == index,
+            onTap: () => _onItemTapped(context, index),
+          );
+        }),
       ),
     );
   }

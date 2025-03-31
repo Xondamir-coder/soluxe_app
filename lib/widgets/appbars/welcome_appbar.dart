@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   final int currentIndex;
@@ -25,7 +26,7 @@ class WelcomeAppbar extends StatelessWidget implements PreferredSizeWidget {
           TextButton.icon(
             onPressed: onTap,
             label: Text(
-              'skip'.toUpperCase(),
+              AppLocalizations.of(context)!.skip.toUpperCase(),
               style: GoogleFonts.instrumentSans(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

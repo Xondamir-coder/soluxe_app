@@ -12,6 +12,7 @@ import 'package:soluxe/widgets/drag_handle.dart';
 import 'package:soluxe/widgets/price_range_slider.dart';
 import 'package:soluxe/widgets/tags_buttons.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FilterSheet extends StatefulWidget {
   final Filters filters;
@@ -59,7 +60,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   MyText(
-                    'Filter',
+                    AppLocalizations.of(context)!.filter,
                     fontSize: 20,
                     color: AppColors.adaptiveGreyOrDeepBlue(isDark),
                   ),
@@ -109,7 +110,7 @@ class _FilterSheetState extends State<FilterSheet> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: MyText(
-                  'Price Range',
+                  AppLocalizations.of(context)!.priceRange,
                   color: AppColors.adaptiveGreyOrDarkBrown(isDark),
                   fontWeight: FontWeight.w700,
                 ),
@@ -135,13 +136,13 @@ class _FilterSheetState extends State<FilterSheet> {
                 children: [
                   Expanded(
                     child: GreyOutlinedButton(
-                      'Cancel',
+                      AppLocalizations.of(context)!.cancel,
                       onTap: () => Navigator.of(context).pop(),
                     ),
                   ),
                   Expanded(
                     child: YellowButton(
-                      'Apply',
+                      AppLocalizations.of(context)!.apply,
                       onTap: () {
                         final params = {
                           'working_date':

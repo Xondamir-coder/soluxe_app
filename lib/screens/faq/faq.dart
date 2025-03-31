@@ -6,6 +6,7 @@ import 'package:soluxe/widgets/faq/faq_accordions.dart';
 import 'package:soluxe/widgets/faq/faq_topics.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/section_header.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FaqScreen extends StatelessWidget {
   const FaqScreen({super.key});
@@ -13,18 +14,18 @@ class FaqScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppbar(title: 'FAQ'),
+      appBar: DefaultAppbar(title: AppLocalizations.of(context)!.faq),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           spacing: 16,
           children: [
             MySearchBar(
-              label: 'Search',
+              label: AppLocalizations.of(context)!.search,
               onSearch: (query) => print(query),
             ),
             SectionHeader(
-              title: 'Browse by Topic',
+              title: AppLocalizations.of(context)!.browseByTopic,
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (ctx) => const FaqTopicsScreen(),

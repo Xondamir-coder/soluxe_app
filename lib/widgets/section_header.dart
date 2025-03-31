@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/animations/slide_in_widget.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -47,7 +48,7 @@ class SectionHeader extends StatelessWidget {
                 spacing: 16,
                 children: [
                   MyText(
-                    'See All',
+                    AppLocalizations.of(context)!.seeAll,
                     color: AppColors.accentYellow,
                   ),
                   SvgPicture.asset('assets/icons/arrow-right.svg'),

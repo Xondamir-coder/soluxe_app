@@ -38,7 +38,7 @@ class _CategoriesDirectionScreenState extends State<CategoriesDirectionScreen> {
 
   Future<List<String>> _getSubCategories() async {
     try {
-      final filters = await fetchFilters(widget.category.name);
+      final filters = await fetchFilters(widget.category.apiName);
       final arr = filters.subCategories;
       if (arr.isEmpty) throw 'No sub categories found';
       selectedSubCategory.value = arr.first;
@@ -54,10 +54,10 @@ class _CategoriesDirectionScreenState extends State<CategoriesDirectionScreen> {
 
     return Scaffold(
       appBar: DefaultAppbar(
-        title: widget.category.name,
+        title: widget.category.name!,
         iconPath: 'assets/icons/filter.svg',
         onTap: () async {
-          final filters = await fetchFilters(widget.category.name);
+          final filters = await fetchFilters(widget.category.apiName);
 
           if (!context.mounted) return;
 
@@ -102,7 +102,7 @@ class _CategoriesDirectionScreenState extends State<CategoriesDirectionScreen> {
                   ValueListenableBuilder<String>(
                 valueListenable: selectedSubCategory,
                 builder: (context, subCategoryValue, child) => CategoriesItems(
-                  category: widget.category.name,
+                  category: widget.category.apiName,
                   subCategory: subCategoryValue,
                   params: paramsValue,
                 ),

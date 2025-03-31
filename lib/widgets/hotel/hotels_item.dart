@@ -8,6 +8,7 @@ import 'package:soluxe/widgets/animations/scale_up_widget.dart';
 import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HotelsItem extends StatelessWidget {
   final Place hotel;
@@ -55,7 +56,10 @@ class HotelsItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyText(
-                        hotel.nameEn ?? 'Unknown',
+                        (AppLocalizations.of(context)!.localeName == 'en'
+                                ? hotel.nameEn
+                                : hotel.nameZh) ??
+                            'Unknown',
                         fontSize: 13,
                         color: AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
                         fontWeight: FontWeight.w700,
@@ -76,7 +80,7 @@ class HotelsItem extends StatelessWidget {
                                 fontWeight: FontWeight.w700,
                               ),
                               MyText(
-                                '/night',
+                                '/${AppLocalizations.of(context)!.night}',
                                 fontSize: 10,
                                 color: AppColors.darkGrey,
                               )

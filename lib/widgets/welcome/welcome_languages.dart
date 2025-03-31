@@ -1,42 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/languages.dart';
-import 'package:soluxe/helpers/preference_helper.dart';
+import 'package:soluxe/providers/locale_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class WelcomeLanguages extends StatefulWidget {
+class WelcomeLanguages extends ConsumerWidget {
   final void Function() onTap;
 
   const WelcomeLanguages({super.key, required this.onTap});
 
   @override
-  State<WelcomeLanguages> createState() => _WelcomeLanguagesState();
-}
-
-class _WelcomeLanguagesState extends State<WelcomeLanguages> {
-  String? _selectedLanguageCode;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadLanguage(); // Call async function
-  }
-
-  Future<void> _loadLanguage() async {
-    _selectedLanguageCode = await PreferenceHelper.getLanguage();
-    setState(() {}); // Update UI after fetching language
-  }
-
-  void _setLang(String code) async {
-    setState(() {
-      _selectedLanguageCode = code;
-    });
-    await PreferenceHelper.saveLanguage(code);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final code = ref.watch(localeProvider).languageCode;
+
     return Padding(
       padding: const EdgeInsets.only(top: 30),
       child: Column(
@@ -64,18 +43,20 @@ class _WelcomeLanguagesState extends State<WelcomeLanguages> {
                     contentPadding:
                         EdgeInsets.only(left: 16, right: 9, top: 9, bottom: 9),
                     value: language.code,
-                    groupValue: _selectedLanguageCode,
+                    groupValue: code,
                     dense: true,
                     onChanged: (value) {
-                      _setLang(value!);
-                      widget.onTap();
+                      ref.read(localeProvider.notifier).setLocale(value!);
+                      onTap();
                     },
                     title: Row(
                       children: [
                         language.icon,
                         SizedBox(width: 16),
                         Text(
-                          language.name,
+                          AppLocalizations.of(context)!.localeName == 'zh'
+                              ? language.nameZh
+                              : language.nameEn,
                           style: GoogleFonts.instrumentSans(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,

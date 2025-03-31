@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/animations/slide_in_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InputField extends StatelessWidget {
   final void Function(String) onSave;
@@ -116,10 +117,10 @@ class InputField extends StatelessWidget {
         ),
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
-            return 'Please enter a valid ${label.toLowerCase()}';
+            return '${AppLocalizations.of(context)!.pleaseEnterValid} ${label.toLowerCase()}';
           }
           if (type == TextInputType.emailAddress && !value.contains('@')) {
-            return 'Please enter a valid email address';
+            return '${AppLocalizations.of(context)!.pleaseEnterValid} ${AppLocalizations.of(context)!.email.toLowerCase()}';
           }
           return null;
         },

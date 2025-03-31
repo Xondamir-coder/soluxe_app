@@ -3,6 +3,7 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/policy.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final testPolicy = Policy(
   title: 'Dui efficitur ridiculus ridiculus nam est risus senectus',
@@ -19,7 +20,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      appBar: const DefaultAppbar(title: 'Privacy Policy'),
+      appBar: DefaultAppbar(title: AppLocalizations.of(context)!.privacyPolicy),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Container(

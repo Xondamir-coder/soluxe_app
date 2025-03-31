@@ -6,6 +6,7 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/notification.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotificationsCard extends StatelessWidget {
   final NotificationModel notification;
@@ -101,7 +102,7 @@ class NotificationsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButtons() {
+  Widget _buildActionButtons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 4),
       child: Row(
@@ -118,7 +119,8 @@ class NotificationsCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            child: MyText('Accept', color: Colors.white),
+            child: MyText(AppLocalizations.of(context)!.accept,
+                color: Colors.white),
           ),
           OutlinedButton(
             onPressed: () {
@@ -134,7 +136,10 @@ class NotificationsCard extends StatelessWidget {
               ),
               overlayColor: AppColors.accentYellow,
             ),
-            child: MyText('Decline', color: AppColors.accentYellow),
+            child: MyText(
+              AppLocalizations.of(context)!.decline,
+              color: AppColors.accentYellow,
+            ),
           ),
         ],
       ),
@@ -178,7 +183,7 @@ class NotificationsCard extends StatelessWidget {
                   _buildMessage(isDark), // RichText with proper space
                   _buildDate(),
                   if (notification.type == NotificationType.invitation)
-                    _buildActionButtons(),
+                    _buildActionButtons(context),
                 ],
               ),
             ),
