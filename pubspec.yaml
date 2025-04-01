@@ -98,10 +98,10 @@ flutter_native_splash:
     ios: true
     web: false
     background_image: 'assets/images/splash.png'
-    image: 'assets/logo-white.png'
+    image: 'assets/images/logo-big.png'
     android_12:
-        background_image: 'assets/images/splash.png'
-        image: 'assets/logo-white.png'
+        color: '#D0AB62'
+        image: 'assets/images/logo-big.png'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -118,7 +118,8 @@ flutter:
     assets:
         - assets/images/splash.png
         - assets/images/map.png
-        - assets/logo-white.png
+        - assets/images/logo.png
+        - assets/images/logo-big.png
         - assets/icons/arrow-right.svg
         - assets/icons/arrow-left.svg
         - assets/icons/flag-zh.svg
