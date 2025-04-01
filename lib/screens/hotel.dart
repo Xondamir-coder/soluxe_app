@@ -6,6 +6,7 @@ import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/place/hotel.dart';
 import 'package:soluxe/providers/hotels_provider.dart';
 import 'package:soluxe/screens/hotels.dart';
+import 'package:soluxe/screens/reviews.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/hotel/hotel_comment.dart';
 import 'package:soluxe/widgets/hotel/hotel_rooms_item.dart';
@@ -90,8 +91,17 @@ class HotelScreen extends ConsumerWidget {
                               spacing: 10,
                               children: [
                                 SectionHeader(
-                                  title: 'User Reviews',
-                                  onTap: () => print('opening user reviews'),
+                                  title:
+                                      AppLocalizations.of(context)!.userReviews,
+                                  onTap: () => hotel.place?.id != null
+                                      ? Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (ctx) => ReviewsScreen(
+                                              placeId: hotel.place!.id!,
+                                            ),
+                                          ),
+                                        )
+                                      : null,
                                 ),
                                 SizedBox(
                                   height: 141,

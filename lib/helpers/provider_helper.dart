@@ -45,7 +45,7 @@ class ProviderHelper {
         user: User.fromMap(body['user'] as Map<String, dynamic>),
       );
     } catch (e) {
-      print('Error signing in with Google: $e');
+      rethrow;
     }
   }
 
@@ -58,7 +58,7 @@ class ProviderHelper {
       // Update local state
       await LocalStorageHelper.deleteAccountData();
     } catch (e) {
-      print('Error signing out with Google: $e');
+      rethrow;
     }
   }
 
@@ -96,7 +96,7 @@ class ProviderHelper {
         user: User.fromMap(body['user'] as Map<String, dynamic>),
       );
     } catch (e) {
-      print('Error signing in with Apple: $e');
+      rethrow;
     }
   }
 
@@ -104,7 +104,7 @@ class ProviderHelper {
     try {
       await LocalStorageHelper.deleteAccountData();
     } catch (e) {
-      print('Error signing out with Apple: $e');
+      rethrow;
     }
   }
 }

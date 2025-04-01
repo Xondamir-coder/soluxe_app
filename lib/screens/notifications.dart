@@ -9,7 +9,7 @@ class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
 
   void _markAllAsRead() {
-    print('marking all ...');
+    //TODO: mark all as read
   }
 
   @override

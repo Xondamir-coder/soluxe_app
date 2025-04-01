@@ -148,7 +148,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (ctx, index) {
-                            final event = events[index];
+                            final sublistedEvents = events.length > 4
+                                ? events.sublist(0, 4)
+                                : events;
+                            final event = sublistedEvents[index];
                             return EventCard(event: event);
                           },
                           itemCount: events.length,

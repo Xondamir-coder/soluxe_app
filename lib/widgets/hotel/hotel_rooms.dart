@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/models/place/inside.dart';
 import 'package:soluxe/widgets/hotel/hotel_rooms_item.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HotelRooms extends StatelessWidget {
   final List<Inside> rooms;
@@ -14,7 +15,7 @@ class HotelRooms extends StatelessWidget {
       spacing: 10,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MyText.deepBlue('Hotel Rooms', fontSize: 16),
+        MyText.deepBlue(AppLocalizations.of(context)!.hotelRooms, fontSize: 16),
         Column(
           spacing: 10,
           children: [

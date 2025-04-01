@@ -66,7 +66,7 @@ class _HotelImagesState extends State<HotelImages> {
                         )
                       : GestureDetector(
                           onTap: () {
-                            print('tapping last one');
+                            // TODO: Show all images
                           },
                           child: Stack(
                             children: [

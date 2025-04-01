@@ -26,9 +26,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   void _sendVerificationCode() async {
     try {
-      final body = await FetchHelper.sendCode(true, _email!);
-
-      print('Send code: $body');
+      await FetchHelper.sendCode(true, _email!);
 
       // Update state/storage
       final accountNotifier = ref.read(accountProvider.notifier);

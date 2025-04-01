@@ -6,11 +6,29 @@ import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/place/review.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HotelComment extends StatelessWidget {
   final Review comment;
+  final double textSize;
+  final double imageSize;
+  final double credentialsSize;
+  final double dividerSpacing;
+  final double imageCredentialsSpacing;
+  final double rightMargin;
+  final double padding;
 
-  const HotelComment({required this.comment, super.key});
+  const HotelComment({
+    super.key,
+    required this.comment,
+    this.textSize = 12,
+    this.credentialsSize = 11,
+    this.imageSize = 32,
+    this.dividerSpacing = 0,
+    this.imageCredentialsSpacing = 6,
+    this.rightMargin = 5,
+    this.padding = 8,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +39,19 @@ class HotelComment extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         color: AppColors.adaptiveDarkBlueOrWhite(isDark),
       ),
-      margin: EdgeInsets.only(right: 5),
-      padding: const EdgeInsets.all(8),
+      margin: EdgeInsets.only(right: rightMargin),
+      padding: EdgeInsets.all(padding),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        spacing: dividerSpacing,
         children: [
           MyText(
-            comment.reviewText.toString(),
-            fontSize: 12,
+            comment.reviewText.toString().trim(),
+            fontSize: textSize,
             color: AppColors.adaptiveAccentWhiteOrGrey(isDark),
           ),
           Row(
-            spacing: 6,
+            spacing: imageCredentialsSpacing,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(100),
@@ -42,8 +61,8 @@ class HotelComment extends StatelessWidget {
                         image:
                             '${Constants.baseUrl}/${comment.user!.profilePic}',
                         fit: BoxFit.cover,
-                        width: 32,
-                        height: 32,
+                        width: imageSize,
+                        height: imageSize,
                       )
                     : SvgPicture.asset('assets/icons/profile.svg'),
               ),
@@ -53,16 +72,19 @@ class HotelComment extends StatelessWidget {
                 children: [
                   MyText(
                     comment.user?.fullName ?? 'Unknown User',
-                    fontSize: 11,
+                    fontSize: credentialsSize,
                     color: AppColors.adaptiveAlmostWhiteOrDarkBlue(isDark),
                   ),
                   MyText(
                     comment.user?.updatedAt != null
-                        ? DateFormat('dd MMM yyyy').format(
+                        ? DateFormat(
+                            'dd MMM yyyy',
+                            AppLocalizations.of(context)!.localeName,
+                          ).format(
                             DateTime.parse(comment.user!.updatedAt!),
                           )
                         : 'Unknown',
-                    fontSize: 11,
+                    fontSize: credentialsSize,
                     color: AppColors.adaptiveAccentWhiteOrGrey(isDark),
                   ),
                 ],

@@ -28,7 +28,9 @@ class FaqQuestionsScreen extends StatelessWidget {
           children: [
             MySearchBar(
               label: AppLocalizations.of(context)!.search,
-              onSearch: (query) => print(query),
+              onSearch: (query) {
+                // TODO: implement search
+              },
             ),
             Expanded(
               child: FaqAccordions(questions: questions),

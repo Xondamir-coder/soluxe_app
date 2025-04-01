@@ -53,7 +53,7 @@ class CollapsedDatePicker extends StatelessWidget {
   }
 
   /// Builds the horizontal list of days for a given [month].
-  Widget _buildDaysRow(DateTime month, bool isDark) {
+  Widget _buildDaysRow(DateTime month, bool isDark, BuildContext context) {
     final days = _buildDaysInMonth(month);
 
     return SingleChildScrollView(
@@ -100,7 +100,10 @@ class CollapsedDatePicker extends StatelessWidget {
                       fontSize: 12,
                       color: isSelected ? Colors.white : greyDarkColor,
                     ),
-                    child: Text(DateFormat.E().format(day)),
+                    child: Text(
+                      DateFormat.E(AppLocalizations.of(context)!.localeName)
+                          .format(day),
+                    ),
                   ),
                 ],
               ),
@@ -195,7 +198,7 @@ class CollapsedDatePicker extends StatelessWidget {
         // -----------------------
         // Animated row of days
         // -----------------------
-        _buildDaysRow(date, isDark),
+        _buildDaysRow(date, isDark, context),
       ],
     );
   }

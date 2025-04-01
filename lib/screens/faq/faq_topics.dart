@@ -18,7 +18,9 @@ class FaqTopicsScreen extends StatelessWidget {
           children: [
             MySearchBar(
               label: AppLocalizations.of(context)!.search,
-              onSearch: (query) => print(query),
+              onSearch: (query) {
+                // TODO: implement search
+              },
             ),
             FaqTopics.grid(),
           ],

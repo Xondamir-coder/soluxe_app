@@ -14,7 +14,7 @@ class AccountNotifier extends StateNotifier<Account> {
   }
 
   void updateAccount({String? token, User? user}) async {
-    print(token);
+    // print(token);
     state = Account(
       token: token ?? state.token,
       user: user ?? state.user,

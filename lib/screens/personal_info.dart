@@ -17,7 +17,6 @@ class PersonalInfoScreen extends ConsumerWidget {
   const PersonalInfoScreen({super.key});
 
   Widget _buildProfile(bool isDark, Account account, BuildContext ctx) {
-    print(account.user!.profilePic);
     return Container(
       width: 100,
       height: 100,

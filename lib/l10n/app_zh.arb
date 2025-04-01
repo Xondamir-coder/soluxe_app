@@ -551,5 +551,17 @@
 	"ok": "确定",
 	"@ok": {
 		"description": "用于确认或接受操作的按钮标签"
+	},
+	"reviews": "评论",
+	"@reviews": {
+		"description": "用于显示评论的标签"
+	},
+	"hotelRooms": "酒店房间",
+	"@hotelRooms": {
+		"description": "用于显示酒店房间的标签"
+	},
+	"userReviews": "用户评论",
+	"@userReviews": {
+		"description": "用于显示用户评论的标签"
 	}
 }

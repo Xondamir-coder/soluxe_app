@@ -20,7 +20,7 @@ class NotificationsCard extends StatelessWidget {
 
   void _navigateToNotification(BuildContext context) {
     if (notification.isComment) {
-      print('navigating to post of id: ${notification.post!.id}');
+      // TODO: Implement navigation to post
     }
   }
 
@@ -68,7 +68,7 @@ class NotificationsCard extends StatelessWidget {
             text: notification.user.fullName,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                print('tapped username: ${notification.user.fullName}');
+                // TODO: Implement navigation to profile
               },
             style: GoogleFonts.instrumentSans(
               color: AppColors.adaptiveWhiteOrDeepBlue(isDark),
@@ -110,7 +110,7 @@ class NotificationsCard extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {
-              print('Accept button pressed');
+              // TODO: Implement accept
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.accentYellow,
@@ -124,7 +124,7 @@ class NotificationsCard extends StatelessWidget {
           ),
           OutlinedButton(
             onPressed: () {
-              print('Decline button pressed');
+              // TODO: Implement decline
             },
             style: OutlinedButton.styleFrom(
               shape: RoundedRectangleBorder(

@@ -551,5 +551,17 @@
 	"ok": "ok",
 	"@ok": {
 		"description": "Button label for confirming or accepting an action"
+	},
+	"reviews": "Reviews",
+	"@reviews": {
+		"description": "Label for a section containing user reviews or feedback"
+	},
+	"hotelRooms": "Hotel Rooms",
+	"@hotelRooms": {
+		"description": "Label for a section containing hotel rooms or accommodations"
+	},
+	"userReviews": "User Reviews",
+	"@userReviews": {
+		"description": "Label for a section containing user reviews or feedback"
 	}
 }
