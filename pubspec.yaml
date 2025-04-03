@@ -129,6 +129,7 @@ flutter:
         - assets/icons/home.svg
         - assets/icons/lock.svg
         - assets/icons/eye-off.svg
+        - assets/icons/eye-on.svg
         - assets/icons/x.svg
         - assets/icons/dark-x.svg
         - assets/icons/date.svg

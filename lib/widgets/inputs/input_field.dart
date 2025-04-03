@@ -96,7 +96,11 @@ class InputField extends StatelessWidget {
                       right: 12,
                       left: 12,
                     ),
-                    child: SvgPicture.asset('assets/icons/eye-off.svg'),
+                    child: SvgPicture.asset(
+                      hidePassword
+                          ? 'assets/icons/eye-off.svg'
+                          : 'assets/icons/eye-on.svg',
+                    ),
                   ),
                 )
               : null,

@@ -14,7 +14,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   void skip() {
     setState(() {
-      currentIndex = 4;
+      currentIndex = 3;
     });
   }
 

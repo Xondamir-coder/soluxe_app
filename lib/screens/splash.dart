@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/screens/home.dart';
+import 'package:soluxe/screens/welcome.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,10 +16,26 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
   bool _splashVisible = true;
+  bool _isLoggedIn = false;
+
+  void _checkLogin() async {
+    final data = await LocalStorageHelper.getAccountData();
+    final isValid = data.token != null &&
+        data.user != null &&
+        data.user?.fullName != null &&
+        (data.user?.email != null || data.user?.phone != null);
+    if (isValid) {
+      setState(() {
+        _isLoggedIn = true;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    _checkLogin();
+
     // Create the controller for a 500ms animation.
     _controller = AnimationController(
       vsync: this,
@@ -45,7 +63,9 @@ class _SplashScreenState extends State<SplashScreen>
     return Stack(
       children: [
         // HomeScreen as the bottom layer.
-        const HomeScreen(),
+        if (_isLoggedIn) const HomeScreen(),
+        if (!_isLoggedIn) const WelcomeScreen(),
+
         // Only show the splash screen overlay if it's still visible.
         if (_splashVisible)
           Scaffold(
