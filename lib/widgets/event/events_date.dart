@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/providers/events_date_entries_provider.dart';
 import 'package:soluxe/providers/events_provider.dart';
 import 'package:soluxe/widgets/date_pickers/collapsed_date_picker.dart';
 import 'package:soluxe/widgets/date_pickers/expanded_date_picker.dart';
@@ -25,6 +26,7 @@ class _EventsDateState extends ConsumerState<EventsDate> {
   @override
   Widget build(BuildContext context) {
     final eventsDate = ref.watch(eventsDateProvider);
+    final eventsDateEntries = ref.watch(eventsDateEntriesProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return GestureDetector(
@@ -52,6 +54,7 @@ class _EventsDateState extends ConsumerState<EventsDate> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: ExpandedDatePicker(
                         key: const ValueKey('expanded'),
+                        dateEntries: eventsDateEntries,
                         date: eventsDate,
                         onDateChange: (value) {
                           ref.read(eventsDateProvider.notifier).state =

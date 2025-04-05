@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
@@ -7,14 +8,14 @@ import 'package:soluxe/models/place/tag.dart';
 import 'package:soluxe/widgets/buttons/grey_outlined_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
-import 'package:soluxe/widgets/date_pickers/expanded_date_picker.dart';
 import 'package:soluxe/widgets/drag_handle.dart';
+import 'package:soluxe/widgets/filter_sheet_date_picker.dart';
 import 'package:soluxe/widgets/price_range_slider.dart';
 import 'package:soluxe/widgets/tags_buttons.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class FilterSheet extends StatefulWidget {
+class FilterSheet extends ConsumerStatefulWidget {
   final Filters filters;
   final void Function(Map<String, dynamic>) onApplyFilters;
 
@@ -25,10 +26,10 @@ class FilterSheet extends StatefulWidget {
   });
 
   @override
-  State<FilterSheet> createState() => _FilterSheetState();
+  ConsumerState<FilterSheet> createState() => _FilterSheetState();
 }
 
-class _FilterSheetState extends State<FilterSheet> {
+class _FilterSheetState extends ConsumerState<FilterSheet> {
   Tag? selectedTag;
   String? selectedCity;
   var selectedPrice = const RangeValues(0, 2000);
@@ -123,14 +124,14 @@ class _FilterSheetState extends State<FilterSheet> {
                   });
                 },
               ),
-              ExpandedDatePicker(
-                  date: selectedDate,
-                  darkBlueBgColor: true,
-                  onDateChange: (val) {
-                    setState(() {
-                      selectedDate = DateTime.parse(val);
-                    });
-                  }),
+              FilterSheetDatePicker(
+                selectedDate: selectedDate,
+                onDateChange: (val) {
+                  setState(() {
+                    selectedDate = DateTime.parse(val);
+                  });
+                },
+              ),
               Row(
                 spacing: 16,
                 children: [

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:soluxe/widgets/date_pickers/expanded_date_picker.dart';
 import 'package:soluxe/widgets/drag_handle.dart';
+import 'package:soluxe/widgets/hotel/hotels_filter_date_picker.dart';
 import 'package:soluxe/widgets/hotel/hotels_filter_tags.dart';
 import 'package:soluxe/widgets/hotel/hotels_filter_buttons.dart';
 import 'package:soluxe/widgets/hotel/hotels_filter_rating.dart';
@@ -92,10 +92,9 @@ class _HotelsFilterSheetState extends ConsumerState<HotelsFilterSheet> {
             ),
             ValueListenableBuilder(
               valueListenable: selectedDate,
-              builder: (context, value, child) => ExpandedDatePicker(
-                darkBlueBgColor: true,
+              builder: (context, value, child) => HotelsFilterDatePicker(
                 onDateChange: (value) => selectedDate.value = value,
-                date: DateTime.parse(selectedDate.value),
+                selectedDate: DateTime.parse(selectedDate.value),
               ),
             ),
             HotelsFilterButtons(onApplyFilters: applyFilters),

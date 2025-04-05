@@ -25,9 +25,6 @@ class WelcomeLanguages extends ConsumerWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                    color: AppColors.adaptiveAccentBlueOrSoftWhite(isDark),
-                    width: 1),
               ),
               child: Material(
                 borderRadius: BorderRadius.circular(16),
@@ -39,14 +36,15 @@ class WelcomeLanguages extends ConsumerWidget {
                     highlightColor:
                         AppColors.accentYellow.withValues(alpha: 0.5),
                   ),
-                  child: RadioListTile(
-                    contentPadding:
-                        EdgeInsets.only(left: 16, right: 9, top: 9, bottom: 9),
-                    value: language.code,
-                    groupValue: code,
-                    dense: true,
-                    onChanged: (value) {
-                      ref.read(localeProvider.notifier).setLocale(value!);
+                  child: ListTile(
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 6,
+                      horizontal: 16,
+                    ),
+                    onTap: () {
+                      ref
+                          .read(localeProvider.notifier)
+                          .setLocale(language.code);
                       onTap();
                     },
                     title: Row(
@@ -60,14 +58,17 @@ class WelcomeLanguages extends ConsumerWidget {
                           style: GoogleFonts.instrumentSans(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
-                            color:
-                                AppColors.adaptiveAccentWhiteOrDeepBlue(isDark),
+                            color: AppColors.adaptiveBeigeOrDeepBlue(isDark),
                           ),
                         ),
                       ],
                     ),
-                    controlAffinity: ListTileControlAffinity.trailing,
-                    activeColor: AppColors.accentYellow,
+                    trailing: Radio<String>(
+                      value: language.code,
+                      groupValue: code,
+                      activeColor: AppColors.accentYellow,
+                      onChanged: (value) {},
+                    ),
                   ),
                 ),
               ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/place/place.dart';
+import 'package:soluxe/providers/currency_provider.dart';
 import 'package:soluxe/screens/hotel.dart';
 import 'package:soluxe/widgets/animations/scale_up_widget.dart';
 import 'package:soluxe/widgets/star_rating.dart';
@@ -10,15 +12,19 @@ import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HotelsItem extends StatelessWidget {
+class HotelsItem extends ConsumerWidget {
   final Place hotel;
   final int? delay;
 
   const HotelsItem({required this.hotel, this.delay, super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final currency = ref.read(currencyProvider);
+    final price = hotel.priceRate == null
+        ? 'Unknown'
+        : '\$ ${(hotel.priceRate! / currency).floorToDouble()}';
 
     return ScaleUpWidget.fade(
       beginScale: 0.85,
@@ -73,7 +79,7 @@ class HotelsItem extends StatelessWidget {
                             spacing: 2,
                             children: [
                               MyText(
-                                hotel.priceRate.toString(),
+                                price,
                                 fontSize: 12,
                                 color:
                                     AppColors.adaptiveLightBlueOrBlue(isDark),

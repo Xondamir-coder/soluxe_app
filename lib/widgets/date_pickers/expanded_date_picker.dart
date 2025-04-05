@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/models/date_entry.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -12,11 +13,13 @@ class ExpandedDatePicker extends StatefulWidget {
   final ValueChanged<String> onDateChange;
   final bool isMonthCentered;
   final bool darkBlueBgColor;
+  final List<DateEntry> dateEntries;
 
   const ExpandedDatePicker({
     super.key,
     required this.onDateChange,
     required this.date,
+    required this.dateEntries,
     this.isMonthCentered = false,
     this.darkBlueBgColor = false,
   });
@@ -77,6 +80,9 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
           DateTime day =
               DateTime(widget.date.year, widget.date.month, dayCounter);
           bool isSelected = day.day == widget.date.day;
+          final dateEntry = widget.dateEntries.isNotEmpty
+              ? widget.dateEntries[day.day - 1]
+              : null;
 
           weekRow.add(
             Expanded(
@@ -119,17 +125,18 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                               child: Text('${day.day}'),
                             ),
                             SizedBox(height: 4),
-                            AnimatedContainer(
-                              duration: const Duration(milliseconds: 300),
-                              width: 5,
-                              height: 5,
-                              decoration: BoxDecoration(
-                                color: isSelected
-                                    ? Colors.white
-                                    : AppColors.orange,
-                                shape: BoxShape.circle,
+                            if (dateEntry?.exists ?? false)
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                width: 5,
+                                height: 5,
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? Colors.white
+                                      : AppColors.orange,
+                                  shape: BoxShape.circle,
+                                ),
                               ),
-                            ),
                           ],
                         ),
                       ),

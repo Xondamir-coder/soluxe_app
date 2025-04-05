@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
+import 'package:soluxe/providers/currency_provider.dart';
 import 'package:soluxe/providers/locale_provider.dart';
 import 'package:soluxe/providers/theme_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -28,6 +29,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = ref.watch(themeProvider);
     final locale = ref.watch(localeProvider);
+    ref.read(currencyProvider);
 
     return MaterialApp(
       theme: kTheme,

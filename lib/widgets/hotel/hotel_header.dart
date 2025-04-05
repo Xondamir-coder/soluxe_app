@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class HotelHeader extends StatelessWidget {
   final List<Tag>? tags;
   final String? address;
-  final int? priceRate;
+  final String? priceRate;
   final double? reviewsAvgRating;
   final String? name;
 
@@ -43,7 +43,7 @@ class HotelHeader extends StatelessWidget {
             Row(
               children: [
                 MyText(
-                  priceRate?.toString() ?? 'Unknown',
+                  priceRate ?? 'Unknown',
                   color: AppColors.adaptiveLightBlueOrBlue(isDark),
                 ),
                 const SizedBox(width: 2),

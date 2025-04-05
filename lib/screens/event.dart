@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/event.dart';
+import 'package:soluxe/providers/currency_provider.dart';
 import 'package:soluxe/widgets/buttons/circular_back_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/content_row.dart';
@@ -13,13 +15,13 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class EventScreen extends StatelessWidget {
+class EventScreen extends ConsumerWidget {
   final Event event;
 
   const EventScreen({required this.event, super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final List<String> openingHours = [];
     final localeName = AppLocalizations.of(context)!.localeName;
@@ -34,6 +36,11 @@ class EventScreen extends StatelessWidget {
           '$weekday: ${workingHour.openingTime!.substring(0, 5)} - ${workingHour.closingTime!.substring(0, 5)}';
       openingHours.add(text);
     }
+
+    final currency = ref.read(currencyProvider);
+    final price = event.place?.priceRate == null
+        ? 'Unknown'
+        : '\$ ${(event.place!.priceRate! / currency).floorToDouble()}';
 
     final eventTime = localeName == 'zh'
         ? event.eventFormatted?.timeZh
@@ -204,8 +211,7 @@ class EventScreen extends StatelessWidget {
                     children: [
                       ContentRow(
                         title: AppLocalizations.of(context)!.averagePrice,
-                        text:
-                            '${event.place?.priceRate.toString() ?? 0} ${AppLocalizations.of(context)!.sum}',
+                        text: price,
                         iconPath: 'assets/icons/wallet.svg',
                       ),
                       if (event.place?.contactInfo != null &&

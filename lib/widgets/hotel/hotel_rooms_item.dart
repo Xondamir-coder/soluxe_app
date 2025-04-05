@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/place/inside.dart';
 import 'package:soluxe/models/place/place.dart';
+import 'package:soluxe/providers/currency_provider.dart';
 import 'package:soluxe/screens/hotel.dart';
 import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HotelRoomsItem extends StatelessWidget {
+class HotelRoomsItem extends ConsumerWidget {
   final dynamic room; // room can be either an Inside or a Place
 
   const HotelRoomsItem({required this.room, super.key});
@@ -35,8 +37,6 @@ class HotelRoomsItem extends StatelessWidget {
   String get roomNameEn => room.nameEn ?? 'Unknown';
   String get roomNameZh => room.nameZh ?? 'Unknown';
 
-  num get priceRate => room.priceRate ?? 0;
-
   double get reviewsAvgRating {
     // Note: reviewsAvgRating in Place is a double,
     // in Inside it's defined as a String in your model, so convert it.
@@ -50,9 +50,13 @@ class HotelRoomsItem extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final localeName = AppLocalizations.of(context)!.localeName;
+    final currency = ref.read(currencyProvider);
+    final price = room.priceRate == null
+        ? 'Unknown'
+        : '\$ ${(room.priceRate! / currency).floorToDouble()}';
 
     return Material(
       borderRadius: BorderRadius.circular(16),
@@ -109,7 +113,7 @@ class HotelRoomsItem extends StatelessWidget {
                           spacing: 2,
                           children: [
                             MyText(
-                              priceRate.toString(),
+                              price,
                               fontSize: 12,
                               color: AppColors.adaptiveLightBlueOrBlue(isDark),
                               fontWeight: FontWeight.w700,

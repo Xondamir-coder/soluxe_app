@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
-import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/success.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
@@ -10,7 +9,9 @@ import 'package:soluxe/widgets/my_dialog.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResetPasswordForm extends ConsumerStatefulWidget {
-  const ResetPasswordForm({super.key});
+   final String email;
+
+  const ResetPasswordForm({super.key, required this.email});
 
   @override
   ConsumerState<ResetPasswordForm> createState() => _ResetPasswordFormState();
@@ -31,7 +32,7 @@ class _ResetPasswordFormState extends ConsumerState<ResetPasswordForm> {
         url: 'confirm-forget-password',
         method: HttpMethod.post,
         reqBody: {
-          'email': ref.read(accountProvider).user!.email!,
+          'email': widget.email,
           'email_verified_code': _emailCode,
           'password': _newPassword,
         },

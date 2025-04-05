@@ -64,7 +64,7 @@
 	"@profile": {
 		"description": "Label for the user profile section where personal information and settings can be viewed or edited"
 	},
-	"night": "Night",
+	"night": "night",
 	"@night": {
 		"description": "Label used to denote events or venues operating during the nighttime"
 	},
@@ -352,7 +352,7 @@
 	"@decline": {
 		"description": "Button label for rejecting terms, conditions, or prompts"
 	},
-	"home": "home",
+	"home": "Home",
 	"@home": {
 		"description": "Label for the home or main page of an app or website"
 	},

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
-import 'package:soluxe/models/user.dart';
-import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/verification.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/inputs/input_field.dart';
@@ -28,15 +26,12 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
     try {
       await FetchHelper.sendCode(true, _email!);
 
-      // Update state/storage
-      final accountNotifier = ref.read(accountProvider.notifier);
-      accountNotifier.updateAccount(user: User(email: _email));
-
       if (!mounted) return;
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => VerificationScreen(
             isEmail: true,
+            login: _email!,
             successMessage:
                 AppLocalizations.of(context)!.successfullyConfirmedEmail,
           ),

@@ -49,21 +49,13 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       // Send code to email/phone
       await FetchHelper.sendCode(widget.isEmail, _login!);
 
-      // Update state/storage
-      final accountNotifier = ref.read(accountProvider.notifier);
-      accountNotifier.updateAccount(
-        user: User(
-          email: widget.isEmail ? _login : null,
-          phone: widget.isEmail ? null : _login,
-        ),
-      );
-
       // Verify email/phone
       if (!mounted) return;
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => VerificationScreen(
             isEmail: widget.isEmail,
+            login: _login!,
             successMessage: AppLocalizations.of(context)!.successfullyLoggedIn,
           ),
         ),

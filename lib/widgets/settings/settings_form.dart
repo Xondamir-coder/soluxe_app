@@ -59,6 +59,7 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
         MaterialPageRoute(
           builder: (ctx) => VerificationScreen(
             isEmail: isEmail,
+            login: isEmail ? _email : _phoneNumber,
             successMessage: msg,
           ),
         ),

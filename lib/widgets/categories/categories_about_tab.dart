@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/place/place.dart';
+import 'package:soluxe/providers/currency_provider.dart';
 import 'package:soluxe/widgets/content_row.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CategoriesAboutTab extends StatelessWidget {
+class CategoriesAboutTab extends ConsumerWidget {
   final Place place;
 
   const CategoriesAboutTab({super.key, required this.place});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currency = ref.read(currencyProvider);
     final List<String> openingHours = [];
 
     for (var i = 0; i < place.workingHours!.length; i++) {
@@ -24,6 +27,9 @@ class CategoriesAboutTab extends StatelessWidget {
       openingHours.add(text);
     }
 
+    final price = place.priceRate == null
+        ? 'Unknown'
+        : '\$ ${(place.priceRate! / currency).floorToDouble()}';
     return Column(
       spacing: 16,
       children: [
@@ -34,8 +40,7 @@ class CategoriesAboutTab extends StatelessWidget {
           iconPath: 'assets/icons/grey-kitchen.svg',
         ),
         ContentRow(
-          text:
-              '${place.priceRate?.toString() ?? 0} ${AppLocalizations.of(context)!.sum}',
+          text: price,
           title: AppLocalizations.of(context)!.averagePrice,
           iconPath: 'assets/icons/wallet.svg',
         ),

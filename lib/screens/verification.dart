@@ -19,11 +19,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class VerificationScreen extends ConsumerWidget {
   final bool isEmail;
   final String successMessage;
+  final String login;
   final List<String> otpValues = [];
 
   VerificationScreen({
     super.key,
     required this.isEmail,
+    required this.login,
     required this.successMessage,
   });
 
@@ -37,7 +39,7 @@ class VerificationScreen extends ConsumerWidget {
     try {
       await FetchHelper.sendCode(
         isEmail,
-        isEmail ? account.user!.email! : account.user!.phone!,
+        login,
       );
 
       // Show success message
@@ -67,7 +69,7 @@ class VerificationScreen extends ConsumerWidget {
     try {
       final body = await FetchHelper.verifyCode(
         isEmail,
-        isEmail ? account.user!.email! : account.user!.phone!,
+        login,
         otpValues.join(''),
       );
 
@@ -161,7 +163,7 @@ class VerificationScreen extends ConsumerWidget {
                         animationDelay: 200,
                       ),
                       MyText.deepBlue(
-                        isEmail ? account.user!.email! : account.user!.phone!,
+                        login,
                         animationDelay: 300,
                         beginOffset: Offset(0, 1.5),
                       ),

@@ -4,6 +4,7 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/place/hotel.dart';
+import 'package:soluxe/providers/currency_provider.dart';
 import 'package:soluxe/providers/hotels_provider.dart';
 import 'package:soluxe/screens/hotels.dart';
 import 'package:soluxe/screens/reviews.dart';
@@ -32,6 +33,7 @@ class HotelScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final currency = ref.read(currencyProvider);
     final localeName = AppLocalizations.of(context)!.localeName;
 
     return Scaffold(
@@ -48,6 +50,10 @@ class HotelScreen extends ConsumerWidget {
             if (snapshot.connectionState == ConnectionState.done &&
                 snapshot.hasData) {
               final hotel = Hotel.fromMap(snapshot.data!);
+
+              final price = hotel.place?.priceRate == null
+                  ? 'Unknown'
+                  : '\$ ${(hotel.place!.priceRate! / currency).floorToDouble()}';
 
               return SingleChildScrollView(
                 child: Column(
@@ -66,7 +72,7 @@ class HotelScreen extends ConsumerWidget {
                                 : hotel.place?.nameZh,
                             tags: hotel.place?.uniqueTags,
                             address: hotel.place?.address,
-                            priceRate: hotel.place?.priceRate,
+                            priceRate: price,
                             reviewsAvgRating: hotel.reviewsAvgRating,
                           ),
                           Align(

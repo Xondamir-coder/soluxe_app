@@ -33,6 +33,9 @@ class AppColors {
   static Color adaptiveTransparentOrLightGrey(bool isDark) =>
       isDark ? Colors.transparent : AppColors.lightGrey;
 
+  static Color adaptiveBeigeOrDeepBlue(bool isDark) =>
+      isDark ? AppColors.beige : AppColors.deepBlue;
+
   static Color adaptiveLightYellowOrDarkYellow(bool isDark) =>
       isDark ? AppColors.lightYellow : AppColors.darkYellow;
 
