@@ -33,6 +33,13 @@ class _HotelsFilterSheetState extends ConsumerState<HotelsFilterSheet> {
       ValueNotifier<String>(DateFormat('yyyy-MM-dd').format(DateTime.now()));
   var selectedPrice = ValueNotifier<RangeValues>(RangeValues(50, 400));
 
+  @override
+  void dispose() {
+    selectedDate.dispose();
+    selectedPrice.dispose();
+    super.dispose();
+  }
+
   void applyFilters() {
     final params = {
       'tag': _selectedTagId.toString(),

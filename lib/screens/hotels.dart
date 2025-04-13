@@ -40,6 +40,12 @@ class _HotelsScreenState extends State<HotelsScreen> {
   }
 
   @override
+  void dispose() {
+    _params.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 

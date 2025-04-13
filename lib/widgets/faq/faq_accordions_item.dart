@@ -16,9 +16,11 @@ class FaqAccordionsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final locale = AppLocalizations.of(context)!.localeName;
     return ExpansionTile(
       title: MyText(
-        faqQuestion.question,
+        (locale == 'en' ? faqQuestion.titleEn : faqQuestion.titleZh) ??
+            'Unknown',
         fontWeight: FontWeight.w700,
         color: AppColors.adaptiveAccentWhiteOrVeryDarkBrown(isDark),
       ),
@@ -33,11 +35,12 @@ class FaqAccordionsItem extends StatelessWidget {
       iconColor: Color.fromRGBO(157, 120, 47, 1),
       backgroundColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
       collapsedBackgroundColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
-      children: <Widget>[
+      children: [
         Padding(
           padding: const EdgeInsets.only(left: 16),
           child: MyText(
-            faqQuestion.answer,
+            (locale == 'en' ? faqQuestion.bodyEn : faqQuestion.bodyZh) ??
+                'Unknown',
             color: AppColors.adaptiveGreyOrDarkGrey(isDark),
           ),
         ),

@@ -17,6 +17,12 @@ class _HotelsFilterRatingState extends State<HotelsFilterRating> {
   final _selectedRatingNotifier = ValueNotifier<int>(5);
 
   @override
+  void dispose() {
+    _selectedRatingNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return SingleChildScrollView(

@@ -31,6 +31,12 @@ class _HotelsFilterTypeState extends ConsumerState<HotelsFilterType> {
   }
 
   @override
+  void dispose() {
+    _selectedTypeNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
