@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/account.dart';
 import 'package:soluxe/providers/account_provider.dart';
 import 'package:soluxe/screens/faq/faq.dart';
@@ -10,6 +11,7 @@ import 'package:soluxe/screens/languages.dart';
 import 'package:soluxe/screens/personal_info.dart';
 import 'package:soluxe/screens/privacy_policy.dart';
 import 'package:soluxe/screens/push_notifications.dart';
+import 'package:soluxe/screens/welcome.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/settings/settings_tile.dart';
@@ -182,6 +184,20 @@ class SettingsScreen extends ConsumerWidget {
                         ],
                       ),
                     ],
+                  ),
+                  SettingsTile(
+                    text: AppLocalizations.of(context)!.logout,
+                    iconSrc: 'assets/icons/logout.svg',
+                    isLogout: true,
+                    onTap: () {
+                      ref.read(accountProvider.notifier).clearAccount();
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (ctx) => const WelcomeScreen(),
+                        ),
+                        (route) => false,
+                      );
+                    },
                   ),
                 ],
               )

@@ -8,6 +8,7 @@ import 'package:soluxe/widgets/typography/my_text.dart';
 class SettingsTile extends StatelessWidget {
   final String text;
   final String iconSrc;
+  final bool? isLogout;
   final void Function() onTap;
 
   const SettingsTile({
@@ -15,6 +16,7 @@ class SettingsTile extends StatelessWidget {
     required this.text,
     required this.iconSrc,
     required this.onTap,
+    this.isLogout,
   });
 
   @override
@@ -34,24 +36,32 @@ class SettingsTile extends StatelessWidget {
         height: 24,
         width: 24,
         colorFilter: ColorFilter.mode(
-          AppColors.grey,
+          isLogout != null ? Colors.red : AppColors.grey,
           BlendMode.srcIn,
         ),
       ),
       title: Padding(
         padding: const EdgeInsets.only(left: 10),
-        child: MyText.deepBlue(text),
-      ),
-      tileColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
-      trailing: SvgPicture.asset(
-        'assets/icons/arrow-right.svg',
-        width: 24,
-        height: 24,
-        colorFilter: ColorFilter.mode(
-          AppColors.grey,
-          BlendMode.srcIn,
+        child: MyText(
+          text,
+          fontWeight: FontWeight.w700,
+          color: isLogout != null
+              ? Colors.red
+              : AppColors.adaptiveAlmostWhiteOrDeepBlue(isDark),
         ),
       ),
+      tileColor: AppColors.adaptiveDarkBlueOrWhite(isDark),
+      trailing: isLogout != null
+          ? null
+          : SvgPicture.asset(
+              'assets/icons/arrow-right.svg',
+              width: 24,
+              height: 24,
+              colorFilter: ColorFilter.mode(
+                AppColors.grey,
+                BlendMode.srcIn,
+              ),
+            ),
     );
   }
 }

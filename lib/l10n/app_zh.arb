@@ -563,5 +563,9 @@
 	"userReviews": "用户评论",
 	"@userReviews": {
 		"description": "用于显示用户评论的标签"
+	},
+	"logout": "退出",
+	"@logout": {
+		"description": "用于退出应用程序的按钮标签"
 	}
 }

@@ -24,6 +24,11 @@ class AccountNotifier extends StateNotifier<Account> {
       user: state.user ?? User(),
     );
   }
+
+  void clearAccount() async {
+    state = Account(token: '', user: User());
+    await LocalStorageHelper.deleteAccountData();
+  }
 }
 
 final accountProvider = StateNotifierProvider<AccountNotifier, Account>(

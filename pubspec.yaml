@@ -128,6 +128,7 @@ flutter:
         - assets/icons/email.svg
         - assets/icons/home.svg
         - assets/icons/lock.svg
+        - assets/icons/logout.svg
         - assets/icons/eye-off.svg
         - assets/icons/eye-on.svg
         - assets/icons/x.svg

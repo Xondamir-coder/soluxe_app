@@ -563,5 +563,9 @@
 	"userReviews": "User Reviews",
 	"@userReviews": {
 		"description": "Label for a section containing user reviews or feedback"
+	},
+	"logout": "Logout",
+	"@logout": {
+		"description": "Button label for logging out of the app"
 	}
 }
