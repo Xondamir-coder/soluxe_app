@@ -74,7 +74,7 @@ class _HotelsFilterTypeState extends ConsumerState<HotelsFilterType> {
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: type == _selectedTypeNotifier.value
-                                ? AppColors.accentYellow
+                                ? AppColors.primary
                                 : AppColors.adaptivAccentBlueOrLightGrey(
                                     isDark),
                             width: 1,
@@ -87,7 +87,13 @@ class _HotelsFilterTypeState extends ConsumerState<HotelsFilterType> {
                             AnimatedSwitcher(
                               duration: const Duration(milliseconds: 300),
                               child: type == _selectedTypeNotifier.value
-                                  ? SvgPicture.asset('assets/icons/check.svg')
+                                  ? SvgPicture.asset(
+                                      'assets/icons/check.svg',
+                                      colorFilter: ColorFilter.mode(
+                                        AppColors.primary,
+                                        BlendMode.srcIn,
+                                      ),
+                                    )
                                   : Container(
                                       width: 4,
                                       height: 4,
@@ -110,7 +116,7 @@ class _HotelsFilterTypeState extends ConsumerState<HotelsFilterType> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: type == _selectedTypeNotifier.value
-                                    ? AppColors.accentYellow
+                                    ? AppColors.primary
                                     : AppColors.adaptiveAlmostWhiteOrDeepBlue(
                                         isDark),
                               ),

@@ -21,8 +21,8 @@ class PriceRangeSlider extends StatelessWidget {
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
             // Track colors
-            activeTrackColor: AppColors.accentYellow,
-            inactiveTrackColor: AppColors.beige,
+            activeTrackColor: AppColors.primary,
+            inactiveTrackColor: AppColors.veryLightPrimary,
             trackHeight: 4,
 
             // Hide tick marks if you don't want them

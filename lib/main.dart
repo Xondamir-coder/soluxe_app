@@ -15,7 +15,7 @@ void main() {
 
 final kTheme = ThemeData.light().copyWith(
   textTheme: GoogleFonts.instrumentSansTextTheme(),
-  scaffoldBackgroundColor: AppColors.creamWhite,
+  scaffoldBackgroundColor: AppColors.creamPrimary,
 );
 final kDarkTheme = ThemeData.dark().copyWith(
   textTheme: GoogleFonts.instrumentSansTextTheme(),

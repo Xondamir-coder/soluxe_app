@@ -107,7 +107,7 @@ class InputField extends StatelessWidget {
           filled: true,
           fillColor: AppColors.adaptiveDarkBlueOrWhite(
               isDark), // Light background color
-          focusedBorder: _buildInputBorder(AppColors.accentYellow),
+          focusedBorder: _buildInputBorder(AppColors.primary),
           errorBorder: _buildInputBorder(Colors.red),
           border: _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
           enabledBorder:

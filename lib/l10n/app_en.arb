@@ -444,7 +444,7 @@
 	"@continueWithPhone": {
 		"description": "Button label for continuing with a phone number"
 	},
-	"continueWithEmail": "Continue with email",
+	"continueWithEmail": "Continue with Email",
 	"@continueWithEmail": {
 		"description": "Button label for continuing with a email number"
 	},

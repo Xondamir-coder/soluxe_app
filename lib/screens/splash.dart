@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
     _scaleAnimation = Tween<double>(begin: 1.0, end: 1.2).animate(_controller);
 
     // Start the animation after a 2-second delay.
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       _controller.forward().then((_) {
         setState(() {
           _splashVisible = false; // Remove the splash overlay.
@@ -94,7 +94,12 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                   ),
                   Center(
-                    child: Image.asset('assets/images/logo.png', width: 173),
+                    child: FractionallySizedBox(
+                      widthFactor: .65,
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                      ),
+                    ),
                   ),
                 ],
               ),

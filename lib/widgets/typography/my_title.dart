@@ -9,6 +9,7 @@ class MyTitle extends StatelessWidget {
   final double fontSize;
   final double height;
   final double letterSpacing;
+  final Color? color;
 
   const MyTitle(
     this.title, {
@@ -16,6 +17,7 @@ class MyTitle extends StatelessWidget {
     this.fontWeight = FontWeight.w700,
     this.height = 1.5,
     this.letterSpacing = -0.2,
+    this.color,
     super.key,
   });
 
@@ -30,7 +32,8 @@ class MyTitle extends StatelessWidget {
           fontSize: fontSize,
           fontWeight: fontWeight,
           height: height,
-          color: isDark ? AppColors.beige : AppColors.darkBrown,
+          color: color ??
+              (isDark ? AppColors.lightPrimary : AppColors.darkPrimary),
           letterSpacing: letterSpacing,
         ),
       ),

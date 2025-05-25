@@ -34,7 +34,7 @@ class TagsButtons extends StatelessWidget {
           final tag = tags[index];
           bool isSelected = tag.id == selectedTag.id;
           final backColor = isSelected
-              ? AppColors.accentYellow
+              ? AppColors.primary
               : bgColor ?? AppColors.adaptiveDarkBlueOrWhite(isDark);
           final textColor = isSelected
               ? Colors.white

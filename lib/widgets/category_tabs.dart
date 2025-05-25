@@ -34,7 +34,7 @@ class CategoryTabs extends StatelessWidget {
           final String category = categories[index];
           bool isSelected = category == selectedCategory;
           final backColor = isSelected
-              ? AppColors.accentYellow
+              ? AppColors.primary
               : bgColor ?? AppColors.adaptiveDarkBlueOrWhite(isDark);
           final textColor = isSelected
               ? Colors.white
@@ -53,7 +53,7 @@ class CategoryTabs extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 11, horizontal: 10),
                   decoration: BoxDecoration(
                     color: backColor,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
                         color: Color.fromRGBO(107, 114, 128, 0.04),

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/models/faq/faq_question.dart';
 import 'package:soluxe/widgets/faq/faq_accordions_item.dart';
 import 'package:soluxe/widgets/animations/slide_in_widget.dart';
-import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/widgets/not_found.dart';
 
 class FaqAccordions extends StatelessWidget {
   final List<FaqQuestion> questions;
@@ -27,9 +26,6 @@ class FaqAccordions extends StatelessWidget {
             separatorBuilder: (ctx, index) => const SizedBox(height: 12),
             itemCount: questions.length,
           )
-        : MyText.deepBlue(
-            AppLocalizations.of(context)!.noResultsFound,
-            fontSize: 18,
-          );
+        : NotFound();
   }
 }

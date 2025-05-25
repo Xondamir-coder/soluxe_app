@@ -167,16 +167,19 @@ class _CategoriesContentState extends State<CategoriesContent> {
                       spacing: 13.5,
                       children: [
                         MyText(
-                          capitalize(chineseTabName(tab.name)),
+                          capitalize(
+                              AppLocalizations.of(context)?.localeName == 'zh'
+                                  ? chineseTabName(tab.name)
+                                  : tab.name),
                           fontWeight: FontWeight.w700,
                           color: _selectedTab == tab
-                              ? AppColors.accentYellow
+                              ? AppColors.primary
                               : AppColors.grey,
                         ),
                         Container(
                           height: _selectedTab == tab ? 3 : 1,
                           color: _selectedTab == tab
-                              ? AppColors.accentYellow
+                              ? AppColors.primary
                               : isDark
                                   ? AppColors.darkBlue
                                   : Color.fromRGBO(229, 231, 235, 1),

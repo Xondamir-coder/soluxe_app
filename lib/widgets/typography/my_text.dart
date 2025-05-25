@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/animations/slide_in_widget.dart';
 
-enum MyTextVariant { warmBrown, deepBlue, grey, flexible }
+enum MyTextVariant { warmPrimary, deepBlue, grey, flexible }
 
 class MyText extends StatelessWidget {
   final String text;
@@ -22,7 +22,7 @@ class MyText extends StatelessWidget {
     this.fontSize = 14,
     this.fontWeight = FontWeight.w500,
     this.height = 1.5,
-    this.color = AppColors.warmBrown,
+    this.color = AppColors.warmPrimary,
     this.textAlign = TextAlign.start,
     this.animationDelay,
     this.beginOffset,
@@ -30,18 +30,18 @@ class MyText extends StatelessWidget {
     super.key,
   }) : variant = MyTextVariant.flexible;
 
-  const MyText.warmBrown(
+  const MyText.warmPrimary(
     this.text, {
     this.fontSize = 14,
     this.fontWeight = FontWeight.w500,
     this.height = 1.5,
-    this.color = AppColors.warmBrown,
+    this.color = AppColors.warmPrimary,
     this.textAlign = TextAlign.start,
     this.animationDelay,
     this.beginOffset,
     this.softWrap,
     super.key,
-  }) : variant = MyTextVariant.warmBrown;
+  }) : variant = MyTextVariant.warmPrimary;
 
   const MyText.deepBlue(
     this.text, {
@@ -77,8 +77,8 @@ class MyText extends StatelessWidget {
         return isDark ? AppColors.almostWhite : AppColors.deepBlue;
       case MyTextVariant.grey:
         return AppColors.adaptiveDarkGreyOrGrey(isDark);
-      case MyTextVariant.warmBrown:
-        return AppColors.adaptiveDarkBeigeOrWarmBrown(isDark);
+      case MyTextVariant.warmPrimary:
+        return AppColors.adaptiveAlmostWhiteOrWarmPrimary(isDark);
       case MyTextVariant.flexible:
         return color!;
     }

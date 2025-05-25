@@ -26,8 +26,8 @@ class MyBottomNavbarItem extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        splashColor: AppColors.accentYellow.withValues(alpha: 0.2),
-        highlightColor: AppColors.accentYellow.withValues(alpha: 0.1),
+        splashColor: AppColors.primary.withValues(alpha: 0.2),
+        highlightColor: AppColors.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(10),
         child: Padding(
           padding: const EdgeInsets.all(4),
@@ -39,9 +39,7 @@ class MyBottomNavbarItem extends StatelessWidget {
               TweenAnimationBuilder<Color?>(
                 tween: ColorTween(
                   begin: color, // Default color
-                  end: isActive
-                      ? AppColors.accentYellow
-                      : color, // Animated color
+                  end: isActive ? AppColors.primary : color, // Animated color
                 ),
                 duration: const Duration(milliseconds: 300),
                 builder: (context, color, child) {
@@ -57,7 +55,7 @@ class MyBottomNavbarItem extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 style: GoogleFonts.instrumentSans(
                   fontSize: 12,
-                  color: isActive ? AppColors.accentYellow : color,
+                  color: isActive ? AppColors.primary : color,
                   fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
                 ),
                 child: Text(text),

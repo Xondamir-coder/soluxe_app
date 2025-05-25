@@ -38,7 +38,7 @@ class AsyncWidget<T> extends StatelessWidget {
           }
           // Otherwise, show a default error message.
           return Center(
-            child: MyText.warmBrown(
+            child: MyText.warmPrimary(
               AppLocalizations.of(context)!.errorOccurred,
               fontSize: 18,
             ),

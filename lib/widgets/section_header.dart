@@ -40,8 +40,8 @@ class SectionHeader extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             borderRadius: BorderRadius.circular(5),
-            splashColor: AppColors.warmBrown.withValues(alpha: .15),
-            highlightColor: AppColors.warmBrown.withValues(alpha: .1),
+            splashColor: AppColors.warmPrimary.withValues(alpha: .15),
+            highlightColor: AppColors.warmPrimary.withValues(alpha: .1),
             child: Padding(
               padding: const EdgeInsets.all(3),
               child: Row(
@@ -49,9 +49,13 @@ class SectionHeader extends StatelessWidget {
                 children: [
                   MyText(
                     AppLocalizations.of(context)!.seeAll,
-                    color: AppColors.accentYellow,
+                    color: AppColors.primary,
                   ),
-                  SvgPicture.asset('assets/icons/arrow-right.svg'),
+                  SvgPicture.asset(
+                    'assets/icons/arrow-right.svg',
+                    colorFilter:
+                        ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
+                  ),
                 ],
               ),
             ),

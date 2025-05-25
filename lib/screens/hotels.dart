@@ -89,12 +89,12 @@ class _HotelsScreenState extends State<HotelsScreen> {
                   );
                 } else {
                   return Center(
-                    child: MyText.warmBrown('No hotels found', fontSize: 20),
+                    child: MyText.warmPrimary('No hotels found', fontSize: 20),
                   );
                 }
               } else {
                 return Center(
-                  child: MyText.warmBrown(
+                  child: MyText.warmPrimary(
                     snapshot.error.toString(),
                     fontSize: 20,
                   ),

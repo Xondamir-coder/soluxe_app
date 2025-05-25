@@ -19,7 +19,7 @@ class HotelTags extends StatelessWidget {
         itemBuilder: (ctx, index) => Container(
           padding: EdgeInsets.symmetric(horizontal: 11.5),
           decoration: BoxDecoration(
-            color: AppColors.accentYellow,
+            color: AppColors.primary,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(

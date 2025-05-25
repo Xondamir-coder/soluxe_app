@@ -32,9 +32,8 @@ class WelcomeLanguages extends ConsumerWidget {
                 clipBehavior: Clip.hardEdge,
                 child: Theme(
                   data: Theme.of(context).copyWith(
-                    splashColor: AppColors.accentYellow.withValues(alpha: 0.75),
-                    highlightColor:
-                        AppColors.accentYellow.withValues(alpha: 0.5),
+                    splashColor: AppColors.primary.withValues(alpha: 0.75),
+                    highlightColor: AppColors.primary.withValues(alpha: 0.5),
                   ),
                   child: ListTile(
                     contentPadding: EdgeInsets.symmetric(
@@ -66,7 +65,7 @@ class WelcomeLanguages extends ConsumerWidget {
                     trailing: Radio<String>(
                       value: language.code,
                       groupValue: code,
-                      activeColor: AppColors.accentYellow,
+                      activeColor: AppColors.primary,
                       onChanged: (value) {},
                     ),
                   ),

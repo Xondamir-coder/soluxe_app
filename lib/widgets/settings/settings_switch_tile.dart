@@ -23,7 +23,7 @@ class SettingsSwitchTile extends ConsumerWidget {
       ),
       thumbColor: WidgetStateProperty.all(Colors.white),
       inactiveTrackColor: Color.fromRGBO(229, 231, 235, 1),
-      activeTrackColor: AppColors.adaptiveDarkerGreyOrAccentYellow(isDark),
+      activeTrackColor: AppColors.adaptiveDarkerGreyOrPrimary(isDark),
       secondary: SvgPicture.asset(
         'assets/icons/moon.svg',
         width: 24,

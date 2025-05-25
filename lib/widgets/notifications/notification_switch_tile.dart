@@ -31,7 +31,7 @@ class NotificationSwitchTile extends StatelessWidget {
       trackOutlineColor: WidgetStatePropertyAll(Colors.transparent),
       inactiveTrackColor:
           isDark ? AppColors.grey : Color.fromRGBO(229, 231, 235, 1),
-      activeTrackColor: AppColors.adaptiveDarkerGreyOrAccentYellow(isDark),
+      activeTrackColor: AppColors.adaptiveDarkerGreyOrPrimary(isDark),
       secondary: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(

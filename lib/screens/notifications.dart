@@ -20,7 +20,7 @@ class NotificationsScreen extends StatelessWidget {
         iconPath: 'assets/icons/double-check.svg',
         onTap: _markAllAsRead,
       ),
-      body: notifications.isNotEmpty
+      body: notifications.isEmpty
           ? ListView.builder(
               itemCount: notifications.length,
               itemBuilder: (context, index) => NotificationsCard(

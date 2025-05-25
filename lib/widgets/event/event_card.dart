@@ -101,6 +101,7 @@ class EventCard extends StatelessWidget {
                     ),
                     child: Column(
                       spacing: 8,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyText(
                           (localeName == 'en'

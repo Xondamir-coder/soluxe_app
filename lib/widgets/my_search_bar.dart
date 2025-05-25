@@ -120,7 +120,7 @@ class _MySearchBarState extends State<MySearchBar> {
           border: _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
           enabledBorder:
               _buildInputBorder(AppColors.adaptiveDarkBlueOrWhite(isDark)),
-          focusedBorder: _buildInputBorder(AppColors.accentYellow),
+          focusedBorder: _buildInputBorder(AppColors.primary),
         ),
       ),
     );

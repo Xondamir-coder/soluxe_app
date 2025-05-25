@@ -56,10 +56,6 @@ class WelcomeLast extends ConsumerWidget {
             spacing: 12,
             children: [
               YellowButton(
-                AppLocalizations.of(context)!.continueWithPhone,
-                onTap: () => _goLoginForm(context),
-              ),
-              YellowButton(
                 AppLocalizations.of(context)!.continueWithEmail,
                 onTap: () => _goLoginForm(context, isEmail: true),
               ),
@@ -83,17 +79,17 @@ class WelcomeLast extends ConsumerWidget {
             Text(
               AppLocalizations.of(context)!.dontHaveAnAccount,
               style: GoogleFonts.instrumentSans(
-                fontSize: 14,
+                fontSize: 18,
                 fontWeight: FontWeight.w500,
-                color: AppColors.adaptiveWhiteOrDeepBlue(isDark),
+                color: AppColors.adaptiveWhiteOrDarkPrimary(isDark),
               ),
             ),
             TextButton(
               onPressed: () => _goRegisterForm(context),
               style: TextButton.styleFrom(
-                foregroundColor: AppColors.accentYellow,
+                foregroundColor: AppColors.primary,
                 textStyle: GoogleFonts.instrumentSans(
-                  fontSize: 14,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                 ),
               ),

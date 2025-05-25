@@ -92,7 +92,7 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                   duration: const Duration(milliseconds: 300),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? AppColors.accentYellow
+                        ? AppColors.primary
                         : widget.darkBlueBgColor
                             ? AppColors.adaptiveDarkBlueOrAlmostWhite(isDark)
                             : AppColors.adaptiveDeepBlueOrAlmostWhite(isDark),
@@ -103,10 +103,8 @@ class _ExpandedDatePickerState extends State<ExpandedDatePicker> {
                     child: InkWell(
                       onTap: () => _selectDate(day),
                       borderRadius: BorderRadius.circular(8),
-                      splashColor:
-                          AppColors.accentYellow.withValues(alpha: 0.2),
-                      highlightColor:
-                          AppColors.accentYellow.withValues(alpha: 0.1),
+                      splashColor: AppColors.primary.withValues(alpha: 0.2),
+                      highlightColor: AppColors.primary.withValues(alpha: 0.1),
                       child: Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 8),

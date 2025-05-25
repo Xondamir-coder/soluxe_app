@@ -31,7 +31,7 @@ class HotelHeader extends StatelessWidget {
       children: [
         MyText(
           name ?? 'Unknown',
-          color: AppColors.adaptiveAccentWhiteOrDarkBrown(isDark),
+          color: AppColors.adaptiveAccentWhiteOrDarkPrimary(isDark),
           fontSize: 20,
           fontWeight: FontWeight.w700,
         ),

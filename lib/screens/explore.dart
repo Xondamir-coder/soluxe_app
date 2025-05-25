@@ -13,6 +13,7 @@ import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/filter_sheet.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
+import 'package:soluxe/widgets/not_found.dart';
 import 'package:soluxe/widgets/tile/my_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -141,18 +142,17 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 16,
                   children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: MyText.deepBlue(
-                        AppLocalizations.of(context)!.popularSearches,
-                        fontSize: 16,
+                    if (!_isLoading && items.isNotEmpty)
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: MyText.deepBlue(
+                          AppLocalizations.of(context)!.popularSearches,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
                     if (_isLoading && items.isEmpty)
                       Center(child: CircularProgressIndicator.adaptive()),
-                    if (!_isLoading && items.isEmpty)
-                      MyText.warmBrown(
-                          AppLocalizations.of(context)!.noResultsFound),
+                    if (!_isLoading && items.isEmpty) NotFound(topPadding: 10),
                     if (items.isNotEmpty)
                       for (final place in items) MyTile(place: place),
                   ],

@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Colors
-  static const Color accentWhite = Color.fromRGBO(209, 213, 219, 1);
-  static const Color creamWhite = Color.fromRGBO(248, 246, 243, 1);
-  static const Color darkBrown = Color.fromRGBO(39, 30, 12, 1);
+  static const Color primary = Color.fromRGBO(1, 167, 244, 1);
+  static const Color creamPrimary = Color.fromRGBO(234, 238, 242, 1);
+  static const Color warmPrimary = Color.fromRGBO(1, 104, 152, 1);
+  static const Color lightPrimary = Color.fromRGBO(153, 223, 255, 1);
+  static const Color veryLightPrimary = Color.fromRGBO(230, 247, 255, 1);
+  static const Color darkPrimary = Color.fromRGBO(0, 35, 51, 1);
   static const Color warmBrown = Color.fromRGBO(118, 90, 35, 1);
+  static const Color darkBrown = Color.fromRGBO(39, 30, 12, 1);
+  static const Color accentWhite = Color.fromRGBO(209, 213, 219, 1);
+  static const Color creamWhite = Color.fromRGBO(246, 247, 254, 1);
   static const Color accentYellow = Color.fromRGBO(208, 171, 98, 1);
   static const Color yellow = Color.fromRGBO(255, 199, 0, 1);
   static const Color lightYellow = Color.fromRGBO(220, 192, 137, 1);
@@ -45,6 +51,9 @@ class AppColors {
 
   static Color adaptiveDarkBeigeOrWarmBrown(bool isDark) =>
       isDark ? AppColors.darkBeige : AppColors.warmBrown;
+
+  static Color adaptivePrimaryOrWarmPrimary(bool isDark) =>
+      isDark ? AppColors.primary : AppColors.warmPrimary;
 
   static Color adaptiveBeigeOrDarkBrown(bool isDark) =>
       isDark ? AppColors.beige : AppColors.darkBrown;
@@ -97,8 +106,14 @@ class AppColors {
   static Color adaptiveDarkBrownOrLightWhite(bool isDark) =>
       isDark ? AppColors.darkBrown : AppColors.lightWhite;
 
+  static Color adaptiveDarkPrimaryOrVeryLightPrimary(bool isDark) =>
+      isDark ? AppColors.darkPrimary : AppColors.veryLightPrimary;
+
   static Color adaptiveAlmostWhiteOrWarmBrown(bool isDark) =>
       isDark ? AppColors.almostWhite : AppColors.warmBrown;
+
+  static Color adaptiveAlmostWhiteOrWarmPrimary(bool isDark) =>
+      isDark ? AppColors.almostWhite : AppColors.warmPrimary;
 
   static Color adaptiveGreyOrWarmBrown(bool isDark) =>
       isDark ? AppColors.grey : AppColors.warmBrown;
@@ -130,6 +145,9 @@ class AppColors {
   static Color adaptiveWhiteOrDeepBlue(bool isDark) =>
       isDark ? Colors.white : AppColors.deepBlue;
 
+  static Color adaptiveWhiteOrDarkPrimary(bool isDark) =>
+      isDark ? Colors.white : AppColors.darkPrimary;
+
   static Color adaptiveGreyOrDeepBlue(bool isDark) =>
       isDark ? AppColors.grey : AppColors.deepBlue;
 
@@ -142,14 +160,29 @@ class AppColors {
   static Color adaptiveDarkGreyOrAccentYellow(bool isDark) =>
       isDark ? AppColors.darkGrey : AppColors.accentYellow;
 
+  static Color adaptiveDarkerGreyOrPrimary(bool isDark) =>
+      isDark ? AppColors.darkerGrey : AppColors.primary;
+
+  static Color adaptiveAccentWhiteOrPrimary(bool isDark) =>
+      isDark ? AppColors.accentWhite : AppColors.primary;
+
+  static Color adaptiveDarkGreyOrPrimary(bool isDark) =>
+      isDark ? AppColors.darkGrey : AppColors.primary;
+
   static Color adaptiveAccentWhiteOrVeryDarkBrown(bool isDark) =>
       isDark ? AppColors.accentWhite : AppColors.veryDarkBrown;
+
+  static Color adaptiveAccentWhiteOrDarkPrimary(bool isDark) =>
+      isDark ? AppColors.accentWhite : AppColors.darkPrimary;
 
   static Color adaptiveAccentWhiteOrGrey(bool isDark) =>
       isDark ? AppColors.accentWhite : AppColors.grey;
 
   static Color adaptiveWhiteOrVeryDarkBrown(bool isDark) =>
       isDark ? Colors.white : AppColors.veryDarkBrown;
+
+  static Color adaptiveWhiteOrVeryDarkPrimary(bool isDark) =>
+      isDark ? Colors.white : AppColors.darkPrimary;
 
   static Color adaptiveAccentWhiteOrDarkBrown(bool isDark) =>
       isDark ? AppColors.accentWhite : AppColors.darkBrown;

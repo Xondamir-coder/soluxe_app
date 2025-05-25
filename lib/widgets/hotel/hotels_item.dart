@@ -101,11 +101,13 @@ class HotelsItem extends ConsumerWidget {
                               ? 'assets/icons/dark-pin.svg'
                               : 'assets/icons/pin.svg'),
                           const SizedBox(width: 4),
-                          MyText(
-                            hotel.address ?? 'Unknown',
-                            fontSize: 10,
-                            softWrap: true,
-                            color: AppColors.grey,
+                          Expanded(
+                            child: MyText(
+                              hotel.address ?? 'Unknown',
+                              fontSize: 10,
+                              softWrap: true,
+                              color: AppColors.grey,
+                            ),
                           ),
                           if (hotel.tags != null && hotel.tags!.isNotEmpty)
                             Expanded(

@@ -30,19 +30,18 @@ class WelcomeAppbar extends StatelessWidget implements PreferredSizeWidget {
               style: GoogleFonts.instrumentSans(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: AppColors.accentYellow,
+                color: AppColors.primary,
               ),
             ),
             iconAlignment: IconAlignment.end,
             style: TextButton.styleFrom(
-              overlayColor: AppColors.accentYellow,
+              overlayColor: AppColors.primary,
             ),
             icon: SvgPicture.asset(
               'assets/icons/arrow-right.svg',
               width: 20,
               height: 20,
-              colorFilter:
-                  ColorFilter.mode(AppColors.accentYellow, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
             ),
           ),
       ],

@@ -78,7 +78,7 @@ class CollapsedDatePicker extends StatelessWidget {
               height: 56,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: isSelected ? AppColors.accentYellow : darkBgColor,
+                color: isSelected ? AppColors.primary : darkBgColor,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

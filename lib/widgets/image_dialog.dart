@@ -96,7 +96,7 @@ class _ImageDialogState extends ConsumerState<ImageDialog> {
   Widget build(BuildContext context) {
     return Platform.isIOS
         ? CupertinoAlertDialog(
-            title: const MyText.warmBrown(
+            title: const MyText.warmPrimary(
               'Select image source',
               fontSize: 18,
             ),
@@ -116,7 +116,7 @@ class _ImageDialogState extends ConsumerState<ImageDialog> {
             ],
           )
         : AlertDialog(
-            title: const MyText.warmBrown(
+            title: const MyText.warmPrimary(
               'Select image source',
               fontSize: 18,
             ),

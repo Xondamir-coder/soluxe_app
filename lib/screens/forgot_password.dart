@@ -54,7 +54,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                           width: MediaQuery.of(context).size.width > 400
                               ? MediaQuery.of(context).size.width * 0.7
                               : double.infinity,
-                          child: MyText.warmBrown(
+                          child: MyText.warmPrimary(
                             AppLocalizations.of(context)!.forgotPasswordText,
                             textAlign: TextAlign.center,
                           ),

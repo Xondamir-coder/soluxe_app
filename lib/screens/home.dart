@@ -85,12 +85,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               children: [
                 MyText(
                   AppLocalizations.of(context)!.findEventsNear,
-                  color: AppColors.adaptiveDarkGreyOrAccentYellow(isDark),
+                  color: AppColors.adaptiveDarkGreyOrPrimary(isDark),
                 ),
                 MyText(
                   AppLocalizations.of(context)!.uzbekistan,
                   fontSize: 18,
-                  color: AppColors.adaptiveGreyOrWarmBrown(isDark),
+                  color: AppColors.adaptiveGreyOrDarkBrown(isDark),
                 ),
               ],
             ),

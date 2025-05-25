@@ -72,7 +72,7 @@ class CategoriesItems extends StatelessWidget {
           );
         } else {
           return Center(
-            child: MyText.warmBrown(
+            child: MyText.warmPrimary(
               snapshot.error.toString(),
               fontSize: 18,
             ),

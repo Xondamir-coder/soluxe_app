@@ -82,7 +82,7 @@ class _HotelsFilterTagsState extends State<HotelsFilterTags> {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? AppColors.accentYellow
+                      ? AppColors.primary
                       : AppColors.adaptiveDarkBlueOrLightGrey(isDark),
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -129,7 +129,7 @@ class _HotelsFilterTagsState extends State<HotelsFilterTags> {
         ),
       );
     } else if (!_isLoading && _tags.isEmpty) {
-      content = MyText.warmBrown(
+      content = MyText.warmPrimary(
         'No tags found',
         fontSize: 14,
       );

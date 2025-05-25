@@ -149,7 +149,7 @@ class EventScreen extends ConsumerWidget {
                             'N/A',
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.adaptiveWhiteOrVeryDarkBrown(
+                        color: AppColors.adaptiveWhiteOrDarkPrimary(
                           isDark,
                         ),
                       ),
@@ -159,7 +159,8 @@ class EventScreen extends ConsumerWidget {
                                 : event.descriptionZh) ??
                             'N/A',
                         fontSize: 16,
-                        color: AppColors.adaptiveAlmostWhiteOrWarmBrown(isDark),
+                        color:
+                            AppColors.adaptiveAlmostWhiteOrWarmPrimary(isDark),
                       ),
                     ],
                   ),
@@ -189,7 +190,7 @@ class EventScreen extends ConsumerWidget {
                         width: 48,
                         height: 48,
                         decoration: BoxDecoration(
-                          color: AppColors.accentYellow,
+                          color: AppColors.primary,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Center(
@@ -278,13 +279,13 @@ class EventScreen extends ConsumerWidget {
                             ),
                             side: BorderSide(
                               width: 2,
-                              color: AppColors.accentYellow,
+                              color: AppColors.primary,
                             ),
                             padding: EdgeInsets.all(15),
                           ),
                           child: MyText(
                             AppLocalizations.of(context)!.call,
-                            color: AppColors.accentYellow,
+                            color: AppColors.primary,
                             fontWeight: FontWeight.w700,
                           ),
                         ),

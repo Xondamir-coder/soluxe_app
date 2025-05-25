@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/animations/scale_up_widget.dart';
 import 'package:soluxe/widgets/animations/slide_in_widget.dart';
 
@@ -72,6 +73,10 @@ class WelcomeBody extends StatelessWidget {
             child: SvgPicture.asset(
               'assets/vectors/pattern.svg',
               fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                AppColors.lightPrimary,
+                BlendMode.srcIn,
+              ),
               width: double.infinity,
               height: double.infinity,
             ),
@@ -106,6 +111,8 @@ class WelcomeBody extends StatelessWidget {
                         },
                         child: MyTitle(
                           title,
+                          color: AppColors.adaptiveAccentWhiteOrDarkPrimary(
+                              isDark),
                           fontSize: fontSize,
                           height: titleHeight,
                           key:
@@ -124,8 +131,11 @@ class WelcomeBody extends StatelessWidget {
                           key: ValueKey(
                               subtitle), // Key changes when subtitle changes
                           width: currentIndex == 3 ? 30 * 8 : double.infinity,
-                          child: MyText.warmBrown(
+                          child: MyText(
                             subtitle,
+                            fontSize: 14,
+                            color: AppColors.adaptiveAlmostWhiteOrWarmPrimary(
+                                isDark),
                             textAlign: currentIndex == 3
                                 ? TextAlign.center
                                 : TextAlign.start,

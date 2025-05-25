@@ -156,7 +156,7 @@ class VerificationScreen extends ConsumerWidget {
                   Column(
                     spacing: 3,
                     children: [
-                      MyText.warmBrown(
+                      MyText.warmPrimary(
                         AppLocalizations.of(context)!
                             .weAreSendingVerificationCodeTo,
                         beginOffset: Offset(0, 1.5),
@@ -181,12 +181,12 @@ class VerificationScreen extends ConsumerWidget {
                   TextButton(
                     onPressed: () => _resendCode(context, account),
                     style: TextButton.styleFrom(
-                      overlayColor: AppColors.accentYellow,
+                      overlayColor: AppColors.primary,
                     ),
                     child: MyText(
                       AppLocalizations.of(context)!.resendOTPCode,
                       fontWeight: FontWeight.w700,
-                      color: AppColors.accentYellow,
+                      color: AppColors.primary,
                       animationDelay: 500,
                       beginOffset: Offset(0, 1),
                     ),

@@ -113,7 +113,7 @@ class NotificationsCard extends StatelessWidget {
               // TODO: Implement accept
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.accentYellow,
+              backgroundColor: AppColors.primary,
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -131,14 +131,14 @@ class NotificationsCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               side: BorderSide(
-                color: AppColors.accentYellow,
+                color: AppColors.primary,
                 width: 2,
               ),
-              overlayColor: AppColors.accentYellow,
+              overlayColor: AppColors.primary,
             ),
             child: MyText(
               AppLocalizations.of(context)!.decline,
-              color: AppColors.accentYellow,
+              color: AppColors.primary,
             ),
           ),
         ],

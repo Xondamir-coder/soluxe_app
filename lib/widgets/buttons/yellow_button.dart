@@ -29,13 +29,13 @@ class YellowButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onTap,
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.accentYellow,
+            backgroundColor: AppColors.primary,
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
             ),
             padding: EdgeInsets.all(padding),
-            shadowColor: AppColors.accentYellow,
+            shadowColor: AppColors.primary,
           ),
           child: MyText(
             text,

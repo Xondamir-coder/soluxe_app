@@ -60,7 +60,7 @@ class _HotelsFilterRatingState extends State<HotelsFilterRating> {
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: isSelected
-                              ? AppColors.yellow
+                              ? AppColors.primary
                               : AppColors.adaptivAccentBlueOrLightGrey(isDark),
                           width: 1,
                         ),
@@ -74,7 +74,7 @@ class _HotelsFilterRatingState extends State<HotelsFilterRating> {
                             tween: ColorTween(
                               begin: AppColors.grey, // Default color
                               end: isSelected
-                                  ? AppColors.yellow
+                                  ? AppColors.primary
                                   : AppColors.adaptiveAccentWhiteOrGrey(
                                       isDark), // Animated color
                             ),

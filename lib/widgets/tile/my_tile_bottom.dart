@@ -40,14 +40,14 @@ class MyTileBottom extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: AppColors.adaptiveDarkBrownOrLightWhite(isDark),
+            color: AppColors.adaptiveDarkPrimaryOrVeryLightPrimary(isDark),
             borderRadius: BorderRadius.circular(6),
           ),
           child: MyText(
             '$distance ${AppLocalizations.of(context)!.km}',
             fontSize: 10,
             fontWeight: FontWeight.w600,
-            color: AppColors.accentYellow,
+            color: AppColors.primary,
           ),
         )
       ],

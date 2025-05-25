@@ -22,7 +22,7 @@ class FaqAccordionsItem extends StatelessWidget {
         (locale == 'en' ? faqQuestion.titleEn : faqQuestion.titleZh) ??
             'Unknown',
         fontWeight: FontWeight.w700,
-        color: AppColors.adaptiveAccentWhiteOrVeryDarkBrown(isDark),
+        color: AppColors.adaptiveAccentWhiteOrDarkPrimary(isDark),
       ),
       clipBehavior: Clip.antiAlias,
       collapsedShape: RoundedRectangleBorder(
@@ -38,10 +38,13 @@ class FaqAccordionsItem extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 16),
-          child: MyText(
-            (locale == 'en' ? faqQuestion.bodyEn : faqQuestion.bodyZh) ??
-                'Unknown',
-            color: AppColors.adaptiveGreyOrDarkGrey(isDark),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: MyText(
+              (locale == 'en' ? faqQuestion.bodyEn : faqQuestion.bodyZh) ??
+                  'Unknown',
+              color: AppColors.adaptiveGreyOrDarkGrey(isDark),
+            ),
           ),
         ),
         Padding(
@@ -51,14 +54,20 @@ class FaqAccordionsItem extends StatelessWidget {
             child: TextButton.icon(
               onPressed: () {},
               style: TextButton.styleFrom(
-                overlayColor: AppColors.darkBrown,
+                overlayColor: AppColors.darkPrimary,
               ),
               label: MyText(
                 AppLocalizations.of(context)!.showMore,
-                color: AppColors.accentYellow,
+                color: AppColors.primary,
               ),
               iconAlignment: IconAlignment.end,
-              icon: SvgPicture.asset('assets/icons/arrow-right.svg'),
+              icon: SvgPicture.asset(
+                'assets/icons/arrow-right.svg',
+                colorFilter: ColorFilter.mode(
+                  AppColors.primary,
+                  BlendMode.srcIn,
+                ),
+              ),
             ),
           ),
         ),

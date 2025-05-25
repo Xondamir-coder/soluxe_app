@@ -45,7 +45,7 @@ class LoginScreen extends ConsumerWidget {
                       width: MediaQuery.of(context).size.width > 500
                           ? double.infinity
                           : 300,
-                      child: MyText.warmBrown(
+                      child: MyText.warmPrimary(
                         AppLocalizations.of(context)!.loginSubtitle,
                         textAlign: TextAlign.center,
                       ),

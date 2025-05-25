@@ -15,7 +15,7 @@ class MyDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Platform.isIOS
         ? CupertinoAlertDialog(
-            title: MyText.warmBrown(
+            title: MyText.warmPrimary(
               title ?? AppLocalizations.of(context)!.errorOccurred,
               fontSize: 22,
             ),
@@ -34,7 +34,7 @@ class MyDialog extends StatelessWidget {
             ],
           )
         : AlertDialog(
-            title: MyText.warmBrown(
+            title: MyText.warmPrimary(
               AppLocalizations.of(context)!.errorOccurred,
               fontSize: 22,
             ),
