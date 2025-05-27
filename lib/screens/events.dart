@@ -7,7 +7,6 @@ import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/event/events_date.dart';
 import 'package:soluxe/widgets/not_found.dart';
 import 'package:soluxe/widgets/tile/my_tile_event.dart';
-import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventsScreen extends ConsumerWidget {

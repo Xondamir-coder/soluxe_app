@@ -78,20 +78,8 @@ flutter_localizations:
 flutter_launcher_icons:
     android: 'launcher_icon'
     ios: true
-    image_path: 'assets/logo.png'
+    image_path: 'assets/images/icon.png'
     min_sdk_android: 21 # android min sdk min:16, default 21
-    web:
-        generate: true
-        image_path: 'assets/logo.png'
-        background_color: '#hexcode'
-        theme_color: '#hexcode'
-    windows:
-        generate: true
-        image_path: 'assets/logo.png'
-        icon_size: 48
-    macos:
-        generate: true
-        image_path: 'assets/logo.png'
 
 flutter_native_splash:
     android: true
@@ -118,6 +106,7 @@ flutter:
     assets:
         - assets/images/splash.png
         - assets/images/map.png
+        - assets/images/icon.png
         - assets/images/logo.png
         - assets/images/logo-big.png
         - assets/icons/arrow-right.svg
