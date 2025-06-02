@@ -3,14 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
+import 'package:soluxe/helpers/preference_helper.dart';
 import 'package:soluxe/providers/events_provider.dart';
 import 'package:soluxe/providers/hotels_provider.dart';
 import 'package:soluxe/screens/events.dart';
 import 'package:soluxe/screens/hotels.dart';
 import 'package:soluxe/screens/notifications.dart';
+import 'package:soluxe/screens/privacy_policy.dart';
 import 'package:soluxe/widgets/animations/scale_up_widget.dart';
 import 'package:soluxe/widgets/animations/slide_in_widget.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar.dart';
+import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/category_tabs.dart';
 import 'package:soluxe/widgets/event/event_card.dart';
 import 'package:soluxe/widgets/hotel/hotels_item.dart';
@@ -36,6 +39,53 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         builder: (ctx) => const NotificationsScreen(),
       ),
     );
+  }
+
+  void _showConsentDialog() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        title: MyText.warmPrimary(
+          AppLocalizations.of(context)!.privacyPolicy,
+          fontSize: 22,
+        ),
+        content: MyText(
+          AppLocalizations.of(context)!.consentText,
+          fontSize: 14,
+          color: isDark ? AppColors.lightPrimary : AppColors.darkPrimary,
+        ),
+        actions: [
+          YellowButton(
+            AppLocalizations.of(context)!.agree,
+            onTap: () {
+              PreferenceHelper.saveConsent(true);
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => const PrivacyPolicyScreen(),
+              ),
+            ),
+            child: MyText(AppLocalizations.of(context)!.viewPolicy),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final consent = await PreferenceHelper.getConsent();
+      if (!consent) {
+        _showConsentDialog();
+      }
+    });
   }
 
   @override

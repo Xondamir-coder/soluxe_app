@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/screens/home.dart';
+import 'package:soluxe/helpers/preference_helper.dart';
+import 'package:soluxe/screens/privacy_policy.dart';
 import 'package:soluxe/screens/welcome.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/widgets/buttons/yellow_button.dart';
+import 'package:soluxe/widgets/typography/my_text.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,6 +37,42 @@ class _SplashScreenState extends State<SplashScreen>
     }
   }
 
+  void _showConsentDialog() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        title: MyText.warmPrimary(
+          AppLocalizations.of(context)!.privacyPolicy,
+          fontSize: 22,
+        ),
+        content: MyText(
+          AppLocalizations.of(context)!.consentText,
+          fontSize: 14,
+          color: isDark ? AppColors.lightPrimary : AppColors.darkPrimary,
+        ),
+        actions: [
+          YellowButton(
+            AppLocalizations.of(context)!.agree,
+            onTap: () {
+              PreferenceHelper.saveConsent(true);
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => const PrivacyPolicyScreen(),
+              ),
+            ),
+            child: MyText(AppLocalizations.of(context)!.viewPolicy),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -54,6 +96,7 @@ class _SplashScreenState extends State<SplashScreen>
         setState(() {
           _splashVisible = false; // Remove the splash overlay.
         });
+        _showConsentDialog();
       });
     });
   }

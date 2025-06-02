@@ -567,5 +567,17 @@
 	"logout": "退出",
 	"@logout": {
 		"description": "用于退出应用程序的按钮标签"
+	},
+	"consentText": "请阅读并接受我们的隐私政策以继续。",
+	"@consentText": {
+		"description": "隐私政策同意文本"
+	},
+	"agree": "同意",
+	"@agree": {
+		"description": "用于同意条款或条件的按钮标签"
+	},
+	"viewPolicy": "查看政策",
+	"@viewPolicy": {
+		"description": "用于查看隐私政策的按钮标签"
 	}
 }

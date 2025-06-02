@@ -567,5 +567,17 @@
 	"logout": "Logout",
 	"@logout": {
 		"description": "Button label for logging out of the app"
+	},
+	"consentText": "Please read and accept our privacy policy to continue.",
+	"@consentText": {
+		"description": "Privacy policy consent text"
+	},
+	"agree": "Agree",
+	"@agree": {
+		"description": "Button label for agreeing to terms or conditions"
+	},
+	"viewPolicy": "View Policy",
+	"@viewPolicy": {
+		"description": "Button label for viewing a privacy policy"
 	}
 }

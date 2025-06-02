@@ -1,6 +1,13 @@
 class Policy {
-  final String title;
-  final String text;
+  final String titleEn;
+  final String titleZh;
+  final String textEn;
+  final String textZh;
 
-  const Policy({required this.title, required this.text});
+  const Policy({
+    required this.titleEn,
+    required this.textEn,
+    required this.titleZh,
+    required this.textZh,
+  });
 }

@@ -58,4 +58,14 @@ class PreferenceHelper {
     final prefs = await _prefs;
     return prefs.getBool('newsletter') ?? false;
   }
+
+  static Future<void> saveConsent(bool consent) async {
+    final prefs = await _prefs;
+    await prefs.setBool('consent', consent);
+  }
+
+  static Future<bool> getConsent() async {
+    final prefs = await _prefs;
+    return prefs.getBool('consent') ?? false;
+  }
 }
