@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/widgets/animations/slide_in_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class InputField extends StatelessWidget {
   final void Function(String) onSave;

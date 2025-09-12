@@ -11,7 +11,7 @@ import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/image_dialog.dart';
 import 'package:soluxe/widgets/settings/settings_form.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class PersonalInfoScreen extends ConsumerWidget {
   const PersonalInfoScreen({super.key});

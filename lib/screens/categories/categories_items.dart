@@ -4,7 +4,7 @@ import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/helpers/local_storage_helper.dart';
 import 'package:soluxe/models/place/place.dart';
 import 'package:soluxe/widgets/tile/my_tile.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 
 class CategoriesItems extends StatelessWidget {

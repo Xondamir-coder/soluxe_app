@@ -9,7 +9,7 @@ import 'package:soluxe/widgets/faq/faq_accordions.dart';
 import 'package:soluxe/widgets/faq/faq_categories.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/section_header.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class FaqScreen extends StatefulWidget {
   const FaqScreen({super.key});

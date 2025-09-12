@@ -18,7 +18,7 @@ import 'package:soluxe/widgets/settings/settings_label.dart';
 import 'package:soluxe/widgets/settings/settings_switch_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});

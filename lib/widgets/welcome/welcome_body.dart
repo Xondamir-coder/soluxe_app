@@ -11,7 +11,7 @@ import 'package:soluxe/widgets/typography/my_title.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/welcome/welcome_last.dart';
 import 'package:soluxe/widgets/welcome/welcome_second.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class WelcomeBody extends StatelessWidget {
   final int currentIndex;

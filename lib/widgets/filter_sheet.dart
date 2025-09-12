@@ -13,7 +13,7 @@ import 'package:soluxe/widgets/filter_sheet_date_picker.dart';
 import 'package:soluxe/widgets/price_range_slider.dart';
 import 'package:soluxe/widgets/tags_buttons.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class FilterSheet extends ConsumerStatefulWidget {
   final Filters filters;

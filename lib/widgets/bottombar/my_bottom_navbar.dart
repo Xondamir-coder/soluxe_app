@@ -6,7 +6,7 @@ import 'package:soluxe/screens/home.dart';
 import 'package:soluxe/screens/explore.dart';
 import 'package:soluxe/screens/settings.dart';
 import 'package:soluxe/widgets/bottombar/my_bottom_navbar_item.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class MyBottomNavbar extends StatelessWidget {
   final int currentPageIndex;

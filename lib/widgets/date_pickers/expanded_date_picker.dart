@@ -6,7 +6,7 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/date_entry.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class ExpandedDatePicker extends StatefulWidget {
   final DateTime date;

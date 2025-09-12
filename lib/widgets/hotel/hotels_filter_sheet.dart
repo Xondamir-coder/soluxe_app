@@ -11,7 +11,7 @@ import 'package:soluxe/widgets/hotel/hotels_filter_type.dart';
 import 'package:soluxe/widgets/price_range_slider.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/constants/colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class HotelsFilterSheet extends ConsumerStatefulWidget {
   final ValueChanged onApplyFilters;

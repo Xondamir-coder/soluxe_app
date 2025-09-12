@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/faq/faq_categories.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class FaqCategoriesScreen extends StatefulWidget {
   const FaqCategoriesScreen({super.key});

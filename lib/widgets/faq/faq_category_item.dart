@@ -4,7 +4,7 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/faq/faq_category.dart';
 import 'package:soluxe/screens/faq/faq_questions.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class FaqCategoryItem extends StatelessWidget {
   final FaqCategory faqCategory;

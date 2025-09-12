@@ -6,7 +6,7 @@ import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/place/review.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class HotelComment extends StatelessWidget {
   final Review comment;

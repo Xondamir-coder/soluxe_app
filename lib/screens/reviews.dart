@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soluxe/helpers/fetch_helper.dart';
 import 'package:soluxe/widgets/animations/scale_up_widget.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 import 'package:soluxe/widgets/async_widget.dart';
 import 'package:soluxe/models/place/review.dart';
 import 'package:soluxe/widgets/hotel/hotel_comment.dart';

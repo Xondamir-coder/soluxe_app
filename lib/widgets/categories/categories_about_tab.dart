@@ -4,7 +4,7 @@ import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/models/place/place.dart';
 import 'package:soluxe/providers/currency_provider.dart';
 import 'package:soluxe/widgets/content_row.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class CategoriesAboutTab extends ConsumerWidget {
   final Place place;

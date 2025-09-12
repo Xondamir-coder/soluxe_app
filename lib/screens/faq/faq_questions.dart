@@ -6,7 +6,7 @@ import 'package:soluxe/models/faq/faq_question.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/faq/faq_accordions.dart';
 import 'package:soluxe/widgets/my_search_bar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class FaqQuestionsScreen extends StatefulWidget {
   final FaqCategory faqCategory;

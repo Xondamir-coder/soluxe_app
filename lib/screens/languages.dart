@@ -6,7 +6,7 @@ import 'package:soluxe/constants/languages.dart';
 import 'package:soluxe/providers/locale_provider.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class LanguagesScreen extends ConsumerWidget {
   const LanguagesScreen({super.key});

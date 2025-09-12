@@ -10,7 +10,7 @@ import 'package:soluxe/screens/login.dart';
 import 'package:soluxe/screens/register.dart';
 import 'package:soluxe/widgets/buttons/provider_button.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class WelcomeLast extends ConsumerWidget {
   const WelcomeLast({super.key});

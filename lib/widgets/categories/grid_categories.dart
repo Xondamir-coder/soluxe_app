@@ -3,7 +3,7 @@ import 'package:soluxe/constants/constants.dart';
 import 'package:soluxe/data/categories.dart';
 import 'package:soluxe/models/category.dart';
 import 'package:soluxe/widgets/categories/grid_categories_item.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class GridCategories extends StatelessWidget {
   const GridCategories({super.key});

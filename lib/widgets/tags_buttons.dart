@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/place/tag.dart';
 import 'package:soluxe/widgets/animations/scale_up_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class TagsButtons extends StatelessWidget {
   final List<Tag> tags;

@@ -10,7 +10,7 @@ import 'package:soluxe/screens/hotel.dart';
 import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class HotelRoomsItem extends ConsumerWidget {
   final dynamic room; // room can be either an Inside or a Place

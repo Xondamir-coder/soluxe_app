@@ -8,7 +8,7 @@ import 'package:soluxe/screens/event.dart';
 import 'package:soluxe/widgets/tile/my_tile_bottom.dart';
 import 'package:soluxe/widgets/tile/my_tile_image.dart';
 import 'package:soluxe/widgets/tile/my_tile_title.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class MyTileEvent extends StatelessWidget {
   final Event event;

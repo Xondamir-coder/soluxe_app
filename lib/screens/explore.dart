@@ -16,7 +16,7 @@ import 'package:soluxe/widgets/my_search_bar.dart';
 import 'package:soluxe/widgets/not_found.dart';
 import 'package:soluxe/widgets/tile/my_tile.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class ExploreScreen extends ConsumerStatefulWidget {
   const ExploreScreen({super.key});

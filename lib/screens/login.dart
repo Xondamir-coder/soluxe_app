@@ -10,7 +10,7 @@ import 'package:soluxe/widgets/buttons/provider_button.dart';
 import 'package:soluxe/widgets/forms/login_form.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class LoginScreen extends ConsumerWidget {
   final bool isEmail;

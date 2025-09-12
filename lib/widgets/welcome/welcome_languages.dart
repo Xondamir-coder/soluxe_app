@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/constants/languages.dart';
 import 'package:soluxe/providers/locale_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class WelcomeLanguages extends ConsumerWidget {
   final void Function() onTap;

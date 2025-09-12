@@ -3,7 +3,7 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/policy.dart';
 import 'package:soluxe/widgets/appbars/default_appbar.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 final policies = [
   // Section 1

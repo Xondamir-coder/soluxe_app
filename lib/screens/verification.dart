@@ -14,7 +14,7 @@ import 'package:soluxe/widgets/my_dialog.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 import 'package:soluxe/widgets/typography/my_title.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class VerificationScreen extends ConsumerWidget {
   final bool isEmail;

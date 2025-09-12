@@ -4,7 +4,7 @@ import 'package:soluxe/constants/colors.dart';
 import 'package:soluxe/models/place/tag.dart';
 import 'package:soluxe/widgets/star_rating.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class HotelHeader extends StatelessWidget {
   final List<Tag>? tags;

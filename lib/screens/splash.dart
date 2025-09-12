@@ -5,7 +5,7 @@ import 'package:soluxe/screens/home.dart';
 import 'package:soluxe/helpers/preference_helper.dart';
 import 'package:soluxe/screens/privacy_policy.dart';
 import 'package:soluxe/screens/welcome.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 import 'package:soluxe/widgets/buttons/yellow_button.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
 

@@ -18,7 +18,7 @@ import 'package:soluxe/widgets/hotel/hotel_reviews.dart';
 import 'package:soluxe/widgets/hotel/hotel_rooms.dart';
 import 'package:soluxe/widgets/section_header.dart';
 import 'package:soluxe/widgets/typography/my_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:soluxe/l10n/app_localizations.dart';
 
 class HotelScreen extends ConsumerWidget {
   final int hotelId;
