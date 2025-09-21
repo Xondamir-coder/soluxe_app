@@ -55,6 +55,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_gen: ^5.11.0
+  change_app_package_name: ^1.5.0
 
 dev_dependencies:
   flutter_test:
@@ -79,7 +80,7 @@ flutter_localizations:
 flutter_launcher_icons:
   android: 'launcher_icon'
   ios: true
-  image_path: 'assets/images/icon.png'
+  image_path: 'assets/images/icon-ios.png'
   min_sdk_android: 21 # android min sdk min:16, default 21
 
 flutter_native_splash:
@@ -109,6 +110,7 @@ flutter:
     - assets/images/map.png
     - assets/images/icon.png
     - assets/images/logo.png
+    - assets/images/icon-ios.png
     - assets/images/logo-big.png
     - assets/icons/arrow-right.svg
     - assets/icons/arrow-left.svg
